@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import {Config} from 'tailwindcss'
+import { Config } from "tailwindcss";
 import NavBar from "./components/NavBar/NavBar";
 import "./globals.css";
 
@@ -17,14 +17,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    
     <html lang="en">
       <body className={inter.className}>
-        <div className = "flex justify-center">
-        <NavBar/>
+        <div>
+          <NavBar />
+          <div className = "flex justify-between text-white">
+            <div className = "ml-10">Select the currency to view statistics</div>
+            <div className = "mr-10">Compare box</div>
+          </div>
         </div>
-        {children}</body>
+        {children}
+      </body>
     </html>
-  
   );
 }
