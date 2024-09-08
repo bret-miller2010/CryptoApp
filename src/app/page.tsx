@@ -1,14 +1,33 @@
 "use client";
-// import { useState } from "react";
-// import { getInformation } from "./api";
+import { getInformation } from "./api";
 import CoinStatistics from "./components/CoinStatistics/CoinStatistics";
+import CoinDetails from "./components/CoinDetails/CoinDetails";
+// import {
+//   Chart as ChartJS,
+//   CategoryScale,
+//   LinearScale,
+//   PointElement,
+//   LineElement,
+//   Title,
+//   Tooltip,
+//   Legend,
+// } from "chart.js";
 import { MainWrapper, CoinHeaderWrapper, CoinStatsWrapper } from "./styles";
 
-export default function Home() {
+// ChartJS.register(
+//   CategoryScale,
+//   LinearScale,
+//   PointElement,
+//   LineElement,
+//   Title,
+//   Tooltip,
+//   Legend
+// );
 
-  // const bitCoinData = getInformation(
-  //   "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=180&interval=daily"
-  // );
+export default function Home() {
+  const bitCoinData = getInformation(
+    "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=180&interval=daily"
+  );
 
   // const cryptoCurrencyInfo = getData(
   //   "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d"
@@ -19,11 +38,10 @@ export default function Home() {
       <div>
         <MainWrapper>
           <CoinHeaderWrapper>
-            <CoinStatistics />
+            <CoinStatistics data={bitCoinData} />
           </CoinHeaderWrapper>
-
           <CoinStatsWrapper>
-            This is where the full list of coins will go
+            <CoinDetails />
           </CoinStatsWrapper>
         </MainWrapper>
       </div>
