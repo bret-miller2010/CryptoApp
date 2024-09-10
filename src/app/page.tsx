@@ -1,47 +1,39 @@
 "use client";
+import { useState, useEffect } from "react";
 import { getInformation } from "./api";
-import CoinStatistics from "./components/CoinStatistics/CoinStatistics";
 import CoinDetails from "./components/CoinDetails/CoinDetails";
-// import {
-//   Chart as ChartJS,
-//   CategoryScale,
-//   LinearScale,
-//   PointElement,
-//   LineElement,
-//   Title,
-//   Tooltip,
-//   Legend,
-// } from "chart.js";
 import { MainWrapper, CoinHeaderWrapper, CoinStatsWrapper } from "./styles";
 
-// ChartJS.register(
-//   CategoryScale,
-//   LinearScale,
-//   PointElement,
-//   LineElement,
-//   Title,
-//   Tooltip,
-//   Legend
-// );
-
 export default function Home() {
-  const bitCoinData = getInformation(
-    "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=180&interval=daily"
-  );
+  const [MarketData, setMarketData] = useState([]);
+  const [ErrorMessage, setErrorMessage] = useState("");
 
-  // const cryptoCurrencyInfo = getData(
-  //   "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d"
-  // );
+  const getCoinData = async () => {
+    const coinKey =
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d";
+      // const coinData = await getInformation(coinKey);
+      // console.log(coinData);
+    try {
+      const coinData = await getInformation(coinKey);
+      setMarketData(coinData[0]);
+    } catch (e) {
+      setErrorMessage("Could not load crypto currency data. Please try again.");
+      
+    }
+  };
+
+  useEffect(() => {
+    getCoinData();
+  }, []);
 
   return (
     <main>
       <div>
         <MainWrapper>
-          <CoinHeaderWrapper>
-            <CoinStatistics data={bitCoinData} />
-          </CoinHeaderWrapper>
+          <CoinHeaderWrapper></CoinHeaderWrapper>
           <CoinStatsWrapper>
-            <CoinDetails />
+            <CoinDetails data = {MarketData}/>
+            {ErrorMessage}
           </CoinStatsWrapper>
         </MainWrapper>
       </div>
