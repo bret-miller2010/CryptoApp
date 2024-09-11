@@ -20,10 +20,7 @@ const CoinDetails = ({ data, spot }) => {
       <LeftSection>
         <div>{spot + 1}</div>
           <img
-            style={{
-              width: "40px",
-            }}
-            className=""
+            className="h-10"
             src={coinImage}
             alt=""
           />
