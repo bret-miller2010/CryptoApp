@@ -11,14 +11,11 @@ export default function Home() {
   const getCoinData = async () => {
     const coinKey =
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d";
-      // const coinData = await getInformation(coinKey);
-      // console.log(coinData);
     try {
       const coinData = await getInformation(coinKey);
       setMarketData(coinData[0]);
     } catch (e) {
       setErrorMessage("Could not load crypto currency data. Please try again.");
-      
     }
   };
 
@@ -32,7 +29,7 @@ export default function Home() {
         <MainWrapper>
           <CoinHeaderWrapper></CoinHeaderWrapper>
           <CoinStatsWrapper>
-            <CoinDetails data = {MarketData}/>
+            <CoinDetails data={MarketData} />
             {ErrorMessage}
           </CoinStatsWrapper>
         </MainWrapper>
