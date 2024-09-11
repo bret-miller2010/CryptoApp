@@ -24,6 +24,6 @@ export const CoinHeaderWrapper = styled.div`
 
 export const CoinStatsWrapper = styled.div`
   margin-top: 50px;
-  background-color: blue;
-  height: 300px;
+  height: 700px;
+  overflow: scroll;
 `;
