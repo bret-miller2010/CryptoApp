@@ -4,6 +4,7 @@ import { uid } from "uid";
 import { getInformation } from "./api";
 import CoinDetails from "./components/CoinDetails/CoinDetails";
 import { MainWrapper, CoinHeaderWrapper, CoinStatsWrapper } from "./styles";
+import CoinStatistics from "./components/CoinStatistics/CoinStatistics";
 
 export default function Home() {
   const [MarketData, setMarketData] = useState([]);
@@ -28,7 +29,9 @@ export default function Home() {
     <main>
       <div>
         <MainWrapper>
-          <CoinHeaderWrapper></CoinHeaderWrapper>
+          <CoinHeaderWrapper>
+            <CoinStatistics key = {uid()} data = {MarketData[0]}/>
+          </CoinHeaderWrapper>
           <CoinStatsWrapper>
             {MarketData.map((coin, index) => (
               <CoinDetails key={uid()} data={coin} spot={index} />
