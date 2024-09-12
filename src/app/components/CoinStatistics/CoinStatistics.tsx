@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { uid } from "uid";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -32,6 +33,7 @@ ChartJS.register(
 
 const CoinBlock = ({ data }) => {
   const coinName = data.name;
+  const symbol = data.symbol;
   const currentPrice = Number(data.current_price).toFixed(2);
   const oneDayChange = Number(data.price_change_percentage_24h).toFixed(2);
   const coinImage = data.image;
@@ -42,7 +44,9 @@ const CoinBlock = ({ data }) => {
         <img className="h-10" src={coinImage} alt="" />
       </LeftSection>
       <MiddleSection>
-        <div>{coinName}</div>
+        <div>
+          {coinName} ({symbol})
+        </div>
         <div>{currentPrice}</div>
       </MiddleSection>
       <RightSection>{oneDayChange}</RightSection>
@@ -58,7 +62,9 @@ const CoinStatistics = ({ data }) => {
   return (
     <MainWrapper>
       <CoinCarousel>
-        <CoinBlock data={data} />
+        {data.map((coin) => (
+          <CoinBlock key={uid()} data={coin} />
+        ))}
       </CoinCarousel>
       <MainGraphWrapper></MainGraphWrapper>
     </MainWrapper>

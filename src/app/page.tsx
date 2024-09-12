@@ -30,7 +30,7 @@ export default function Home() {
       <div>
         <MainWrapper>
           <CoinHeaderWrapper>
-            <CoinStatistics key = {uid()} data = {MarketData[0]}/>
+              <CoinStatistics data={MarketData} />
           </CoinHeaderWrapper>
           <CoinStatsWrapper>
             {MarketData.map((coin, index) => (
