@@ -17,7 +17,7 @@ export const MainGraphWrapper = styled.div`
 `;
 
 export const GraphWrapper = styled.div`
-
+  color: red;
   height: 500px;
   width: 1000px;
 `;

@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { uid } from "uid";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -63,7 +62,7 @@ const CoinStatistics = ({ data }) => {
     <MainWrapper>
       <CoinCarousel>
         {data.map((coin) => (
-          <CoinBlock key={uid()} data={coin} />
+          <CoinBlock key={coin["id"]} data={coin} />
         ))}
       </CoinCarousel>
       <MainGraphWrapper></MainGraphWrapper>
