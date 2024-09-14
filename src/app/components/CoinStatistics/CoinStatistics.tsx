@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import Image from "next/image";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -28,9 +29,9 @@ const CoinBlock = ({ data }) => {
   const coinImage = data.image;
 
   return (
-    <div className = "w-255px h-100px flex justify-between items-center text-white bg-black mr-2 rounded-3xl px-2">
+    <div className = "h-[100px] flex justify-between items-center text-white bg-black mr-2 rounded-3xl px-2">
       <div className = "flex justify-center w-14">
-        <img className="h-10" src={coinImage} alt="" />
+      <Image src={coinImage} width={40} height={40} alt="coin image" />
       </div>
       <div className = "w-28 text-center">
         <div>
