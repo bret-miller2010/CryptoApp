@@ -10,16 +10,6 @@ import {
   Legend,
 } from "chart.js";
 
-import {
-  MainWrapper,
-  CoinCarousel,
-  MainGraphWrapper,
-  CoinWrapper,
-  LeftSection,
-  MiddleSection,
-  RightSection,
-} from "./styles";
-
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -38,18 +28,18 @@ const CoinBlock = ({ data }) => {
   const coinImage = data.image;
 
   return (
-    <CoinWrapper>
-      <LeftSection>
+    <div className = "w-255px h-100px flex justify-between items-center text-white bg-black mr-2 rounded-3xl px-2">
+      <div className = "flex justify-center w-14">
         <img className="h-10" src={coinImage} alt="" />
-      </LeftSection>
-      <MiddleSection>
+      </div>
+      <div className = "w-28 text-center">
         <div>
           {coinName} ({symbol})
         </div>
         <div>{currentPrice}</div>
-      </MiddleSection>
-      <RightSection>{oneDayChange}</RightSection>
-    </CoinWrapper>
+      </div>
+      <div className = "text-center w-14">{oneDayChange}</div>
+    </div>
   );
 };
 
@@ -59,14 +49,13 @@ CoinBlock.propTypes = {
 
 const CoinStatistics = ({ data }) => {
   return (
-    <MainWrapper>
-      <CoinCarousel>
+    <div className = "mx-3.5 flex items-center flex-col">
+      <div className = "flex overflow-scroll w-1/2">
         {data.map((coin) => (
           <CoinBlock key={coin["id"]} data={coin} />
         ))}
-      </CoinCarousel>
-      <MainGraphWrapper></MainGraphWrapper>
-    </MainWrapper>
+      </div>
+    </div>
   );
 };
 
