@@ -23,7 +23,37 @@ export const GraphWrapper = styled.div`
 `;
 
 export const CoinCarousel = styled.div`
-  background-color: red;
+  display: flex;
+  overflow: scroll;
+  width: 1200px;
+`;
+
+export const CoinWrapper = styled.div`
+  background-color: black;
+  color: white;
   height: 100px;
-  width: 1000px;
+  width: 225px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-right: 5px;
+`;
+
+export const LeftSection = styled.div`
+  width: 55px;
+  display: flex;
+  justify-content: center;
+`;
+
+export const MiddleSection = styled.div`
+  text-align: center;
+  width: 115px;
+`;
+
+export const RightSection = styled.div`
+  text-align: center;
+  width: 55px;
 `;
