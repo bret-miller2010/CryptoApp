@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const NavBar = () => {
   return (
-    <main className = "text-white">
+    <main className="text-white">
       <div className="w-screen h-10 bg-[#474792] flex items-center justify-center space-x-28 ">
         <div>Coins</div>
         <div>Exchange</div>

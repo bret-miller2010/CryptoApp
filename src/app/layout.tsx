@@ -20,9 +20,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <div>
           <NavBar />
-          <div className = "flex justify-between text-white">
-            <div className = "ml-10">Select the currency to view statistics</div>
-            <div className = "mr-10">Compare box</div>
+          <div className="flex justify-between text-white">
+            <div className="ml-10">Select the currency to view statistics</div>
+            <div className="mr-10">Compare box</div>
           </div>
         </div>
         {children}

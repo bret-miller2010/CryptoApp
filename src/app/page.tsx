@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { getInformation } from "./api";
 import CoinDetails from "./components/CoinDetails/CoinDetails";
-import { MainWrapper, CoinHeaderWrapper, CoinStatsWrapper } from "./styles";
 import CoinStatistics from "./components/CoinStatistics/CoinStatistics";
 
 export default function Home() {
@@ -28,17 +27,17 @@ export default function Home() {
   return (
     <main>
       <div>
-        <MainWrapper>
-          <CoinHeaderWrapper>
+        <div className="bg-green mx-3.5">
+          <div className="mt-9">
             <CoinStatistics data={MarketData} />
-          </CoinHeaderWrapper>
-          <CoinStatsWrapper>
+          </div>
+          <div className="mt-9 h-[800px] overflow-scroll">
             {MarketData.map((coin, index) => (
               <CoinDetails key={coin["id"]} data={coin} spot={index} />
             ))}
             {ErrorMessage}
-          </CoinStatsWrapper>
-        </MainWrapper>
+          </div>
+        </div>
       </div>
     </main>
   );
