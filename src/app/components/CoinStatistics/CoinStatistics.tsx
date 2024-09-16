@@ -29,17 +29,17 @@ const CoinBlock = ({ data }) => {
   const coinImage = data.image;
 
   return (
-    <div className = "h-[100px] flex justify-between items-center text-white bg-black mr-2 rounded-3xl px-2">
-      <div className = "flex justify-center w-14">
-      <Image src={coinImage} width={40} height={40} alt="coin image" />
+    <div className="h-[100px] flex justify-between items-center text-white bg-black mr-2 rounded-3xl px-2">
+      <div className="flex justify-center w-14">
+        <Image src={coinImage} width={40} height={40} alt="coin image" />
       </div>
-      <div className = "w-28 text-center">
+      <div className="w-28 text-center">
         <div>
           {coinName} ({symbol})
         </div>
         <div>{currentPrice}</div>
       </div>
-      <div className = "text-center w-14">{oneDayChange}</div>
+      <div className="text-center w-14">{oneDayChange}</div>
     </div>
   );
 };
@@ -50,8 +50,8 @@ CoinBlock.propTypes = {
 
 const CoinStatistics = ({ data }) => {
   return (
-    <div className = "mx-3.5 flex items-center flex-col">
-      <div className = "flex overflow-scroll w-1/2">
+    <div className="mx-3.5 flex items-center flex-col">
+      <div className="flex overflow-scroll w-1/2">
         {data.map((coin) => (
           <CoinBlock key={coin["id"]} data={coin} />
         ))}

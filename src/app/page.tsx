@@ -27,11 +27,11 @@ export default function Home() {
   return (
     <main>
       <div>
-        <div className = "bg-green mx-3.5">
-          <div className = "mt-9">
+        <div className="bg-green mx-3.5">
+          <div className="mt-9">
             <CoinStatistics data={MarketData} />
           </div>
-          <div className = "mt-9 h-[800px] overflow-scroll">
+          <div className="mt-9 h-[800px] overflow-scroll">
             {MarketData.map((coin, index) => (
               <CoinDetails key={coin["id"]} data={coin} spot={index} />
             ))}

@@ -30,8 +30,8 @@ const CoinDetails = ({ data, spot }) => {
         <div className="w-1/4">{sevenDayChange}%</div>
       </div>
       <div className="flex justify-around items-center w-1/4">
-        <div className = "w-1/3">24h Volume</div>
-        <div className = "w-1/2">Circulating/Total Supply</div>
+        <div className="w-1/3">24h Volume</div>
+        <div className="w-1/2">Circulating/Total Supply</div>
         <div>Graph</div>
       </div>
     </div>
