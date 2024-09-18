@@ -58,12 +58,13 @@ const Container = () => {
 
   useEffect(() => {
     getCoinData();
-  }, [marketData]);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="flex justify-center my-5">
       <div className="w-5/12 h-[150px] rounded-3xl p-5 bg-[#181825] mr-5">
-      {errorMessage}
+        {errorMessage}
         <div>You sell</div>
         <div className="flex justify-between">
           <select onChange={setLeft} className="w-24 text-black" name="" id="">
