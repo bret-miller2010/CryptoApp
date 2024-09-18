@@ -58,7 +58,7 @@ const Container = () => {
 
   useEffect(() => {
     getCoinData();
-  }, []);
+  }, [marketData]);
 
   return (
     <div className="flex justify-center my-5">
