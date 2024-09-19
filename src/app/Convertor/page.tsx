@@ -1,5 +1,6 @@
+"use client";
 import { useState, useEffect } from "react";
-import Container from "../components/Container";
+import Container from "../components/ConvertorContainer";
 
 export default function Convertor() {
   const [currentDate, setCurrentDate] = useState("");
