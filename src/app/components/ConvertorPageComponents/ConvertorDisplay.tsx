@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 
-const ConvertorDisplay = ({ symbol, price, sidePicked }) => {
+const ConvertorDisplay = ({ symbol, price }) => {
   return (
     <div className="w-5/12 h-[150px] rounded-3xl p-5 bg-[#181825] flex justify-center items-center flex-col">
       <div>
         <div>
-          {sidePicked && (
+          {symbol && (
             <div>
               {" "}
               1 {symbol} = ${price}
@@ -20,7 +20,6 @@ const ConvertorDisplay = ({ symbol, price, sidePicked }) => {
 ConvertorDisplay.propTypes = {
   symbol: PropTypes.node,
   price: PropTypes.node,
-  sidePicked: PropTypes.node,
 };
 
 export default ConvertorDisplay;

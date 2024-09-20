@@ -1,8 +1,9 @@
 "use client";
-import { getInformation } from "../api";
+import { getInformation } from "../../api";
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import ConvertorDisplay from "./ConvertorDisplay";
+import ConvertorSelection from "./ConvertorSelection";
 
 const ConvertorContainer = () => {
   const [leftSelection, setLeftSelection] = useState(Object);
@@ -16,9 +17,6 @@ const ConvertorContainer = () => {
     try {
       const coinData = await getInformation(coinKey);
       setMarketData(coinData);
-
-      setLeftSelection(marketData[0]);
-      setRightSelection(marketData[1]);
     } catch (e) {
       setErrorMessage(true);
     }
@@ -27,14 +25,12 @@ const ConvertorContainer = () => {
   const setLeft = (value) => {
     const selectedCoin = value.target.value;
     const pickedCoin = marketData.find((coin) => coin.id === selectedCoin);
-
     setLeftSelection(pickedCoin);
   };
 
   const setRight = (value) => {
     const selectedCoin = value.target.value;
     const pickedCoin = marketData.find((coin) => coin.id === selectedCoin);
-
     setRightSelection(pickedCoin);
   };
 
@@ -47,45 +43,17 @@ const ConvertorContainer = () => {
     <div className="flex justify-center my-5 flex-col items-center">
       <div className="flex justify-around my-5 items-center h-[100px] rounded-3xl p-5 bg-[#181825] w-[500px]">
         {errorMessage}
-        <div className="flex flex-col justify-center items-center">
-          <div>Currency to Sell</div>
-          <select onChange={setLeft} className="w-32 text-black" name="" id="">
-            <option key="default" value="default" selected disabled>
-              Select Coin
-            </option>
-            {marketData.map((coin) => (
-              <option key={coin.id} className="text-black" value={coin.id}>
-                {coin.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex flex-col justify-center items-center">
-          <div>Currency to Buy</div>
-          <select onChange={setRight} className="w-32 text-black" name="" id="">
-            <option key="default" value="default" selected disabled>
-              Select Coin
-            </option>
-            {marketData.map((coin) => (
-              <option key={coin.id} className="text-black" value={coin.id}>
-                {coin.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <ConvertorSelection marketData={marketData} setSide={setLeft} />
+        <ConvertorSelection marketData={marketData} setSide={setRight} />
       </div>
-
       <div className="flex justify-around my-5 w-[1000px]">
         <ConvertorDisplay
           symbol={leftSelection?.symbol}
           price={leftSelection?.current_price}
-          sidePicked={leftSelection}
         />
-
         <ConvertorDisplay
           symbol={rightSelection?.symbol}
           price={rightSelection?.current_price}
-          sidePicked={rightSelection}
         />
       </div>
     </div>

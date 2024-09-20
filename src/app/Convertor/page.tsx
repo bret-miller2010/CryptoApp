@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import Container from "../components/ConvertorContainer";
+import Container from "../components/ConvertorPageComponents/ConvertorContainer";
 
 export default function Convertor() {
   const [currentDate, setCurrentDate] = useState("");
@@ -24,7 +24,7 @@ export default function Convertor() {
         <Container />
 
         <div className="flex justify-center items-center h-[500px] rounded-3xl bg-[#181825]">
-          Graph for value
+          This is where the graph will go
         </div>
         <div className="flex w-[400px] space-x-10 justify-center items-center mt-5 rounded-3xl p-2 bg-[#181825]">
           <button>1D</button>
