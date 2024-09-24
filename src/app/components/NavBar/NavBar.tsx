@@ -16,7 +16,10 @@ const NavBar = () => {
       </div>
       <div className="flex justify-between mt-3">
         <div>
-          <div className="ml-10">This will be the logo and text</div>
+          <div className="ml-10 space-x-4">
+            <Link href="/">Home</Link>
+            <Link href="/Portfolio">Portfolio</Link>
+          </div>
         </div>
         <div className="flex mr-10 space-x-10">
           <input type="text" />

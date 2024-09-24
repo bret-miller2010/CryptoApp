@@ -22,7 +22,6 @@ export default function Convertor() {
         <div>{currentDate}</div>
 
         <Container />
-
         <div className="flex justify-center items-center h-[500px] rounded-3xl bg-[#181825]">
           This is where the graph will go
         </div>

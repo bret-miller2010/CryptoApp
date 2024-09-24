@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import NavBar from "./components/NavBar/NavBar";
 import Link from "next/link";
 import "./globals.css";
+import { CryptoProvider } from "./Context/CryptoContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,23 +17,26 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div>
-          <NavBar />
-          <div className="flex ml-10 text-white border-2 border-white w-[160px] h-[40px] justify-around items-center">
-            <Link href="/">Main</Link>
-            <Link href="/Convertor">Convertor</Link>
+      <CryptoProvider>
+        <body className={inter.className}>
+          <div>
+            <NavBar />
+            <div className="flex ml-10 text-white border-2 border-white w-[160px] h-[40px] justify-around items-center">
+              <Link href="/">Main</Link>
+              <Link href="/Convertor">Convertor</Link>
+            </div>
+            <div className="flex justify-between text-white">
+              <div className="ml-10">
+                Select the currency to view statistics
+              </div>
+              <div className="mr-10">Compare box</div>
+            </div>
           </div>
-          <div className="flex justify-between text-white">
-            <div className="ml-10">Select the currency to view statistics</div>
-            <div className="mr-10">Compare box</div>
-          </div>
-        </div>
-        {children}
-      </body>
+          {children}
+        </body>
+      </CryptoProvider>
     </html>
   );
 }
