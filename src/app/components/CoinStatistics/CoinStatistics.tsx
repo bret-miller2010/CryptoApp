@@ -50,13 +50,13 @@ CoinBlock.propTypes = {
 };
 
 const CoinStatistics = () => {
-  const {marketData} = useCrypto();
+  const { marketData } = useCrypto();
 
   return (
     <div className="mx-3.5 flex items-center flex-col">
       <div className="flex overflow-scroll w-1/2">
         {marketData.map((coin) => (
-          <CoinBlock key={coin["id"]} data={coin} />
+          <CoinBlock key={coin.id} data={coin} />
         ))}
       </div>
     </div>
