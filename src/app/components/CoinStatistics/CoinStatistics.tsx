@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useCrypto } from "@/app/Context/CryptoContext";
 import Image from "next/image";
 import {
   Chart as ChartJS,
@@ -48,11 +49,13 @@ CoinBlock.propTypes = {
   data: PropTypes.object,
 };
 
-const CoinStatistics = ({ data }) => {
+const CoinStatistics = () => {
+  const {marketData} = useCrypto();
+
   return (
     <div className="mx-3.5 flex items-center flex-col">
       <div className="flex overflow-scroll w-1/2">
-        {data.map((coin) => (
+        {marketData.map((coin) => (
           <CoinBlock key={coin["id"]} data={coin} />
         ))}
       </div>

@@ -5,7 +5,7 @@ const ConvertorSelection = ({ marketData, setSide }) => {
     <div className="flex flex-col justify-center items-center">
       <div>Currency to Sell</div>
       <select onChange={setSide} className="w-32 text-black" name="" id="">
-        <option key="default" value="default" disabled>
+        <option key="default" value="default" disabled selected>
           Select Coin
         </option>
         {marketData.map((coin) => (
