@@ -6,3 +6,10 @@ export async function getCoinInformation() {
   const { data } = await axios(coinKey);
   return data;
 }
+
+export async function getBitCoinData() {
+  const dataKey =
+    "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=180&interval=daily";
+  const { data } = await axios(dataKey);
+  return data;
+}

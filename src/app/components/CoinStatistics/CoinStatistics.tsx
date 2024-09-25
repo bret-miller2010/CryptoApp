@@ -1,6 +1,10 @@
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import { getBitCoinData } from "@/app/api";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import Image from "next/image";
+import LineChart from "../LineChart/LineChart";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -39,6 +43,7 @@ const CoinBlock = ({ data }) => {
           {coinName} ({symbol})
         </div>
         <div>{currentPrice}</div>
+        <button value={data.id}>Click me</button>
       </div>
       <div className="text-center w-14">{oneDayChange}</div>
     </div>
@@ -51,6 +56,42 @@ CoinBlock.propTypes = {
 
 const CoinStatistics = () => {
   const { marketData } = useCrypto();
+  const [graphData, setGraphData] = useState(Object);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  function test(info, first, end) {
+    const arrayOfInfo = [];
+    for (let i = first; i < end; i++) {
+      arrayOfInfo.push(info[i]);
+    }
+
+    const graphObject = {
+      labels: arrayOfInfo.map((_, index) => index),
+      datasets: [
+        {
+          label: "Data stuff",
+          data: arrayOfInfo.map((data) => data[1]),
+          borderColor: "black",
+          borderWidth: 2,
+        },
+      ],
+    };
+    setGraphData(graphObject);
+  }
+
+  const getGraphData = async () => {
+    try {
+      const bitCoinData = await getBitCoinData();
+      test(bitCoinData.prices, 150, 180);
+    } catch (e) {
+      setErrorMessage("There is an error getting the information");
+    }
+  };
+
+  useEffect(() => {
+    getGraphData();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="mx-3.5 flex items-center flex-col">
@@ -59,6 +100,8 @@ const CoinStatistics = () => {
           <CoinBlock key={coin.id} data={coin} />
         ))}
       </div>
+      <LineChart chartData = {graphData}/>
+      {errorMessage}
     </div>
   );
 };
