@@ -1,13 +1,26 @@
 import { Line } from "react-chartjs-2";
-import { MainWrapper } from "./styles";
 import PropTypes from "prop-types";
 
-function LineChart({ chartData }) {
+function LineChart({ chartData, numDays }) {
+  const length = numDays;
+  const dataForChart = chartData.slice(151, 180);
+  const graphObject = {
+    labels: Array.from({ length }, (_, index) => index + 1),
+    datasets: [
+      {
+        label: "Bitcoin Price",
+        data: dataForChart.map((price) => price[1]),
+        borderColor: "black",
+        borderWidth: 2,
+      },
+    ],
+  };
+
   return (
-    <MainWrapper className="chart-container">
+    <div className="chart-container">
       <h2 style={{ textAlign: "center" }}>Line Chart</h2>
       <Line
-        data={chartData}
+        data={graphObject}
         options={{
           responsive: true,
           plugins: {
@@ -21,11 +34,12 @@ function LineChart({ chartData }) {
           },
         }}
       />
-    </MainWrapper>
+    </div>
   );
 }
 
 LineChart.propTypes = {
-  chartData: PropTypes.object,
+  chartData: PropTypes.node,
+  numDays: PropTypes.number,
 };
 export default LineChart;
