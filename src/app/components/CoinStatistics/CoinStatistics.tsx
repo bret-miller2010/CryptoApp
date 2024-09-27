@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { getBitCoinData } from "@/app/api";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import Image from "next/image";
 import LineChart from "../LineChart/LineChart";
@@ -55,53 +54,32 @@ CoinBlock.propTypes = {
 };
 
 const CoinStatistics = () => {
-  const { marketData } = useCrypto();
-  const [graphData, setGraphData] = useState(Object);
+  const { marketData, bitCoinData, setBitCoinData } = useCrypto();
   const [errorMessage, setErrorMessage] = useState("");
-
-  function test(info, first, end) {
-    const arrayOfInfo = [];
-    for (let i = first; i < end; i++) {
-      arrayOfInfo.push(info[i]);
-    }
-
-    const graphObject = {
-      labels: arrayOfInfo.map((_, index) => index),
-      datasets: [
-        {
-          label: "Data stuff",
-          data: arrayOfInfo.map((data) => data[1]),
-          borderColor: "black",
-          borderWidth: 2,
-        },
-      ],
-    };
-    setGraphData(graphObject);
-  }
-
-  const getGraphData = async () => {
-    try {
-      const bitCoinData = await getBitCoinData();
-      test(bitCoinData.prices, 150, 180);
-    } catch (e) {
-      setErrorMessage("There is an error getting the information");
-    }
-  };
+  const [loading, setLoading] = useState(true);
+  const dataKey =
+    "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=180&interval=daily";
 
   useEffect(() => {
-    getGraphData();
-    //eslint-disable-next-line react-hooks/exhaustive-deps
+    setLoading(true);
+    fetch(dataKey)
+      .then((data) => data.json())
+      .then((data) => {
+        setLoading(false);
+        setBitCoinData(data);
+      })
+      .catch(setErrorMessage);
   }, []);
 
   return (
     <div className="mx-3.5 flex items-center flex-col">
       <div className="flex overflow-scroll w-1/2">
+        {errorMessage}
         {marketData.map((coin) => (
           <CoinBlock key={coin.id} data={coin} />
         ))}
       </div>
-      <LineChart chartData = {graphData}/>
-      {errorMessage}
+      {!loading && <LineChart chartData={bitCoinData.prices} numDays={30} />}
     </div>
   );
 };

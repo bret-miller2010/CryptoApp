@@ -11,9 +11,12 @@ export function useCrypto() {
 
 export const CryptoProvider = ({ children }) => {
   const [marketData, setMarketData] = useState([]);
+  const [bitCoinData, setBitCoinData] = useState([]);
 
   return (
-    <CryptoContext.Provider value={{ marketData, setMarketData }}>
+    <CryptoContext.Provider
+      value={{ marketData, setMarketData, bitCoinData, setBitCoinData }}
+    >
       {children}
     </CryptoContext.Provider>
   );
