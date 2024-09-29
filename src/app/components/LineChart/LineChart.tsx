@@ -26,7 +26,7 @@ function LineChart({ chartData, numDays }) {
           plugins: {
             title: {
               display: true,
-              text: "Users Gained between 2016-2020",
+              text: `Bitcoin price over ${length} days`,
             },
             legend: {
               display: false,

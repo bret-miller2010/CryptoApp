@@ -1,0 +1,43 @@
+"use client";
+import { useState } from "react";
+import { useCrypto } from "@/app/Context/CryptoContext";
+import DisplayCoinInformation from "@/app/components/PortfolioPageComponents/DisplayCoinInformation";
+
+const AddAsset = () => {
+  const { marketData } = useCrypto();
+  const [pulledCoin, setPulledCoin] = useState();
+
+  const setCoin = (event) => {
+    const selectedCoin = event.target.value;
+    const pickedCoin = marketData.find((coin) => coin.id === selectedCoin);
+    setPulledCoin(pickedCoin);
+  };
+
+  return (
+    <div className="flex justify-center items-center flex-col">
+      <div className="text-white mb-5">
+        Use the drop down to select the coin you wish to add. You can enter more
+        information once the coin is selected.
+      </div>
+      <select
+        defaultValue="default"
+        onChange={setCoin}
+        className="w-32 text-black"
+        name="Select2"
+        id="Select3"
+      >
+        <option key="default" value="default" disabled>
+          Select a Coin
+        </option>
+        {marketData.map((coin) => (
+          <option key={coin.id} className="text-black" value={coin.id}>
+            {coin.name}
+          </option>
+        ))}
+      </select>
+      {pulledCoin && <DisplayCoinInformation data={pulledCoin} />}
+    </div>
+  );
+};
+
+export default AddAsset;
