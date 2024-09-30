@@ -1,11 +1,94 @@
 import PropTypes from "prop-types";
+import Image from "next/image";
+import { useState } from "react";
+import { useCrypto } from "@/app/Context/CryptoContext";
+import { uid } from "uid";
 
-const DisplayCoinInformation = ({data}) => {
-  return <div className ="text-white">{data.id}</div>;
+const DisplayCoinInformation = ({ data }) => {
+  const [Amount, setAmount] = useState(0);
+  const [MoneyValue, setMoneyValue] = useState(0);
+  const { userAssetData, setUserAssetData } = useCrypto();
+  const coinName = data.name;
+  const coinImage = data.image;
+  const currentPrice = data.current_price;
+  const dailyPriceChange = data.price_change_percentage_24h.toFixed(2);
+  const symbol = data.symbol;
+
+  const changeAmountToAdd = (event) => {
+    setAmount(event.target.value);
+  };
+
+  const changeMoneyValue = (event) => {
+    setMoneyValue(event.target.value);
+  };
+
+  const addCoinData = () => {
+    const newData = userAssetData;
+    const coinData = {
+      coin: coinName,
+      totalCoins: Amount,
+      totalValue: MoneyValue,
+      id: uid(),
+    };
+    newData.push(coinData);
+    setUserAssetData(newData);
+  };
+
+  return (
+    <div className="flex justify-center items-center flex-col">
+      <div className="text-white bg-[#181825] w-[800px] h-[300px] flex items-center mt-5 rounded-lg">
+        <div className="w-1/4 flex justify-around border-r-4 h-full items-center">
+          {coinName}
+          <Image src={coinImage} width={40} height={40} alt="coin image" />
+        </div>
+        <div className="w-3/4 flex justify-around flex-col h-full items-center">
+          <div>Information related to {coinName}</div>
+          <div className="flex justify-around flex-col items-center w-full">
+            <div>Current Price: {currentPrice}</div>
+            <div>Price Change (24h): {dailyPriceChange}%</div>
+            <div>Symbol: {symbol}</div>
+          </div>
+
+          <div className="w-full flex flex-col justify-center items-center space-y-4">
+            <div className="flex space-x-10">
+              <div>Enter number of coins you have: </div>
+              <input
+                className="w-[50px] text-black text-center"
+                type="number"
+                value={Amount}
+                onChange={changeAmountToAdd}
+              />
+            </div>
+            <div className="flex space-x-10">
+              <div>Enter average price per coin: </div>
+              <input
+                className="w-[100px] text-black text-center"
+                type="number"
+                value={MoneyValue}
+                onChange={changeMoneyValue}
+              />
+            </div>
+            <div>Total Value : ${Amount * MoneyValue}</div>
+          </div>
+        </div>
+      </div>
+      <div className="space-x-20">
+        <button
+          onClick={addCoinData}
+          className="bg-[#3a3978] rounded-md h-10 w-40 mt-5"
+        >
+          Add Asset
+        </button>
+        <button className="bg-[#3a3978] rounded-md h-10 w-40 mt-5">
+          Return
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default DisplayCoinInformation;
 
 DisplayCoinInformation.propTypes = {
-    data: PropTypes.node,
-  };
+  data: PropTypes.node,
+};
