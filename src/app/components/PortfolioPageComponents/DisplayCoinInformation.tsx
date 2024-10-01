@@ -1,13 +1,16 @@
+"use client";
 import PropTypes from "prop-types";
 import Image from "next/image";
 import { useState } from "react";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import { uid } from "uid";
+import { useRouter } from "next/navigation";
 
 const DisplayCoinInformation = ({ data }) => {
   const [Amount, setAmount] = useState(0);
   const [MoneyValue, setMoneyValue] = useState(0);
   const { userAssetData, setUserAssetData } = useCrypto();
+  const router = useRouter();
   const coinName = data.name;
   const coinImage = data.image;
   const currentPrice = data.current_price;
@@ -29,6 +32,7 @@ const DisplayCoinInformation = ({ data }) => {
       totalCoins: Amount,
       totalValue: MoneyValue,
       id: uid(),
+      coinID: data.id,
     };
     newData.push(coinData);
     setUserAssetData(newData);
@@ -79,7 +83,10 @@ const DisplayCoinInformation = ({ data }) => {
         >
           Add Asset
         </button>
-        <button className="bg-[#3a3978] rounded-md h-10 w-40 mt-5">
+        <button
+          onClick={() => router.push("/Portfolio")}
+          className="bg-[#3a3978] rounded-md h-10 w-40 mt-5"
+        >
           Return
         </button>
       </div>

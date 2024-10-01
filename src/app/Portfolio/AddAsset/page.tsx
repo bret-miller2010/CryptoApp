@@ -15,9 +15,12 @@ const AddAsset = () => {
 
   return (
     <div className="flex justify-center items-center flex-col">
-      <div className="text-white mb-5">
+      <div className="text-white mb-1">
         Use the drop down to select the coin you wish to add. You can enter more
         information once the coin is selected.
+      </div>
+      <div className="text-white mb-5">
+        Once you are finished adding assets use return to go back to your main portfolio page.
       </div>
       <select
         defaultValue="default"

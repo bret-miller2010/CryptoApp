@@ -18,10 +18,16 @@ export default function Portfolio() {
             Add Asset
           </Link>
         </div>
-        <div className="flex justify-center items-center flex-col h-[500px] rounded-3xl bg-[#181825] mt-2.5">
-          {userAssetData.map((coin) => {
-            return <PortfolioCoin key={coin.id} data={coin} />;
-          })}
+        <div className="flex items-center flex-col rounded-3xl bg-[#181825] py-5 space-y-5 mt-5">
+          {!userAssetData && (
+            <div>
+              There is no current user data. Click the add asset button to add.
+            </div>
+          )}
+          {userAssetData &&
+            userAssetData.map((coin) => {
+              return <PortfolioCoin key={coin.id} data={coin} />;
+            })}
         </div>
       </div>
     </div>
