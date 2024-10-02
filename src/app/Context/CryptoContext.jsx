@@ -16,7 +16,14 @@ export const CryptoProvider = ({ children }) => {
 
   return (
     <CryptoContext.Provider
-      value={{ marketData, setMarketData, bitCoinData, setBitCoinData, userAssetData, setUserAssetData }}
+      value={{
+        marketData,
+        setMarketData,
+        bitCoinData,
+        setBitCoinData,
+        userAssetData,
+        setUserAssetData,
+      }}
     >
       {children}
     </CryptoContext.Provider>
