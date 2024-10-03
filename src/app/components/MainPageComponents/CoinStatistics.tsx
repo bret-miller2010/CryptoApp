@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import Image from "next/image";
 
 const CoinStatistics = ({ data }) => {
@@ -23,10 +22,6 @@ const CoinStatistics = ({ data }) => {
       <div className="text-center w-14">{oneDayChange}</div>
     </div>
   );
-};
-
-CoinStatistics.propTypes = {
-  data: PropTypes.object,
 };
 
 export default CoinStatistics;

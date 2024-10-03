@@ -1,5 +1,4 @@
 "use client";
-import PropTypes from "prop-types";
 import Image from "next/image";
 import { useState } from "react";
 import { useCrypto } from "@/app/Context/CryptoContext";
@@ -95,7 +94,3 @@ const DisplayCoinInformation = ({ data }) => {
 };
 
 export default DisplayCoinInformation;
-
-DisplayCoinInformation.propTypes = {
-  data: PropTypes.node,
-};

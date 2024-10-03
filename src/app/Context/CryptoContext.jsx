@@ -1,5 +1,4 @@
 "use client";
-import PropTypes from "prop-types";
 import { createContext, useState, useContext } from "react";
 
 export const CryptoContext = createContext();
@@ -28,8 +27,4 @@ export const CryptoProvider = ({ children }) => {
       {children}
     </CryptoContext.Provider>
   );
-};
-
-CryptoProvider.propTypes = {
-  children: PropTypes.object,
 };

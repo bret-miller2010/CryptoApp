@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import Image from "next/image";
@@ -77,7 +76,3 @@ const PortfolioCoin = ({ data }) => {
 };
 
 export default PortfolioCoin;
-
-PortfolioCoin.propTypes = {
-  data: PropTypes.node,
-};
