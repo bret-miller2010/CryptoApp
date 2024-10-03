@@ -14,14 +14,15 @@ const NavBar = () => {
           <Link href="/Pages">Click here to go to Pages</Link>
         </div>
       </div>
-      <div className="flex justify-between mt-3">
+      <div className="flex justify-between mt-3 p-5">
         <div>
-          <div className="ml-10 space-x-4">
+          <div className="space-x-10">
             <Link href="/">Home</Link>
             <Link href="/Portfolio">Portfolio</Link>
+            <Link href="/Convertor">Convertor</Link>
           </div>
         </div>
-        <div className="flex mr-10 space-x-10">
+        <div className="flex space-x-10">
           <input type="text" />
           <div>Currency selection</div>
           <div>Dark mode/light mode</div>
