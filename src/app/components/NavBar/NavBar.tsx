@@ -16,9 +16,6 @@ const NavBar = () => {
         <div>Total Money</div>
         <div>1st coin</div>
         <div>2nd coin</div>
-        <div>
-          <Link href="/Pages">Click here to go to Pages</Link>
-        </div>
       </div>
       <div className="flex justify-between mt-3 p-5">
         <div>
@@ -29,9 +26,10 @@ const NavBar = () => {
             <select
               defaultValue="default"
               className="w-32 text-black bg-[#13121a] text-white"
-              onChange={(event) =>
-                router.push(`/Currency/${event.target.value}`)
-              }
+              onChange={(event) => {
+                router.push(`/Currency/${event.target.value}`);
+                event.target.selectedIndex = 0;
+              }}
             >
               <option key="default" value="default" disabled>
                 Select a Coin
