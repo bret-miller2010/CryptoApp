@@ -10,7 +10,8 @@ const CoinMarketInformation = ({ coin }) => {
   const maxSupply = addCommas(coin.total_supply, 0, true);
   const volumeThatDay = addCommas(coin.market_cap_change_24h, 0, true);
   const volumePerMarket = (coin.total_volume / coin.market_cap).toFixed(5);
-	const symbol = coin.symbol.toUpperCase();
+  const percentVPM = (coin.total_volume / coin.market_cap) * 100;
+  const symbol = coin.symbol.toUpperCase();
 
   function addCommas(number, num_decimals, include_comma) {
     return number.toLocaleString("en-US", {
@@ -19,11 +20,12 @@ const CoinMarketInformation = ({ coin }) => {
       maximumFractionDigits: num_decimals,
     });
   }
+
   return (
-    <div className="text-white flex w-3/5 p-8 bg-[#1e1932] rounded-lg flex-col">
-      <div className="flex">
+    <div className="text-white flex w-[500px] bg-[#1e1932] rounded-lg flex-col h-[370px] justify-center items-center text-sm">
+      <div className="flex w-[350px]">
         <div className="flex justify-between w-full">
-          <div className="space-y-5">
+          <div className="space-y-6">
             <div>
               <div>Market Cap</div>
               <div>Fully Diluted Valuation</div>
@@ -38,7 +40,7 @@ const CoinMarketInformation = ({ coin }) => {
           </div>
         </div>
         <div className="flex justify-between w-full">
-          <div className="space-y-5">
+          <div className="space-y-6">
             <div>
               <div>${marketCap}</div>
               <div>${fullyDilutedValuation}</div>
@@ -46,14 +48,33 @@ const CoinMarketInformation = ({ coin }) => {
               <div>{volumePerMarket}</div>
             </div>
             <div>
-              <div>{volume} {symbol}</div>
-              <div>{circulatingSupply} {symbol}</div>
-              <div>{maxSupply} {symbol}</div>
+              <div>
+                {volume} {symbol}
+              </div>
+              <div>
+                {circulatingSupply} {symbol}
+              </div>
+              <div>
+                {maxSupply} {symbol}
+              </div>
             </div>
           </div>
         </div>
       </div>
-			<div className="flex justify-center">Bottom Bar</div>
+      <div className="flex justify-center mt-12 flex-col">
+        <div className="flex justify-between text-xs mb-1">
+          <div>{percentVPM.toFixed(2)}%</div>
+          <div>{(100 - percentVPM).toFixed(2)}%</div>
+        </div>
+        <div className="w-[350px] h-[15px] bg-[#f8d2a6]">
+          <div
+            className="h-[15px] bg-white"
+            style={{
+              width: `${percentVPM}px`,
+            }}
+          ></div>
+        </div>
+      </div>
     </div>
   );
 };
