@@ -44,7 +44,7 @@ export default function Home() {
             title="Bitcoin"
           />
         </div>
-        <div className="mt-8 h-[800px] overflow-scroll overflow-x-hidden">
+        <div className="mt-8 h-[672px] overflow-scroll overflow-x-hidden">
           {marketData.map((coin, index) => (
             <CoinDetails key={coin.id} data={coin} spot={index} />
           ))}

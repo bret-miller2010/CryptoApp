@@ -1,5 +1,4 @@
 "use client";
-import PropTypes from "prop-types";
 import { useState } from "react";
 import ConvertorDisplay from "./ConvertorDisplay";
 import ConvertorSelection from "./ConvertorSelection";
@@ -43,7 +42,3 @@ const ConvertorContainer = () => {
 };
 
 export default ConvertorContainer;
-
-ConvertorContainer.propTypes = {
-  marketData: PropTypes.node,
-};

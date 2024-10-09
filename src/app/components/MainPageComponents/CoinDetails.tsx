@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import Image from "next/image";
 
 const CoinDetails = ({ data, spot }) => {
@@ -12,6 +11,9 @@ const CoinDetails = ({ data, spot }) => {
     data.price_change_percentage_7d_in_currency
   ).toFixed(2);
   const coinImage = data.image;
+  const coinVolume = (data.total_volume /1000000000).toFixed(4);
+  const circulatingSupply = (data.circulating_supply / 10000).toFixed(2);
+  const totalSupply = (data.total_supply / 10000).toFixed(2);
 
   return (
     <div className="flex justify-between text-white mt-2.5 mx-2 p-2 rounded-2xl  bg-[#181825]">
@@ -29,19 +31,13 @@ const CoinDetails = ({ data, spot }) => {
         <div className="w-1/4">{oneDayChange}%</div>
         <div className="w-1/4">{sevenDayChange}%</div>
       </div>
-      <div className="flex justify-around items-center w-1/4">
-        <div className="w-1/3">24h Volume</div>
-        <div className="w-1/2">Circulating/Total Supply</div>
-        <div>Graph</div>
+      <div className="flex justify-around items-center w-1/3">
+        <div className="w-1/4">{coinVolume} B</div>
+        <div className="w-1/2">{circulatingSupply} : {totalSupply}</div>
+        <div className="w-1/4">Graph</div>
       </div>
     </div>
   );
-};
-
-CoinDetails.propTypes = {
-  data: PropTypes.object,
-  spot: PropTypes.number,
-  index: PropTypes.number,
 };
 
 export default CoinDetails;

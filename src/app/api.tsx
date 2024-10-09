@@ -13,3 +13,9 @@ export async function getBitCoinData() {
   const { data } = await axios(dataKey);
   return data;
 }
+
+export async function getSpecificCoinInfo(coin) {
+  const key = `https://api.coingecko.com/api/v3/coins/${coin}`;
+  const { data } = await axios(key);
+  return data;
+}
