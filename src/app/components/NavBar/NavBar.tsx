@@ -4,7 +4,7 @@ import { useCrypto } from "@/app/Context/CryptoContext";
 import { useRouter } from "next/navigation";
 
 const NavBar = () => {
-  const { marketData } = useCrypto();
+  const { marketData, setCurrency } = useCrypto();
   const router = useRouter();
 
   return (
@@ -39,6 +39,19 @@ const NavBar = () => {
                   {coin.name}
                 </option>
               ))}
+            </select>
+            <select
+              className="w-16 text-black bg-[#13121a] text-white"
+              defaultValue="usd"
+              onChange={(event) => setCurrency(event.target.value)}
+              name=""
+              id=""
+            >
+              <option value="usd">USD</option>
+              <option value="btc">BTC</option>
+              <option value="eth">ETH</option>
+              <option value="eur">EUR</option>
+              <option value="cad">CAD</option>
             </select>
           </div>
         </div>

@@ -12,7 +12,7 @@ export default function CoinInformation({
 }: {
   params: { crypto: string };
 }) {
-  const { marketData } = useCrypto();
+  const { marketData, currency } = useCrypto();
   const [selectedCoin, setSelectedCoin] = useState(Object);
   const [coinData, setCoinData] = useState();
 
@@ -31,7 +31,7 @@ export default function CoinInformation({
     <main className="flex items-center justify-center mt-20">
       <div className="flex flex-col h-[800px] w-[800px] justify-between">
         {coinData && (
-          <BasicCoinInformation coin={selectedCoin} coinData={coinData} />
+          <BasicCoinInformation coinData={coinData} currency={currency} />
         )}
         {coinData && <CoinDescription coinData={coinData} />}
       </div>
