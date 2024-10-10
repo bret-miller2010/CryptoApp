@@ -7,11 +7,11 @@ import LineChart from "./components/LineChart/LineChart";
 import { getCoinInformation, getBitCoinData } from "./api";
 
 export default function Home() {
-  const { marketData, setMarketData, bitCoinData, setBitCoinData } =
+  const { marketData, setMarketData, bitCoinData, setBitCoinData, currency } =
     useCrypto();
 
   const collectMarketData = async () => {
-    const data = await getCoinInformation();
+    const data = await getCoinInformation(currency);
     setMarketData(data);
   };
 
@@ -44,7 +44,26 @@ export default function Home() {
             title="Bitcoin"
           />
         </div>
-        <div className="mt-8 h-[672px] overflow-scroll overflow-x-hidden">
+        <div className="flex justify-between text-white mt-2.5 mx-2 p-2 rounded-2xl  bg-[#181825]">
+          <div className="flex justify-between items-center w-1/4 text-center">
+            <div className="w-10">#</div>
+            <div className="w-40 flex justify-center">Image</div>
+
+            <div className="w-60 flex justify-center">Name</div>
+          </div>
+          <div className="flex justify-between items-center w-1/3 text-center">
+            <div className="w-1/4">Current Price</div>
+            <div className="w-1/4">% Change (1H)</div>
+            <div className="w-1/4">% Change (1D)</div>
+            <div className="w-1/4">% Change (7D)</div>
+          </div>
+          <div className="flex justify-around items-center w-1/3 text-center">
+            <div className="w-1/4">Volume (B)</div>
+            <div className="w-1/2">Circulating Supply vs Total Supply</div>
+            <div className="w-1/4">Graph</div>
+          </div>
+        </div>
+        <div className="mt-4 h-[672px] overflow-scroll overflow-x-hidden space-y-2">
           {marketData.map((coin, index) => (
             <CoinDetails key={coin.id} data={coin} spot={index} />
           ))}

@@ -1,25 +1,23 @@
-const CoinMarketInformation = ({ coin }) => {
-  const marketCap = addCommas(coin.market_cap, 0, true);
+import { addCommas } from "../../utils/utility";
+
+const CoinMarketInformation = ({
+  coin,
+  coinData: { market_data: data },
+  currency,
+}) => {
+  const marketCap = addCommas(data.market_cap[currency], 0, true);
   const fullyDilutedValuation = addCommas(
-    coin.fully_diluted_valuation,
+    data.fully_diluted_valuation[currency],
     0,
     true
   );
-  const volume = addCommas(coin.total_volume, 0, true);
-  const circulatingSupply = addCommas(coin.circulating_supply, 0, true);
-  const maxSupply = addCommas(coin.total_supply, 0, true);
-  const volumeThatDay = addCommas(coin.market_cap_change_24h, 0, true);
-  const volumePerMarket = (coin.total_volume / coin.market_cap).toFixed(5);
-  const percentVPM = (coin.total_volume / coin.market_cap) * 100;
+  const volume = addCommas(data.total_volume[currency], 0, true);
+  const circulatingSupply = addCommas(data.circulating_supply, 0, true);
+  const maxSupply = addCommas(data.total_supply, 0, true);
+  const volumeThatDay = addCommas(data.market_cap_change_24h, 0, true);
+  const percentVPM =
+    (data.total_volume[currency] / data.market_cap[currency]) * 100;
   const symbol = coin.symbol.toUpperCase();
-
-  function addCommas(number, num_decimals, include_comma) {
-    return number.toLocaleString("en-US", {
-      useGrouping: include_comma,
-      minimumFractionDigits: num_decimals,
-      maximumFractionDigits: num_decimals,
-    });
-  }
 
   return (
     <div className="text-white flex w-[500px] bg-[#1e1932] rounded-lg flex-col h-[370px] justify-center items-center text-sm">
@@ -45,7 +43,7 @@ const CoinMarketInformation = ({ coin }) => {
               <div>${marketCap}</div>
               <div>${fullyDilutedValuation}</div>
               <div>${volumeThatDay}</div>
-              <div>{volumePerMarket}</div>
+              <div>{percentVPM.toFixed(2)}%</div>
             </div>
             <div>
               <div>

@@ -36,7 +36,9 @@ export default function CoinInformation({
         {coinData && <CoinDescription coinData={coinData} />}
       </div>
       <div className="flex flex-col h-[800px] w-[800px] justify-between items-center">
-        {coinData && <CoinMarketInformation coin={selectedCoin} />}
+        {coinData && (
+          <CoinMarketInformation coinData={coinData} coin={selectedCoin} currency = {currency} />
+        )}
         {coinData && <CoinLinks coinData={coinData} />}{" "}
       </div>
     </main>
