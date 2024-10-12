@@ -1,3 +1,4 @@
+"use client";
 import { addCommas } from "../../utils/utility";
 
 const CoinMarketInformation = ({
@@ -66,9 +67,9 @@ const CoinMarketInformation = ({
         </div>
         <div className="w-[350px] h-[15px] bg-[#f8d2a6]">
           <div
-            className="h-[15px] bg-white"
+            className={"h-[15px] bg-red-500"}
             style={{
-              width: `${percentVPM}px`,
+              width: `${percentVPM}%`,
             }}
           ></div>
         </div>
