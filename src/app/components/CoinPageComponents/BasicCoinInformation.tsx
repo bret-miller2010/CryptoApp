@@ -1,14 +1,15 @@
 "use client";
 import Image from "next/image";
 
-const BasicCoinInformation = ({ coin, coinData }) => {
-  const coinName = coin.name;
-  const currentPrice = coin.current_price;
-  const changeIn24 = coin.price_change_percentage_24h.toFixed(2);
-  const allTimeHigh = coin.ath;
-  const allTimeLow = coin.atl;
-  const symbol = coin.symbol.toUpperCase();
-  const coinImage = coin.image;
+const BasicCoinInformation = ({ coinData, currency }) => {
+  const coinName = coinData.name;
+  const currentPrice = coinData.market_data.current_price[currency];
+  const changeIn24 =
+    coinData.market_data.price_change_percentage_24h.toFixed(2);
+  const allTimeHigh = coinData.market_data.ath[currency];
+  const allTimeLow = coinData.market_data.atl[currency];
+  const symbol = coinData.symbol.toUpperCase();
+  const coinImage = coinData.image.small;
   const link = coinData.links.homepage[0];
 
   const pickColor = (value) => {

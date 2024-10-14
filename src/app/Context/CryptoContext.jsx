@@ -12,6 +12,7 @@ export const CryptoProvider = ({ children }) => {
   const [marketData, setMarketData] = useState([]);
   const [bitCoinData, setBitCoinData] = useState([]);
   const [userAssetData, setUserAssetData] = useState([]);
+  const [currency, setCurrency] = useState("usd");
 
   return (
     <CryptoContext.Provider
@@ -22,6 +23,8 @@ export const CryptoProvider = ({ children }) => {
         setBitCoinData,
         userAssetData,
         setUserAssetData,
+        currency,
+        setCurrency
       }}
     >
       {children}
