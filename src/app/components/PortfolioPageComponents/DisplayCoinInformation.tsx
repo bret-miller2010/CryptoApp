@@ -6,8 +6,8 @@ import { uid } from "uid";
 import { useRouter } from "next/navigation";
 
 const DisplayCoinInformation = ({ data }) => {
-  const [Amount, setAmount] = useState(0);
-  const [MoneyValue, setMoneyValue] = useState(0);
+  const [amount, setAmount] = useState(0);
+  const [moneyValue, setMoneyValue] = useState(0);
   const { userAssetData, setUserAssetData } = useCrypto();
   const router = useRouter();
   const coinName = data.name;
@@ -28,8 +28,8 @@ const DisplayCoinInformation = ({ data }) => {
     const newData = userAssetData;
     const coinData = {
       coin: coinName,
-      totalCoins: Amount,
-      totalValue: MoneyValue,
+      totalCoins: amount,
+      totalValue: moneyValue,
       id: uid(),
       coinID: data.id,
     };
@@ -58,7 +58,7 @@ const DisplayCoinInformation = ({ data }) => {
               <input
                 className="w-[50px] text-black text-center"
                 type="number"
-                value={Amount}
+                value={amount}
                 onChange={changeAmountToAdd}
               />
             </div>
@@ -67,11 +67,11 @@ const DisplayCoinInformation = ({ data }) => {
               <input
                 className="w-[100px] text-black text-center"
                 type="number"
-                value={MoneyValue}
+                value={moneyValue}
                 onChange={changeMoneyValue}
               />
             </div>
-            <div>Total Value : ${Amount * MoneyValue}</div>
+            <div>Total Value : ${amount * moneyValue}</div>
           </div>
         </div>
       </div>

@@ -60,7 +60,7 @@ export default function Home() {
             6M
           </button>
         </div>
-        <div className="flex justify-between text-white mt-2.5 mx-2 p-2 rounded-2xl  bg-[#181825] mt-5 w-[2481px]">
+        <div className="flex justify-between text-white mt-2.5 mx-2 p-2 rounded-2xl  bg-[#181825] mt-5">
           <div className="flex justify-between items-center w-1/5 text-center">
             <div className="w-10">#</div>
             <div className="w-full">
@@ -79,7 +79,7 @@ export default function Home() {
             <div className="w-1/4">Graph</div>
           </div>
         </div>
-        <div className="mt-4 h-[672px] overflow-scroll overflow-x-hidden space-y-2">
+        <div className="mt-4 h-[672px] space-y-2">
           {marketData.map((coin, index) => (
             <CoinDetails key={coin.id} data={coin} spot={index} />
           ))}
