@@ -17,7 +17,7 @@ const NavBar = () => {
   };
 
   return (
-    <main className="text-white mb-10">
+    <main className="text-white mb-14">
       <div className="w-screen h-10 bg-[#474792] flex items-center justify-center space-x-28 ">
         <div>Coins</div>
         <div>Exchange</div>

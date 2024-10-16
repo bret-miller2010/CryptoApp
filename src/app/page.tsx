@@ -7,8 +7,14 @@ import LineChart from "./components/LineChart/LineChart";
 import { getCoinInformation, getBitCoinData } from "./api";
 
 export default function Home() {
-  const { marketData, setMarketData, bitCoinData, setBitCoinData, currency } =
-    useCrypto();
+  const {
+    marketData,
+    setMarketData,
+    bitCoinData,
+    setBitCoinData,
+    currency,
+    LoadUserList,
+  } = useCrypto();
   const [selectedDays, setSelectedDays] = useState("30");
 
   const collectMarketData = async () => {
@@ -28,16 +34,13 @@ export default function Home() {
   useEffect(() => {
     collectMarketData();
     collectBitCoinData();
+    LoadUserList();
   }, []);
 
   return (
     <main>
       <div className="bg-green p-5">
         <div className="flex items-center flex-col">
-          <div className="flex justify-between w-full text-white">
-            <div>Select the currency to view statistics</div>
-            <div>Compare box</div>
-          </div>
           <div className="flex overflow-scroll overflow-y-hidden w-1/2">
             {marketData.map((coin) => (
               <CoinStatistics key={coin.id} data={coin} />
