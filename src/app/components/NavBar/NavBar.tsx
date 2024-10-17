@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import { useRouter } from "next/navigation";
 import { getCoinInformation } from "@/app/api";
+import AccountMenu from "../NavBarComponents/AccountMenu";
 
 const NavBar = () => {
   const { marketData, setCurrency, setMarketData } = useCrypto();
@@ -16,7 +17,7 @@ const NavBar = () => {
   };
 
   return (
-    <main className="text-white">
+    <main className="text-white mb-14">
       <div className="w-screen h-10 bg-[#474792] flex items-center justify-center space-x-28 ">
         <div>Coins</div>
         <div>Exchange</div>
@@ -65,9 +66,7 @@ const NavBar = () => {
         </div>
         <div className="flex space-x-10">
           <input type="text" />
-          <div>Currency selection</div>
-          <div>Dark mode/light mode</div>
-          <div>Account Selection</div>
+          <AccountMenu />
         </div>
       </div>
     </main>

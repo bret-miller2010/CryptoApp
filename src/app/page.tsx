@@ -7,8 +7,14 @@ import LineChart from "./components/LineChart/LineChart";
 import { getCoinInformation, getBitCoinData } from "./api";
 
 export default function Home() {
-  const { marketData, setMarketData, bitCoinData, setBitCoinData, currency } =
-    useCrypto();
+  const {
+    marketData,
+    setMarketData,
+    bitCoinData,
+    setBitCoinData,
+    currency,
+    LoadUserList,
+  } = useCrypto();
   const [selectedDays, setSelectedDays] = useState("30");
 
   const collectMarketData = async () => {
@@ -28,16 +34,13 @@ export default function Home() {
   useEffect(() => {
     collectMarketData();
     collectBitCoinData();
+    LoadUserList();
   }, []);
 
   return (
     <main>
       <div className="bg-green p-5">
         <div className="flex items-center flex-col">
-          <div className="flex justify-between w-full text-white">
-            <div>Select the currency to view statistics</div>
-            <div>Compare box</div>
-          </div>
           <div className="flex overflow-scroll overflow-y-hidden w-1/2">
             {marketData.map((coin) => (
               <CoinStatistics key={coin.id} data={coin} />
@@ -60,7 +63,7 @@ export default function Home() {
             6M
           </button>
         </div>
-        <div className="flex justify-between text-white mt-2.5 mx-2 p-2 rounded-2xl  bg-[#181825] mt-5 w-[2481px]">
+        <div className="flex justify-between text-white mt-2.5 mx-2 p-2 rounded-2xl  bg-[#181825] mt-5">
           <div className="flex justify-between items-center w-1/5 text-center">
             <div className="w-10">#</div>
             <div className="w-full">
@@ -79,7 +82,7 @@ export default function Home() {
             <div className="w-1/4">Graph</div>
           </div>
         </div>
-        <div className="mt-4 h-[672px] overflow-scroll overflow-x-hidden space-y-2">
+        <div className="mt-4 h-[672px] space-y-2">
           {marketData.map((coin, index) => (
             <CoinDetails key={coin.id} data={coin} spot={index} />
           ))}
