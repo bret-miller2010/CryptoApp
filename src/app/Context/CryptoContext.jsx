@@ -16,21 +16,21 @@ export const CryptoProvider = ({ children }) => {
   const [currency, setCurrency] = useState("usd");
   const [listOfUsers, setListOfUsers] = useState([]);
 
-  const SaveUserList = () => {
+  const saveUserList = () => {
     localStorage.setItem("users", JSON.stringify(listOfUsers));
   };
 
-  const LoadUserList = () => {
+  const loadUserList = () => {
     const users = JSON.parse(localStorage.getItem("users"));
     setListOfUsers(users);
   };
 
-  const SaveUserData = (login) => {
+  const saveUserData = (login) => {
     const loadedUser = listOfUsers.find((user) => user.id === login.id);
     const index = listOfUsers.findIndex((user) => user.id === login.id);
     loadedUser.portfolio = login.portfolio;
     listOfUsers[index] = loadedUser;
-    SaveUserList();
+    saveUserList();
   };
 
   return (
@@ -46,11 +46,11 @@ export const CryptoProvider = ({ children }) => {
         setCurrency,
         listOfUsers,
         setListOfUsers,
-        SaveUserList,
+        saveUserList,
         login,
         setLogin,
-        LoadUserList,
-        SaveUserData,
+        loadUserList,
+        saveUserData,
       }}
     >
       {children}

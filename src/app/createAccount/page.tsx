@@ -4,7 +4,7 @@ import { uid } from "uid";
 import { useCrypto } from "@/app/Context/CryptoContext";
 
 export default function AccountLogIn() {
-  const { listOfUsers, setListOfUsers, SaveUserList } = useCrypto();
+  const { listOfUsers, setListOfUsers, saveUserList } = useCrypto();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [sucess, setSucess] = useState(false);
@@ -23,7 +23,7 @@ export default function AccountLogIn() {
     setUsername("");
     setPassword("");
     setSucess(true);
-    SaveUserList();
+    saveUserList();
   };
 
   return (
