@@ -5,3 +5,15 @@ export function addCommas(number, num_decimals, include_comma) {
     maximumFractionDigits: num_decimals,
   });
 }
+
+export function reduceNumber(value) {
+  let loops = 0;
+  let sentValue = value;
+  const char = ["", "t", "M", "B", "T", "ERR"];
+  while (sentValue > 1000) {
+    sentValue = sentValue / 1000;
+    loops += 1;
+  }
+
+  return `${sentValue.toFixed(4)} ${char[loops]}`;
+}

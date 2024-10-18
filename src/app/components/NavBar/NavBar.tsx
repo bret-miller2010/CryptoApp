@@ -1,12 +1,24 @@
 "use client";
 import Link from "next/link";
+import { useEffect } from "react";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import { useRouter } from "next/navigation";
 import { getCoinInformation } from "@/app/api";
 import AccountMenu from "../NavBarComponents/AccountMenu";
+import { reduceNumber } from "@/app/utils/utility";
+import { getBitCoinData, getGlobalData } from "../../api";
 
 const NavBar = () => {
-  const { marketData, setCurrency, setMarketData } = useCrypto();
+  const {
+    marketData,
+    setCurrency,
+    setMarketData,
+    globalData,
+    currency,
+    setBitCoinData,
+    setGlobalData,
+    loadUserList,
+  } = useCrypto();
   const router = useRouter();
 
   const updateCurrency = async (event) => {
@@ -16,16 +28,51 @@ const NavBar = () => {
     setMarketData(data);
   };
 
+  const collectMarketData = async () => {
+    const data = await getCoinInformation(currency);
+    setMarketData(data);
+  };
+
+  const collectBitCoinData = async () => {
+    const data = await getBitCoinData();
+    setBitCoinData(data);
+  };
+
+  const collectGlobalData = async () => {
+    const { data } = await getGlobalData();
+    setGlobalData(data);
+  };
+
+  const collectData = () => {
+    collectMarketData();
+    collectBitCoinData();
+    collectGlobalData();
+    setTimeout(collectData, 60000);
+  };
+
+  useEffect(() => {
+    loadUserList();
+    collectData();
+  }, []);
+
   return (
     <main className="text-white mb-14">
-      <div className="w-screen h-10 bg-[#474792] flex items-center justify-center space-x-28 ">
-        <div>Coins</div>
-        <div>Exchange</div>
-        <div>Volume?</div>
-        <div>Total Money</div>
-        <div>1st coin</div>
-        <div>2nd coin</div>
-      </div>
+      {globalData && (
+        <div className="w-screen h-10 bg-[#474792] flex items-center justify-center space-x-28 ">
+          <div>Coins: {globalData.active_cryptocurrencies}</div>
+          <div>
+            {reduceNumber(globalData.total_market_cap[currency])}{" "}
+            {currency.toUpperCase()}
+          </div>
+          <div>
+            {reduceNumber(globalData.total_volume[currency])}{" "}
+            {currency.toUpperCase()}
+          </div>
+          <div>{globalData.market_cap_percentage.btc.toFixed(2)}% BTC</div>
+          <div>{globalData.market_cap_percentage.eth.toFixed(2)}% ETH</div>
+        </div>
+      )}
+
       <div className="flex justify-between mt-3 p-5">
         <div>
           <div className="space-x-10">

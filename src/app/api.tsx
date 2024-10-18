@@ -18,3 +18,9 @@ export async function getSpecificCoinInfo(coin) {
   const { data } = await axios(key);
   return data;
 }
+
+export async function getGlobalData() {
+  const key = "https://api.coingecko.com/api/v3/global";
+  const { data } = await axios(key);
+  return data;
+}

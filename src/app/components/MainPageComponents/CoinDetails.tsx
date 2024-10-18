@@ -16,7 +16,7 @@ const CoinDetails = ({ data, spot }) => {
   const volumeVsMarketcap = ((data.total_volume / marketCap) * 100).toFixed(2);
 
   return (
-    <div className="flex justify-between text-white mx-2 p-2 rounded-2xl  bg-[#181825]">
+    <div className="flex justify-between text-white mx-2 p-2 rounded-2xl  bg-[#181825] w-full">
       <div className="flex justify-between items-center w-1/5 text-center">
         <div className="w-10">{spot + 1}</div>
         <div className="w-40 flex justify-center">

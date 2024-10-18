@@ -8,7 +8,7 @@ const CoinStatistics = ({ data }) => {
   const coinImage = data.image;
 
   return (
-    <div className="h-[100px] flex justify-between items-center text-white bg-black mr-2 rounded-3xl px-2">
+    <div className="h-[100px] flex justify-between items-center text-white bg-[#181825] mr-2 rounded-3xl px-2">
       <div className="flex justify-center w-14">
         <Image src={coinImage} width={40} height={40} alt="coin image" />
       </div>
