@@ -1,39 +1,15 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CoinDetails from "./components/MainPageComponents/CoinDetails";
 import CoinStatistics from "./components/MainPageComponents/CoinStatistics";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import LineChart from "./components/LineChart/LineChart";
-import { getCoinInformation, getBitCoinData, getGlobalData } from "./api";
 
 export default function Home() {
-  const {
-    marketData,
-    setMarketData,
-    bitCoinData,
-    setBitCoinData,
-    currency,
-    loadUserList,
-    setGlobalData,
-  } = useCrypto();
+  const { marketData, bitCoinData } = useCrypto();
   const [selectedDays, setSelectedDays] = useState("30");
   const [statisticsValue, setStatisticsValue] = useState(0);
   const [detailsValue, setDetailsValue] = useState(0);
-
-  const collectMarketData = async () => {
-    const data = await getCoinInformation(currency);
-    setMarketData(data);
-  };
-
-  const collectBitCoinData = async () => {
-    const data = await getBitCoinData();
-    setBitCoinData(data);
-  };
-
-  const collectGlobalData = async () => {
-    const { data } = await getGlobalData();
-    setGlobalData(data);
-  };
 
   const setDays = (days) => {
     setSelectedDays(days.target.value);
@@ -53,18 +29,11 @@ export default function Home() {
     if (statisticsValue + amount < 0) {
       setStatisticsValue(0);
     } else if (statisticsValue + amount > 49) {
-      setStatisticsValue(43);
+      setStatisticsValue(45);
     } else {
       setStatisticsValue(statisticsValue + amount);
     }
   };
-
-  useEffect(() => {
-    collectMarketData();
-    collectBitCoinData();
-    collectGlobalData();
-    loadUserList();
-  }, []);
 
   return (
     <main>
@@ -74,9 +43,9 @@ export default function Home() {
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
-              fill="currentColor"
-              className="size-20 mr-5 bg-[#181825] rounded-full"
-              onClick={() => updateStatisticsChart(-7)}
+              fill="white"
+              className="size-16 mr-5"
+              onClick={() => updateStatisticsChart(-5)}
             >
               <path
                 fillRule="evenodd"
@@ -85,16 +54,16 @@ export default function Home() {
               />
             </svg>
             {marketData.map((coin, index) => {
-              if (index >= statisticsValue && index <= statisticsValue + 6) {
+              if (index >= statisticsValue && index <= statisticsValue + 4) {
                 return <CoinStatistics key={coin.id} data={coin} />;
               }
             })}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
-              fill="currentColor"
-              className="size-20 bg-[#181825] rounded-full"
-              onClick={() => updateStatisticsChart(7)}
+              fill="white"
+              className="size-16 ml-5"
+              onClick={() => updateStatisticsChart(5)}
             >
               <path
                 fillRule="evenodd"
@@ -120,17 +89,30 @@ export default function Home() {
             6M
           </button>
         </div>
-        <div className="flex justify-center items-center mt-10">
+        <div className="flex justify-center items-center mt-12 space-x-20">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
-            fill="currentColor"
-            className="size-20 bg-[#181825] rounded-full"
+            fill="white"
+            className="size-14"
             onClick={() => updateDetailsChart(-10)}
           >
             <path
               fillRule="evenodd"
               d="M11.47 2.47a.75.75 0 0 1 1.06 0l3.75 3.75a.75.75 0 0 1-1.06 1.06l-2.47-2.47V21a.75.75 0 0 1-1.5 0V4.81L8.78 7.28a.75.75 0 0 1-1.06-1.06l3.75-3.75Z"
+              clipRule="evenodd"
+            />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="white"
+            className="size-14"
+            onClick={() => updateDetailsChart(10)}
+          >
+            <path
+              fillRule="evenodd"
+              d="M12 2.25a.75.75 0 0 1 .75.75v16.19l2.47-2.47a.75.75 0 1 1 1.06 1.06l-3.75 3.75a.75.75 0 0 1-1.06 0l-3.75-3.75a.75.75 0 1 1 1.06-1.06l2.47 2.47V3a.75.75 0 0 1 .75-.75Z"
               clipRule="evenodd"
             />
           </svg>
@@ -161,19 +143,6 @@ export default function Home() {
               return <CoinDetails key={coin.id} data={coin} spot={index} />;
             }
           })}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="size-20 bg-[#181825] rounded-full"
-            onClick={() => updateDetailsChart(10)}
-          >
-            <path
-              fillRule="evenodd"
-              d="M12 2.25a.75.75 0 0 1 .75.75v16.19l2.47-2.47a.75.75 0 1 1 1.06 1.06l-3.75 3.75a.75.75 0 0 1-1.06 0l-3.75-3.75a.75.75 0 1 1 1.06-1.06l2.47 2.47V3a.75.75 0 0 1 .75-.75Z"
-              clipRule="evenodd"
-            />
-          </svg>
         </div>
       </div>
     </main>
