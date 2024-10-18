@@ -4,9 +4,11 @@ import { useCrypto } from "@/app/Context/CryptoContext";
 import { useRouter } from "next/navigation";
 import { getCoinInformation } from "@/app/api";
 import AccountMenu from "../NavBarComponents/AccountMenu";
+import {  reduceNumber } from "@/app/utils/utility";
 
 const NavBar = () => {
-  const { marketData, setCurrency, setMarketData } = useCrypto();
+  const { marketData, setCurrency, setMarketData, globalData, currency } =
+    useCrypto();
   const router = useRouter();
 
   const updateCurrency = async (event) => {
@@ -15,17 +17,18 @@ const NavBar = () => {
     const data = await getCoinInformation(selectedCurrency);
     setMarketData(data);
   };
-
   return (
     <main className="text-white mb-14">
-      <div className="w-screen h-10 bg-[#474792] flex items-center justify-center space-x-28 ">
-        <div>Coins</div>
-        <div>Exchange</div>
-        <div>Volume?</div>
-        <div>Total Money</div>
-        <div>1st coin</div>
-        <div>2nd coin</div>
-      </div>
+      {globalData && (
+        <div className="w-screen h-10 bg-[#474792] flex items-center justify-center space-x-28 ">
+          <div>Coins: {globalData.active_cryptocurrencies}</div>
+          <div>{reduceNumber(globalData.total_market_cap[currency])} {currency.toUpperCase()}</div>
+          <div>{reduceNumber(globalData.total_volume[currency])} {currency.toUpperCase()}</div>
+          <div>{globalData.market_cap_percentage.btc.toFixed(2)}% BTC</div>
+          <div>{globalData.market_cap_percentage.eth.toFixed(2)}% ETH</div>
+        </div>
+      )}
+
       <div className="flex justify-between mt-3 p-5">
         <div>
           <div className="space-x-10">

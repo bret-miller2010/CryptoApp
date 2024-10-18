@@ -4,7 +4,7 @@ import CoinDetails from "./components/MainPageComponents/CoinDetails";
 import CoinStatistics from "./components/MainPageComponents/CoinStatistics";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import LineChart from "./components/LineChart/LineChart";
-import { getCoinInformation, getBitCoinData } from "./api";
+import { getCoinInformation, getBitCoinData, getGlobalData } from "./api";
 
 export default function Home() {
   const {
@@ -13,9 +13,12 @@ export default function Home() {
     bitCoinData,
     setBitCoinData,
     currency,
-    LoadUserList,
+    loadUserList,
+    setGlobalData,
   } = useCrypto();
   const [selectedDays, setSelectedDays] = useState("30");
+  const [statisticsValue, setStatisticsValue] = useState(0);
+  const [detailsValue, setDetailsValue] = useState(0);
 
   const collectMarketData = async () => {
     const data = await getCoinInformation(currency);
@@ -27,24 +30,78 @@ export default function Home() {
     setBitCoinData(data);
   };
 
+  const collectGlobalData = async () => {
+    const { data } = await getGlobalData();
+    setGlobalData(data);
+  };
+
   const setDays = (days) => {
     setSelectedDays(days.target.value);
+  };
+
+  const updateDetailsChart = (amount) => {
+    if (detailsValue + amount < 0) {
+      setDetailsValue(0);
+    } else if (detailsValue + amount > 49) {
+      setDetailsValue(40);
+    } else {
+      setDetailsValue(detailsValue + amount);
+    }
+  };
+
+  const updateStatisticsChart = (amount) => {
+    if (statisticsValue + amount < 0) {
+      setStatisticsValue(0);
+    } else if (statisticsValue + amount > 49) {
+      setStatisticsValue(43);
+    } else {
+      setStatisticsValue(statisticsValue + amount);
+    }
   };
 
   useEffect(() => {
     collectMarketData();
     collectBitCoinData();
-    LoadUserList();
+    collectGlobalData();
+    loadUserList();
   }, []);
 
   return (
     <main>
       <div className="bg-green p-5">
         <div className="flex items-center flex-col">
-          <div className="flex overflow-scroll overflow-y-hidden w-1/2">
-            {marketData.map((coin) => (
-              <CoinStatistics key={coin.id} data={coin} />
-            ))}
+          <div className="flex p-8 rounded-3xl w-full justify-center items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="size-20 mr-5 bg-[#181825] rounded-full"
+              onClick={() => updateStatisticsChart(-7)}
+            >
+              <path
+                fillRule="evenodd"
+                d="M7.28 7.72a.75.75 0 0 1 0 1.06l-2.47 2.47H21a.75.75 0 0 1 0 1.5H4.81l2.47 2.47a.75.75 0 1 1-1.06 1.06l-3.75-3.75a.75.75 0 0 1 0-1.06l3.75-3.75a.75.75 0 0 1 1.06 0Z"
+                clipRule="evenodd"
+              />
+            </svg>
+            {marketData.map((coin, index) => {
+              if (index >= statisticsValue && index <= statisticsValue + 6) {
+                return <CoinStatistics key={coin.id} data={coin} />;
+              }
+            })}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="size-20 bg-[#181825] rounded-full"
+              onClick={() => updateStatisticsChart(7)}
+            >
+              <path
+                fillRule="evenodd"
+                d="M16.72 7.72a.75.75 0 0 1 1.06 0l3.75 3.75a.75.75 0 0 1 0 1.06l-3.75 3.75a.75.75 0 1 1-1.06-1.06l2.47-2.47H3a.75.75 0 0 1 0-1.5h16.19l-2.47-2.47a.75.75 0 0 1 0-1.06Z"
+                clipRule="evenodd"
+              />
+            </svg>
           </div>
           <LineChart
             chartData={bitCoinData.prices}
@@ -63,7 +120,23 @@ export default function Home() {
             6M
           </button>
         </div>
-        <div className="flex justify-between text-white mt-2.5 mx-2 p-2 rounded-2xl  bg-[#181825] mt-5">
+        <div className="flex justify-center items-center mt-10">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="size-20 bg-[#181825] rounded-full"
+            onClick={() => updateDetailsChart(-10)}
+          >
+            <path
+              fillRule="evenodd"
+              d="M11.47 2.47a.75.75 0 0 1 1.06 0l3.75 3.75a.75.75 0 0 1-1.06 1.06l-2.47-2.47V21a.75.75 0 0 1-1.5 0V4.81L8.78 7.28a.75.75 0 0 1-1.06-1.06l3.75-3.75Z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
+
+        <div className="flex justify-between text-white mt-2.5 p-2 rounded-2xl  bg-[#181825] mt-5">
           <div className="flex justify-between items-center w-1/5 text-center">
             <div className="w-10">#</div>
             <div className="w-full">
@@ -82,10 +155,25 @@ export default function Home() {
             <div className="w-1/4">Graph</div>
           </div>
         </div>
-        <div className="mt-4 h-[672px] space-y-2">
-          {marketData.map((coin, index) => (
-            <CoinDetails key={coin.id} data={coin} spot={index} />
-          ))}
+        <div className="mt-4 space-y-2 flex justify-center items-center flex-col w-full">
+          {marketData.map((coin, index) => {
+            if (index >= detailsValue && index <= detailsValue + 9) {
+              return <CoinDetails key={coin.id} data={coin} spot={index} />;
+            }
+          })}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="size-20 bg-[#181825] rounded-full"
+            onClick={() => updateDetailsChart(10)}
+          >
+            <path
+              fillRule="evenodd"
+              d="M12 2.25a.75.75 0 0 1 .75.75v16.19l2.47-2.47a.75.75 0 1 1 1.06 1.06l-3.75 3.75a.75.75 0 0 1-1.06 0l-3.75-3.75a.75.75 0 1 1 1.06-1.06l2.47 2.47V3a.75.75 0 0 1 .75-.75Z"
+              clipRule="evenodd"
+            />
+          </svg>
         </div>
       </div>
     </main>
