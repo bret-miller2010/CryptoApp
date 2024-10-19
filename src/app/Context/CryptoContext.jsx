@@ -15,6 +15,7 @@ export const CryptoProvider = ({ children }) => {
   const [login, setLogin] = useState();
   const [currency, setCurrency] = useState("usd");
   const [listOfUsers, setListOfUsers] = useState([]);
+  const [globalData, setGlobalData] = useState();
 
   const saveUserList = () => {
     localStorage.setItem("users", JSON.stringify(listOfUsers));
@@ -51,6 +52,8 @@ export const CryptoProvider = ({ children }) => {
         setLogin,
         loadUserList,
         saveUserData,
+        globalData,
+        setGlobalData,
       }}
     >
       {children}
