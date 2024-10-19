@@ -21,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-function LineChart({ chartData, numDays, title }) {
+function LineChart({ chartData, numDays, title = "" }) {
   if (!chartData) {
     return <div className="text-red-500">Please wait. Loading data.</div>;
   }

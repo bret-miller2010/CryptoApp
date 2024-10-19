@@ -47,7 +47,7 @@ const NavBar = () => {
     collectMarketData();
     collectBitCoinData();
     collectGlobalData();
-    setTimeout(collectData, 60000);
+    setTimeout(collectData, 180000);
   };
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const NavBar = () => {
   }, []);
 
   return (
-    <main className="text-white mb-14">
+    <main className="text-white mb-14 text-sm">
       {globalData && (
         <div className="w-screen h-10 bg-[#474792] flex items-center justify-center space-x-28 ">
           <div>Coins: {globalData.active_cryptocurrencies}</div>
@@ -73,15 +73,22 @@ const NavBar = () => {
         </div>
       )}
 
-      <div className="flex justify-between mt-3 p-5">
-        <div>
-          <div className="space-x-10">
-            <Link href="/">Home</Link>
-            <Link href="/Portfolio">Portfolio</Link>
-            <Link href="/Convertor">Convertor</Link>
+      <div className="flex justify-between h-12 px-10 bg-[#181825] items-center">
+        <div className="w-[1000px] h-full">
+          <div className="flex space-x-10 items-center h-full">
+            <div className="h-full hover:bg-[#202049] flex items-center px-5">
+              <Link href="/">Home</Link>
+            </div>
+            <div className="h-full hover:bg-[#202049] flex items-center px-5">
+              <Link href="/Portfolio">Portfolio</Link>
+            </div>
+            <div className="h-full hover:bg-[#202049] flex items-center px-5">
+              <Link href="/Convertor">Convertor</Link>
+            </div>
+
             <select
               defaultValue="default"
-              className="w-32 text-black bg-[#13121a] text-white"
+              className="w-32 text-black bg-[#181825] text-white hover:bg-[#202049] h-12 text-center"
               onChange={(event) => {
                 router.push(`/Currency/${event.target.value}`);
                 event.target.selectedIndex = 0;
@@ -97,7 +104,7 @@ const NavBar = () => {
               ))}
             </select>
             <select
-              className="w-16 text-black bg-[#13121a] text-white"
+              className="w-16 text-black hover:bg-[#202049] h-12 text-white bg-[#181825] text-center"
               defaultValue="usd"
               onChange={updateCurrency}
               name=""
@@ -111,8 +118,8 @@ const NavBar = () => {
             </select>
           </div>
         </div>
-        <div className="flex space-x-10">
-          <input type="text" />
+        <div className="flex space-x-10 h-full items-center">
+          <input className="h-6" type="text" />
           <AccountMenu />
         </div>
       </div>

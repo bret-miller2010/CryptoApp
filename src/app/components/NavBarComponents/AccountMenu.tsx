@@ -12,11 +12,13 @@ function BasicExample() {
   };
 
   return (
-    <div className="text-center">
-      <button onClick={() => setToggle(!toggle)}>Account Information</button>
+    <div className="text-center hover:bg-[#202049] h-full px-5">
+      <button className="h-full" onClick={() => setToggle(!toggle)}>
+        Account Information
+      </button>
       {toggle && (
         <div className="absolute">
-          <ul className="flex flex-col">
+          <ul className="flex flex-col space-y-2 mt-2">
             <Link onClick={() => setToggle(!toggle)} href="/createAccount">
               Account Creation
             </Link>

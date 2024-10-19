@@ -37,14 +37,14 @@ export default function Home() {
 
   return (
     <main>
-      <div className="bg-green p-5">
+      <div className="bg-green p-5 text-sm">
         <div className="flex items-center flex-col">
           <div className="flex p-8 rounded-3xl w-full justify-center items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="white"
-              className="size-16 mr-5"
+              className="size-16 mr-5 hover:bg-[#202049] rounded-full"
               onClick={() => updateStatisticsChart(-5)}
             >
               <path
@@ -53,16 +53,21 @@ export default function Home() {
                 clipRule="evenodd"
               />
             </svg>
-            {marketData.map((coin, index) => {
-              if (index >= statisticsValue && index <= statisticsValue + 4) {
-                return <CoinStatistics key={coin.id} data={coin} />;
-              }
-            })}
+            {marketData
+            .filter(
+              (_, index) => index >= statisticsValue && index <= statisticsValue + 4
+            )
+            .map((coin) => (
+              <CoinStatistics
+                key={coin.id}
+                data={coin}
+              />
+            ))}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="white"
-              className="size-16 ml-5"
+              className="size-16 ml-5 hover:bg-[#202049] rounded-full"
               onClick={() => updateStatisticsChart(5)}
             >
               <path
@@ -94,7 +99,7 @@ export default function Home() {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="white"
-            className="size-14"
+            className="size-14 hover:bg-[#202049] rounded-full"
             onClick={() => updateDetailsChart(-10)}
           >
             <path
@@ -107,7 +112,7 @@ export default function Home() {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="white"
-            className="size-14"
+            className="size-14 hover:bg-[#202049] rounded-full"
             onClick={() => updateDetailsChart(10)}
           >
             <path
@@ -118,31 +123,37 @@ export default function Home() {
           </svg>
         </div>
 
-        <div className="flex justify-between text-white mt-2.5 p-2 rounded-2xl  bg-[#181825] mt-5">
+        <div className="flex justify-between text-white p-2 rounded-2xl  bg-[#181825] mt-5 h-[60px]">
           <div className="flex justify-between items-center w-1/5 text-center">
             <div className="w-10">#</div>
             <div className="w-full">
               <div className="flex justify-center">Currency</div>
             </div>
           </div>
-          <div className="flex justify-between items-center w-1/2 text-center">
+          <div className="flex justify-between items-center w-1/3 text-center">
             <div className="w-1/4">Current Price</div>
             <div className="w-1/4">% Change (1H)</div>
             <div className="w-1/4">% Change (1D)</div>
             <div className="w-1/4">% Change (7D)</div>
           </div>
-          <div className="flex justify-between items-center w-1/4 text-center">
-            <div className="w-1/4">Volume vs Market Cap</div>
-            <div className="w-1/2">Circulating Supply vs Total Supply</div>
-            <div className="w-1/4">Graph</div>
+          <div className="flex justify-between items-center w-[680px] text-center">
+            <div className="w-1/3">Volume vs Market Cap</div>
+            <div className="w-1/3">Circulating Supply vs Total Supply</div>
+            <div className="w-1/3">Graph</div>
           </div>
         </div>
         <div className="mt-4 space-y-2 flex justify-center items-center flex-col w-full">
-          {marketData.map((coin, index) => {
-            if (index >= detailsValue && index <= detailsValue + 9) {
-              return <CoinDetails key={coin.id} data={coin} spot={index} />;
-            }
-          })}
+          {marketData
+            .filter(
+              (_, index) => index >= detailsValue && index <= detailsValue + 9
+            )
+            .map((coin) => (
+              <CoinDetails
+                key={coin.id}
+                data={coin}
+                spot={coin.market_cap_rank}
+              />
+            ))}
         </div>
       </div>
     </main>

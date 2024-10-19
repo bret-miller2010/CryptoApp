@@ -16,24 +16,24 @@ const CoinDetails = ({ data, spot }) => {
   const volumeVsMarketcap = ((data.total_volume / marketCap) * 100).toFixed(2);
 
   return (
-    <div className="flex justify-between text-white mx-2 p-2 rounded-2xl  bg-[#181825] w-full">
+    <div className="flex justify-between text-white mx-2 p-3 rounded-2xl  bg-[#181825] w-full h-[60px]">
       <div className="flex justify-between items-center w-1/5 text-center">
-        <div className="w-10">{spot + 1}</div>
+        <div className="w-10">{spot}</div>
         <div className="w-40 flex justify-center">
           <Image src={coinImage} width={40} height={40} alt="coin image" />
         </div>
 
-        <div className="w-60 flex justify-center">{coinName}</div>
+        <div className="w-80 flex justify-center text-sm">{coinName}</div>
       </div>
-      <div className="flex justify-between items-center w-1/2 text-center">
+      <div className="flex justify-between items-center w-1/3 text-center">
         <div className="w-1/4">${currentPrice}</div>
         <div className="w-1/4">{oneHourChange}%</div>
         <div className="w-1/4">{oneDayChange}%</div>
         <div className="w-1/4">{sevenDayChange}%</div>
       </div>
-      <div className="flex justify-around items-center w-1/4 text-center">
-        {volumeVsMarketcap}%
-        <div className="w-1/4 h-[15px] bg-white">
+      <div className="flex justify-around items-center w-[680px] text-center">
+        <div className="w-1/3">{volumeVsMarketcap}%</div>
+        <div className="w-1/3 h-[15px] bg-white">
           <div
             className="h-[15px] bg-red-500"
             style={{
@@ -41,7 +41,7 @@ const CoinDetails = ({ data, spot }) => {
             }}
           ></div>
         </div>
-        <div className="w-1/4">Graph</div>
+        <div className="w-1/3">Graph</div>
       </div>
     </div>
   );

@@ -8,13 +8,13 @@ const CoinStatistics = ({ data }) => {
   const coinImage = data.image;
 
   return (
-    <div className="h-[100px] flex justify-between items-center text-white bg-[#181825] mr-2 rounded-3xl px-2">
+    <div className="h-[110px] flex justify-between items-center text-white bg-[#181825] mr-2 rounded-3xl px-2 text-sm">
       <div className="flex justify-center w-14">
         <Image src={coinImage} width={40} height={40} alt="coin image" />
       </div>
-      <div className="w-28 text-center">
+      <div className="w-52 text-center">
         <div>
-          {coinName} ({symbol})
+          {coinName} ({symbol.toUpperCase()})
         </div>
         <div>{currentPrice}</div>
         <button value={data.id}>Click me</button>
