@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CoinDetails from "./components/MainPageComponents/CoinDetails";
 import CoinStatistics from "./components/MainPageComponents/CoinStatistics";
 import { useCrypto } from "@/app/Context/CryptoContext";
@@ -10,6 +10,41 @@ export default function Home() {
   const [selectedDays, setSelectedDays] = useState("30");
   const [statisticsValue, setStatisticsValue] = useState(0);
   const [detailsValue, setDetailsValue] = useState(0);
+  const [sortedData, setSortedData] = useState([]);
+  const [sortType, setSortType] = useState(true);
+
+  const sortBy = (event) => {
+    const sortKey = event.target.value;
+    const types = {
+      rank: "market_cap_rank",
+      one_hour: "price_change_percentage_1h_in_currency",
+      one_day: "price_change_24h",
+      current_price: "current_price",
+      seven_day: "price_change_percentage_7d_in_currency",
+      name: "name",
+    };
+
+    const sortValue = types[sortKey];
+
+    const sortedArray = marketData.toSorted((a, b) => {
+      if (sortValue === "name") {
+        if (sortType) {
+          return b[sortValue].localeCompare(a[sortValue]);
+        } else {
+          return a[sortValue].localeCompare(b[sortValue]);
+        }
+      } else {
+        if (sortType) {
+          return b[sortValue] - a[sortValue];
+        } else {
+          return a[sortValue] - b[sortValue];
+        }
+      }
+    });
+
+    setSortType(!sortType);
+    setSortedData(sortedArray);
+  };
 
   const setDays = (days) => {
     setSelectedDays(days.target.value);
@@ -35,6 +70,10 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    setSortedData(marketData);
+  }, [marketData]);
+
   return (
     <main>
       <div className="bg-green p-5 text-sm">
@@ -54,15 +93,16 @@ export default function Home() {
               />
             </svg>
             {marketData
-            .filter(
-              (_, index) => index >= statisticsValue && index <= statisticsValue + 4
-            )
-            .map((coin) => (
-              <CoinStatistics
-                key={coin.id}
-                data={coin}
-              />
-            ))}
+              .filter(
+                (_, index) =>
+                  index >= statisticsValue && index <= statisticsValue + 4
+              )
+              .map((coin) => (
+                <CoinStatistics
+                  key={coin.id}
+                  data={coin}
+                />
+              ))}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -77,11 +117,19 @@ export default function Home() {
               />
             </svg>
           </div>
-          <LineChart
-            chartData={bitCoinData.prices}
-            numDays={selectedDays}
-            title="Bitcoin"
-          />
+          <div className="flex justify-around w-full">
+            <LineChart
+              chartData={bitCoinData.prices}
+              numDays={selectedDays}
+              title="Bitcoin"
+            />
+
+            <LineChart
+              chartData={bitCoinData.prices}
+              numDays={selectedDays}
+              title="Bitcoin"
+            />
+          </div>
         </div>
         <div className="flex justify-center items-center text-white space-x-14">
           <button onClick={setDays} value={7}>
@@ -125,16 +173,32 @@ export default function Home() {
 
         <div className="flex justify-between text-white p-2 rounded-2xl  bg-[#181825] mt-5 h-[60px]">
           <div className="flex justify-between items-center w-1/5 text-center">
-            <div className="w-10">#</div>
+            <button onClick={sortBy} className="w-10" value="rank">
+              #
+            </button>
             <div className="w-full">
-              <div className="flex justify-center">Currency</div>
+              <button
+                onClick={sortBy}
+                className="flex justify-center"
+                value="name"
+              >
+                Currency
+              </button>
             </div>
           </div>
           <div className="flex justify-between items-center w-1/3 text-center">
-            <div className="w-1/4">Current Price</div>
-            <div className="w-1/4">% Change (1H)</div>
-            <div className="w-1/4">% Change (1D)</div>
-            <div className="w-1/4">% Change (7D)</div>
+            <button onClick={sortBy} className="w-1/4" value="current_price">
+              Current Price
+            </button>
+            <button onClick={sortBy} className="w-1/4" value="one_hour">
+              % Change (1H)
+            </button>
+            <button onClick={sortBy} className="w-1/4" value="one_day">
+              % Change (1D)
+            </button>
+            <button onClick={sortBy} className="w-1/4" value="seven_day">
+              % Change (7D)
+            </button>
           </div>
           <div className="flex justify-between items-center w-[680px] text-center">
             <div className="w-1/3">Volume vs Market Cap</div>
@@ -143,7 +207,7 @@ export default function Home() {
           </div>
         </div>
         <div className="mt-4 space-y-2 flex justify-center items-center flex-col w-full">
-          {marketData
+          {sortedData
             .filter(
               (_, index) => index >= detailsValue && index <= detailsValue + 9
             )
