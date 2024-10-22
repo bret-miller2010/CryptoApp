@@ -23,7 +23,7 @@ ChartJS.register(
 
 function LineChart({ chartData, numDays, title = "" }) {
   if (!chartData) {
-    return <div className="text-red-500">Please wait. Loading data.</div>;
+    return <div className="text-red-500">No data available.</div>;
   }
 
   const length = numDays;
@@ -42,7 +42,6 @@ function LineChart({ chartData, numDays, title = "" }) {
 
   return (
     <div className="chart-container">
-      <h2 style={{ textAlign: "center" }}>Line Chart</h2>
       <Line
         data={graphObject}
         options={{

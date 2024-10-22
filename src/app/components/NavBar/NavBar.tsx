@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import { useRouter } from "next/navigation";
 import { getCoinInformation } from "@/app/api";
@@ -20,6 +20,9 @@ const NavBar = () => {
     loadUserList,
   } = useCrypto();
   const router = useRouter();
+  const [filteredValue, setFilteredValue] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+  const [showData, setShowData] = useState(false);
 
   const updateCurrency = async (event) => {
     const selectedCurrency = event.target.value;
@@ -41,6 +44,20 @@ const NavBar = () => {
   const collectGlobalData = async () => {
     const { data } = await getGlobalData();
     setGlobalData(data);
+  };
+
+  const handleInputChange = (event) => {
+    const value = event.target.value;
+    if (value.length > 1) {
+      setShowData(true);
+    } else {
+      setShowData(false);
+    }
+    setFilteredValue(value);
+    const filteredMarketData = marketData.filter((coin) =>
+      coin.name.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredData(filteredMarketData);
   };
 
   const collectData = () => {
@@ -119,7 +136,31 @@ const NavBar = () => {
           </div>
         </div>
         <div className="flex space-x-10 h-full items-center">
-          <input className="h-6" type="text" />
+          <div className="flex flex-col space-y-10">
+            <input
+              onChange={handleInputChange}
+              className="h-6 text-black"
+              type="text"
+              value={filteredValue}
+            />
+            {showData && (
+              <ul className="absolute h-[100px] overflow-scroll overflow-x-hidden">
+                {filteredData.map((coin, index) => (
+                  <li
+                    onClick={() => {
+                      router.push(`/Currency/${coin.id}`);
+                      setShowData(false);
+                      setFilteredValue("");
+                    }}
+                    key={index}
+                  >
+                    {coin.name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
           <AccountMenu />
         </div>
       </div>

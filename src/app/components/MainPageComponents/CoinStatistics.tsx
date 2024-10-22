@@ -17,7 +17,9 @@ const CoinStatistics = ({ data }) => {
           {coinName} ({symbol.toUpperCase()})
         </div>
         <div>{currentPrice}</div>
-        <button value={data.id}>Click me</button>
+        <button  value={data.id}>
+          Click me
+        </button>
       </div>
       <div className="text-center w-14">{oneDayChange}</div>
     </div>

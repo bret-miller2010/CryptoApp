@@ -26,10 +26,6 @@ export default function Home() {
 
     const sortValue = types[sortKey];
 
-    // const sortedArray = marketData.toSorted((a, b) => {
-    //   return b[sortValue].localeCompare(a[sortValue]);
-    // });
-
     const sortedArray = marketData.toSorted((a, b) => {
       if (sortValue === "name") {
         if (sortType) {
@@ -74,11 +70,6 @@ export default function Home() {
     }
   };
 
-  const Test = ({ children }) => {
-    console.log(children);
-    return { children };
-  };
-
   useEffect(() => {
     setSortedData(marketData);
   }, [marketData]);
@@ -107,7 +98,10 @@ export default function Home() {
                   index >= statisticsValue && index <= statisticsValue + 4
               )
               .map((coin) => (
-                <CoinStatistics key={coin.id} data={coin} />
+                <CoinStatistics
+                  key={coin.id}
+                  data={coin}
+                />
               ))}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -123,11 +117,19 @@ export default function Home() {
               />
             </svg>
           </div>
-          <LineChart
-            chartData={bitCoinData.prices}
-            numDays={selectedDays}
-            title="Bitcoin"
-          />
+          <div className="flex justify-around w-full">
+            <LineChart
+              chartData={bitCoinData.prices}
+              numDays={selectedDays}
+              title="Bitcoin"
+            />
+
+            <LineChart
+              chartData={bitCoinData.prices}
+              numDays={selectedDays}
+              title="Bitcoin"
+            />
+          </div>
         </div>
         <div className="flex justify-center items-center text-white space-x-14">
           <button onClick={setDays} value={7}>
