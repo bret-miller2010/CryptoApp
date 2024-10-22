@@ -22,7 +22,6 @@ export const CryptoProvider = ({ children }) => {
   };
 
   const loadUserList = () => {
-    console.log(users);
     if (users) {
       setListOfUsers(users);
     } else {
