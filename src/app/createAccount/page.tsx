@@ -17,7 +17,7 @@ export default function AccountLogIn() {
       id: uid(),
       portfolio: [],
     };
-    const newList = listOfUsers;
+    const newList = [...listOfUsers];
     newList.push(user);
     setListOfUsers(newList);
     setUsername("");

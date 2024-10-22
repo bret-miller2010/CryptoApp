@@ -7,15 +7,24 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorLogin, setErrorLogin] = useState(false);
+  const [sucess, setSucess] = useState(false);
 
   const loadUser = (e) => {
     e.preventDefault();
     const users = JSON.parse(localStorage.getItem("users"));
     const loadedUser = users.find((user) => user.username === username);
     if (loadedUser) {
-      setLogin(loadedUser);
+      if (loadedUser.password === password) {
+        setLogin(loadedUser);
+        setErrorLogin(false);
+        setSucess(true);
+      } else {
+        setErrorLogin(true);
+        setSucess(false);
+      }
     } else {
       setErrorLogin(true);
+      setSucess(false);
     }
   };
 
@@ -36,7 +45,7 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             className="mt-2 text-black"
-            type="text"
+            type="password"
           />
           <div>
             <button
@@ -49,6 +58,11 @@ export default function LoginPage() {
               <div className="mt-4 text-red-400">
                 The username/password combination was did not match. <br />
                 Please try again.
+              </div>
+            )}
+            {sucess && (
+              <div className="mt-4 text-green-400">
+                You have successfully logged in.
               </div>
             )}
           </div>
