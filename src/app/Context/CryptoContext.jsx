@@ -22,6 +22,7 @@ export const CryptoProvider = ({ children }) => {
   };
 
   const loadUserList = () => {
+    const users = JSON.parse(localStorage.getItem("users"));
     if (users) {
       setListOfUsers(users);
     } else {

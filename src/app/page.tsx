@@ -3,11 +3,9 @@ import { useState, useEffect } from "react";
 import CoinDetails from "./components/MainPageComponents/CoinDetails";
 import CoinStatistics from "./components/MainPageComponents/CoinStatistics";
 import { useCrypto } from "@/app/Context/CryptoContext";
-import LineChart from "./components/LineChart/LineChart";
 
 export default function Home() {
-  const { marketData, bitCoinData } = useCrypto();
-  const [selectedDays, setSelectedDays] = useState("30");
+  const { marketData } = useCrypto();
   const [statisticsValue, setStatisticsValue] = useState(0);
   const [detailsValue, setDetailsValue] = useState(0);
   const [sortedData, setSortedData] = useState([]);
@@ -44,10 +42,6 @@ export default function Home() {
 
     setSortType(!sortType);
     setSortedData(sortedArray);
-  };
-
-  const setDays = (days) => {
-    setSelectedDays(days.target.value);
   };
 
   const updateDetailsChart = (amount) => {
@@ -98,10 +92,7 @@ export default function Home() {
                   index >= statisticsValue && index <= statisticsValue + 4
               )
               .map((coin) => (
-                <CoinStatistics
-                  key={coin.id}
-                  data={coin}
-                />
+                <CoinStatistics key={coin.id} data={coin} />
               ))}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +109,7 @@ export default function Home() {
             </svg>
           </div>
           <div className="flex justify-around w-full">
-            <LineChart
+            {/* <LineChart
               chartData={bitCoinData.prices}
               numDays={selectedDays}
               title="Bitcoin"
@@ -128,7 +119,7 @@ export default function Home() {
               chartData={bitCoinData.prices}
               numDays={selectedDays}
               title="Bitcoin"
-            />
+            /> */}
           </div>
         </div>
         <div className="flex justify-center items-center text-white space-x-14">
@@ -203,7 +194,7 @@ export default function Home() {
           <div className="flex justify-between items-center w-[680px] text-center">
             <div className="w-1/3">Volume vs Market Cap</div>
             <div className="w-1/3">Circulating Supply vs Total Supply</div>
-            <div className="w-1/3">Graph</div>
+            <div className="w-1/3">Last 7 Days</div>
           </div>
         </div>
         <div className="mt-4 space-y-2 flex justify-center items-center flex-col w-full">
