@@ -1,9 +1,10 @@
 import Image from "next/image";
-import CoinDetailsLineChart from "../LineChart/LineChart";
+import { CoinDetailsLineChart } from "../LineChart/LineChart";
+import { addCommas } from "@/app/utils/utility";
 
 const CoinDetails = ({ data, spot }) => {
   const coinName = data.name;
-  const currentPrice = Number(data.current_price).toFixed(2);
+  const currentPrice = addCommas(data.current_price,2,true);
   const oneHourChange = Number(
     data.price_change_percentage_1h_in_currency
   ).toFixed(2);

@@ -15,5 +15,5 @@ export function reduceNumber(value) {
     loops += 1;
   }
 
-  return `${sentValue.toFixed(4)} ${char[loops]}`;
+  return `${sentValue.toFixed(3)}${char[loops]}`;
 }

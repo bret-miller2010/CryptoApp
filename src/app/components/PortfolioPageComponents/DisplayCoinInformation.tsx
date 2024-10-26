@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 const DisplayCoinInformation = ({ data }) => {
   const [amount, setAmount] = useState(0);
   const [moneyValue, setMoneyValue] = useState(0);
-  const { login, setLogin, SaveUserData } = useCrypto();
+  const { login, setLogin, saveUserData } = useCrypto();
   const router = useRouter();
   const coinName = data.name;
   const coinImage = data.image;
@@ -35,7 +35,7 @@ const DisplayCoinInformation = ({ data }) => {
     };
     userData.portfolio.push(coinData);
     setLogin(userData);
-    SaveUserData(login);
+    saveUserData(login);
   };
 
   return (

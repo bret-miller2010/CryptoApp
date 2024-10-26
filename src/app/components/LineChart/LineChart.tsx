@@ -21,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-export default function CoinDetailsLineChart({ chartData }) {
+export function CoinDetailsLineChart({ chartData }) {
   if (!chartData) {
     return <div className="text-red-500">No Data.</div>;
   }
@@ -63,6 +63,42 @@ export default function CoinDetailsLineChart({ chartData }) {
           },
         }}
       />
+    </div>
+  );
+}
+
+export function MainPageLineChart({ data, numDays }) {
+  
+  const chartData = data.sparkline_in_7d.price;
+  const length = numDays;
+
+  const dataForChart = chartData.slice(chartData.length - length);
+  const graphObject = {
+    labels: Array.from({ length }, (_, index) => index + 1),
+    datasets: [
+      {
+        label: data.name,
+        data: dataForChart.map((data) => data),
+        borderColor: "black",
+        borderWidth: 1,
+      },
+    ],
+    options: {
+      plugins: {
+        title: {
+          text: "Hello testing",
+          display: true,
+        },
+        tooltip: {
+          enabled: false,
+        },
+      },
+    },
+  };
+
+  return (
+    <div className="h-[300px] w-full flex justify-center">
+      <Line data={graphObject} />
     </div>
   );
 }
