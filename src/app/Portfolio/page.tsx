@@ -4,7 +4,17 @@ import { useCrypto } from "../Context/CryptoContext";
 import Link from "next/link";
 
 export default function Portfolio() {
-  const { login } = useCrypto();
+  const { login, setLogin, saveUserList } = useCrypto();
+
+  const handleRemove = (event) => {
+    const coinIDToRemove = event.target.value;
+    const newPortfolio = { ...login };
+    newPortfolio.portfolio = newPortfolio.portfolio.filter(
+      (coin) => coin.id !== coinIDToRemove
+    );
+    setLogin(newPortfolio);
+    saveUserList();
+  };
 
   return (
     <div className="text-white mx-[15px]">
@@ -26,7 +36,13 @@ export default function Portfolio() {
           )}
           {login &&
             login.portfolio.map((coin) => {
-              return <PortfolioCoin key={coin.id} data={coin} />;
+              return (
+                <PortfolioCoin
+                  handleRemove={handleRemove}
+                  key={coin.id}
+                  data={coin}
+                />
+              );
             })}
         </div>
       </div>

@@ -1,8 +1,10 @@
 import Image from "next/image";
+import { CoinDetailsLineChart } from "../LineChart/LineChart";
+import { addCommas } from "@/app/utils/utility";
 
 const CoinDetails = ({ data, spot }) => {
   const coinName = data.name;
-  const currentPrice = Number(data.current_price).toFixed(2);
+  const currentPrice = addCommas(data.current_price,2,true);
   const oneHourChange = Number(
     data.price_change_percentage_1h_in_currency
   ).toFixed(2);
@@ -16,7 +18,7 @@ const CoinDetails = ({ data, spot }) => {
   const volumeVsMarketcap = ((data.total_volume / marketCap) * 100).toFixed(2);
 
   return (
-    <div className="flex justify-between text-white mx-2 p-3 rounded-2xl  bg-[#181825] w-full h-[60px]">
+    <div className="flex justify-between text-white p-2 rounded-2xl  bg-[#181825] w-full h-[70px]">
       <div className="flex justify-between items-center w-1/5 text-center">
         <div className="w-10">{spot}</div>
         <div className="w-40 flex justify-center">
@@ -41,7 +43,7 @@ const CoinDetails = ({ data, spot }) => {
             }}
           ></div>
         </div>
-        <div className="w-1/3">Graph</div>
+        <CoinDetailsLineChart chartData={data.sparkline_in_7d.price} />
       </div>
     </div>
   );

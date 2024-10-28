@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { getCoinInformation } from "@/app/api";
 import AccountMenu from "../NavBarComponents/AccountMenu";
 import { reduceNumber } from "@/app/utils/utility";
-import { getBitCoinData, getGlobalData } from "../../api";
+import { getGlobalData } from "../../api";
 
 const NavBar = () => {
   const {
@@ -15,7 +15,6 @@ const NavBar = () => {
     setMarketData,
     globalData,
     currency,
-    setBitCoinData,
     setGlobalData,
     loadUserList,
   } = useCrypto();
@@ -34,11 +33,6 @@ const NavBar = () => {
   const collectMarketData = async () => {
     const data = await getCoinInformation(currency);
     setMarketData(data);
-  };
-
-  const collectBitCoinData = async () => {
-    const data = await getBitCoinData();
-    setBitCoinData(data);
   };
 
   const collectGlobalData = async () => {
@@ -62,7 +56,6 @@ const NavBar = () => {
 
   const collectData = () => {
     collectMarketData();
-    collectBitCoinData();
     collectGlobalData();
     setTimeout(collectData, 180000);
   };
@@ -78,11 +71,12 @@ const NavBar = () => {
         <div className="w-screen h-10 bg-[#474792] flex items-center justify-center space-x-28 ">
           <div>Coins: {globalData.active_cryptocurrencies}</div>
           <div>
+            Total Market Cap:{" "}
             {reduceNumber(globalData.total_market_cap[currency])}{" "}
             {currency.toUpperCase()}
           </div>
           <div>
-            {reduceNumber(globalData.total_volume[currency])}{" "}
+            Total Volume: {reduceNumber(globalData.total_volume[currency])}{" "}
             {currency.toUpperCase()}
           </div>
           <div>{globalData.market_cap_percentage.btc.toFixed(2)}% BTC</div>

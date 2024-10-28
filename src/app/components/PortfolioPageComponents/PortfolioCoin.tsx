@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import Image from "next/image";
 
-const PortfolioCoin = ({ data }) => {
+const PortfolioCoin = ({ data, handleRemove }) => {
   const { marketData } = useCrypto();
   const [coin, setCoin] = useState(Object);
   const coinImage = coin.image;
@@ -71,6 +71,9 @@ const PortfolioCoin = ({ data }) => {
           </div>
         </div>
       </div>
+      <button onClick={handleRemove} value={data.id} className="mr-5">
+        X
+      </button>
     </div>
   );
 };

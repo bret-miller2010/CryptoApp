@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useCrypto } from "@/app/Context/CryptoContext";
 
 export default function LoginPage() {
-  const { setLogin } = useCrypto();
+  const { setLogin, listOfUsers } = useCrypto();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorLogin, setErrorLogin] = useState(false);
@@ -11,8 +11,7 @@ export default function LoginPage() {
 
   const loadUser = (e) => {
     e.preventDefault();
-    const users = JSON.parse(localStorage.getItem("users"));
-    const loadedUser = users.find((user) => user.username === username);
+    const loadedUser = listOfUsers.find((user) => user.username === username);
     if (loadedUser) {
       if (loadedUser.password === password) {
         setLogin(loadedUser);

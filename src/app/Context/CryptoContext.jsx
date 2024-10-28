@@ -10,7 +10,6 @@ export function useCrypto() {
 
 export const CryptoProvider = ({ children }) => {
   const [marketData, setMarketData] = useState([]);
-  const [bitCoinData, setBitCoinData] = useState([]);
   const [userAssetData, setUserAssetData] = useState([]);
   const [login, setLogin] = useState();
   const [currency, setCurrency] = useState("usd");
@@ -22,6 +21,7 @@ export const CryptoProvider = ({ children }) => {
   };
 
   const loadUserList = () => {
+    const users = JSON.parse(localStorage.getItem("users"));
     if (users) {
       setListOfUsers(users);
     } else {
@@ -42,8 +42,6 @@ export const CryptoProvider = ({ children }) => {
       value={{
         marketData,
         setMarketData,
-        bitCoinData,
-        setBitCoinData,
         userAssetData,
         setUserAssetData,
         currency,

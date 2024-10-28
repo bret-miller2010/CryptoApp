@@ -21,35 +21,41 @@ ChartJS.register(
   Legend
 );
 
-function LineChart({ chartData, numDays, title = "" }) {
+export function CoinDetailsLineChart({ chartData }) {
   if (!chartData) {
-    return <div className="text-red-500">No data available.</div>;
+    return <div className="text-red-500">No Data.</div>;
   }
 
-  const length = numDays;
-  const dataForChart = chartData.slice(chartData.length - numDays);
+  const length = 7;
+  const dataForChart = chartData.slice(chartData.length - length);
   const graphObject = {
     labels: Array.from({ length }, (_, index) => index + 1),
     datasets: [
       {
-        label: `${title} price over ${numDays} day(s)`,
-        data: dataForChart.map((price) => price[1]),
+        data: dataForChart.map((data) => data),
         borderColor: "black",
-        borderWidth: 2,
+        borderWidth: 1,
       },
     ],
   };
 
   return (
-    <div className="chart-container">
+    <div className="h-[70px] flex justify-center w-1/3">
       <Line
         data={graphObject}
         options={{
+          scales: {
+            y: {
+              display: false,
+            },
+            x: {
+              display: false,
+            },
+          },
           responsive: true,
           plugins: {
             title: {
-              display: true,
-              text: `Bitcoin price over ${length} days`,
+              display: false,
             },
             legend: {
               display: false,
@@ -61,4 +67,38 @@ function LineChart({ chartData, numDays, title = "" }) {
   );
 }
 
-export default LineChart;
+export function MainPageLineChart({ data, numDays }) {
+  
+  const chartData = data.sparkline_in_7d.price;
+  const length = numDays;
+
+  const dataForChart = chartData.slice(chartData.length - length);
+  const graphObject = {
+    labels: Array.from({ length }, (_, index) => index + 1),
+    datasets: [
+      {
+        label: data.name,
+        data: dataForChart.map((data) => data),
+        borderColor: "black",
+        borderWidth: 1,
+      },
+    ],
+    options: {
+      plugins: {
+        title: {
+          text: "Hello testing",
+          display: true,
+        },
+        tooltip: {
+          enabled: false,
+        },
+      },
+    },
+  };
+
+  return (
+    <div className="h-[300px] w-full flex justify-center">
+      <Line data={graphObject} />
+    </div>
+  );
+}

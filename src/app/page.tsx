@@ -3,15 +3,31 @@ import { useState, useEffect } from "react";
 import CoinDetails from "./components/MainPageComponents/CoinDetails";
 import CoinStatistics from "./components/MainPageComponents/CoinStatistics";
 import { useCrypto } from "@/app/Context/CryptoContext";
-import LineChart from "./components/LineChart/LineChart";
+import { MainPageLineChart } from "./components/LineChart/LineChart";
 
 export default function Home() {
-  const { marketData, bitCoinData } = useCrypto();
-  const [selectedDays, setSelectedDays] = useState("30");
+  const { marketData } = useCrypto();
   const [statisticsValue, setStatisticsValue] = useState(0);
+  const [selectedDays, setSelectedDays] = useState("30");
   const [detailsValue, setDetailsValue] = useState(0);
   const [sortedData, setSortedData] = useState([]);
   const [sortType, setSortType] = useState(true);
+  const [graphData, setGraphData] = useState();
+  const [selectedChart, setSelectedChart] = useState();
+
+  const keyUpHandler = ({ key }) => {
+    if (key === "ArrowRight") {
+      updateStatisticsChart(5);
+    } else if (key === "ArrowLeft") {
+      updateStatisticsChart(-5);
+    } else if (key === "ArrowUp") {
+      updateDetailsChart(-10);
+    } else if (key === "ArrowDown") {
+      updateDetailsChart(10);
+    }
+  };
+
+  document.addEventListener("keyup", keyUpHandler);
 
   const sortBy = (event) => {
     const sortKey = event.target.value;
@@ -48,6 +64,13 @@ export default function Home() {
 
   const setDays = (days) => {
     setSelectedDays(days.target.value);
+  };
+
+  const addToGraph = (event) => {
+    const coinWanted = event.target.id;
+    const coinToAdd = marketData.find((coin) => coin.id === coinWanted);
+    setGraphData(coinToAdd);
+    setSelectedChart(coinToAdd.name);
   };
 
   const updateDetailsChart = (amount) => {
@@ -101,6 +124,8 @@ export default function Home() {
                 <CoinStatistics
                   key={coin.id}
                   data={coin}
+                  selected={selectedChart}
+                  handleClick={addToGraph}
                 />
               ))}
             <svg
@@ -118,17 +143,9 @@ export default function Home() {
             </svg>
           </div>
           <div className="flex justify-around w-full">
-            <LineChart
-              chartData={bitCoinData.prices}
-              numDays={selectedDays}
-              title="Bitcoin"
-            />
-
-            <LineChart
-              chartData={bitCoinData.prices}
-              numDays={selectedDays}
-              title="Bitcoin"
-            />
+            {graphData && (
+              <MainPageLineChart data={graphData} numDays={selectedDays} />
+            )}
           </div>
         </div>
         <div className="flex justify-center items-center text-white space-x-14">
@@ -203,7 +220,7 @@ export default function Home() {
           <div className="flex justify-between items-center w-[680px] text-center">
             <div className="w-1/3">Volume vs Market Cap</div>
             <div className="w-1/3">Circulating Supply vs Total Supply</div>
-            <div className="w-1/3">Graph</div>
+            <div className="w-1/3">Last 7 Days</div>
           </div>
         </div>
         <div className="mt-4 space-y-2 flex justify-center items-center flex-col w-full">
