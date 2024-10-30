@@ -20,7 +20,13 @@ export default function Portfolio() {
     <div className="text-white mx-[15px]">
       <div className="flex flex-col mt-5">
         <div className="flex justify-between px-2.5 mt-10">
-          <p>Your Statistics</p>
+          <p>Your Portfolio</p>
+          <Link
+            className="flex justify-center items-center h-[30px] bg-[#3a3978] px-10 rounded-md"
+            href="/Portfolio/EditAssets"
+          >
+            Edit Portfolio Data
+          </Link>
           <Link
             className="flex justify-center items-center h-[30px] bg-[#3a3978] px-10 rounded-md"
             href="/Portfolio/AddAsset"
