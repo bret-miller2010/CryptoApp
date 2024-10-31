@@ -13,9 +13,9 @@ const PortfolioCoin = ({ data, handleRemove }) => {
   };
 
   const findBalance = () => {
-    const totalPurchase = data.totalCoins * data.totalValue;
-    const currentValue = coin.current_price * data.totalCoins;
-    return (currentValue - totalPurchase).toFixed(2);
+    const totalPurchase = data.total_coins * data.initial_value;
+    const currentValue = coin.current_price * data.total_coins;
+    return (currentValue - totalPurchase);
   };
 
   useEffect(() => {
@@ -54,15 +54,17 @@ const PortfolioCoin = ({ data, handleRemove }) => {
           <div className="flex justify-between text-xs">
             <div className="flex justify-center items-center flex-col">
               <div>Total Coins</div>
-              <div>{data.totalCoins}</div>
+              <div>{data.total_coins}</div>
             </div>
             <div className="flex justify-center items-center flex-col">
               <div>Original Price</div>
-              <div>${data.totalValue}</div>
+              <div>${data.initial_value}</div>
             </div>
             <div className="flex justify-center items-center flex-col">
               <div>Current Valuation</div>
-              <div>${(data.totalCoins * coin.current_price)?.toFixed(2)}</div>
+              <div>
+                ${data.total_coins * coin.current_price}
+              </div>
             </div>
             <div className="flex justify-center items-center flex-col">
               <div>Gain/Loss</div>

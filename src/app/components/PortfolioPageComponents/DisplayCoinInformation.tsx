@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import { uid } from "uid";
 import { useRouter } from "next/navigation";
+import { addCommas } from "@/app/utils/utility";
 
 const DisplayCoinInformation = ({ data }) => {
   const [amount, setAmount] = useState(0);
@@ -12,7 +13,7 @@ const DisplayCoinInformation = ({ data }) => {
   const router = useRouter();
   const coinName = data.name;
   const coinImage = data.image;
-  const currentPrice = data.current_price;
+  const currentPrice = addCommas(data.current_price,2,true);
   const dailyPriceChange = data.price_change_percentage_24h.toFixed(2);
   const symbol = data.symbol;
 
@@ -27,9 +28,9 @@ const DisplayCoinInformation = ({ data }) => {
   const addCoinData = () => {
     const userData = login;
     const coinData = {
-      coin: coinName,
-      totalCoins: amount,
-      totalValue: moneyValue,
+      name: coinName,
+      total_coins: amount,
+      initial_value: moneyValue,
       id: uid(),
       coinID: data.id,
     };
@@ -45,34 +46,42 @@ const DisplayCoinInformation = ({ data }) => {
           {coinName}
           <Image src={coinImage} width={40} height={40} alt="coin image" />
         </div>
-        <div className="w-3/4 flex justify-around flex-col h-full items-center">
+        <div className="w-3/4 flex justify-around flex-col h-full items-center px-24">
           <div>Information related to {coinName}</div>
-          <div className="flex justify-around flex-col items-center w-full">
-            <div>Current Price: {currentPrice}</div>
-            <div>Price Change (24h): {dailyPriceChange}%</div>
-            <div>Symbol: {symbol}</div>
+          <div className="flex justify-between items-center w-full">
+            <div className="space-y-1">
+              <div>Current Price: </div>
+              <div>Price Change (24h): </div>
+              <div>Symbol: </div>
+            </div>
+            <div className="space-y-1 flex flex-col items-end">
+              <div>${currentPrice}</div>
+              <div>{dailyPriceChange}%</div>
+              <div>{symbol.toUpperCase()}</div>
+            </div>
           </div>
 
-          <div className="w-full flex flex-col justify-center items-center space-y-4">
-            <div className="flex space-x-10">
+          <div className="w-full flex justify-between items-center w-full">
+            <div className="space-y-1">
               <div>Enter number of coins you have: </div>
+              <div>Average cost per coin: </div>
+              <div>Initial Value :</div>
+            </div>
+            <div className="space-y-1 flex flex-col items-end">
               <input
-                className="w-[50px] text-black text-center"
+                className="w-[75px] text-black text-center"
                 type="number"
                 value={amount}
                 onChange={changeAmountToAdd}
               />
-            </div>
-            <div className="flex space-x-10">
-              <div>Enter average price per coin: </div>
               <input
-                className="w-[100px] text-black text-center"
+                className="w-[75px] text-black text-center"
                 type="number"
                 value={moneyValue}
                 onChange={changeMoneyValue}
               />
+              <div>${amount * moneyValue}</div>
             </div>
-            <div>Total Value : ${amount * moneyValue}</div>
           </div>
         </div>
       </div>
