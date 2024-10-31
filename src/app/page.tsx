@@ -15,20 +15,6 @@ export default function Home() {
   const [graphData, setGraphData] = useState();
   const [selectedChart, setSelectedChart] = useState();
 
-  const keyUpHandler = ({ key }) => {
-    if (key === "ArrowRight") {
-      updateStatisticsChart(5);
-    } else if (key === "ArrowLeft") {
-      updateStatisticsChart(-5);
-    } else if (key === "ArrowUp") {
-      updateDetailsChart(-10);
-    } else if (key === "ArrowDown") {
-      updateDetailsChart(10);
-    }
-  };
-
-  document.addEventListener("keyup", keyUpHandler);
-
   const sortBy = (event) => {
     const sortKey = event.target.value;
     const types = {

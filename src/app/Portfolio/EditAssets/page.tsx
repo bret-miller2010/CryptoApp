@@ -29,7 +29,7 @@ const EditAssets = () => {
         <option key="default" value="default" disabled>
           Select an asset
         </option>
-        {login.portfolio.map((coin) => (
+        {login && login.portfolio.map((coin) => (
           <option key={coin.id} className="text-black" value={coin.id}>
             {coin.name}
           </option>
