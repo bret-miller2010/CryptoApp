@@ -129,21 +129,26 @@ export default function Home() {
             </svg>
           </div>
           <div className="flex justify-around w-full">
+            {!graphData && (
+              <div className="text-white my-5 text-lg">Please select a coin from above to display price data.</div>
+            )}
             {graphData && (
-              <MainPageLineChart data={graphData} numDays={selectedDays} />
+              <div className="flex flex-col justify-around w-full">
+                <MainPageLineChart data={graphData} numDays={selectedDays} />
+                <div className="flex justify-center items-center text-white space-x-14">
+                  <button onClick={setDays} value={7}>
+                    7D
+                  </button>
+                  <button onClick={setDays} value={30}>
+                    30D
+                  </button>
+                  <button onClick={setDays} value={180}>
+                    6M
+                  </button>
+                </div>
+              </div>
             )}
           </div>
-        </div>
-        <div className="flex justify-center items-center text-white space-x-14">
-          <button onClick={setDays} value={7}>
-            7D
-          </button>
-          <button onClick={setDays} value={30}>
-            30D
-          </button>
-          <button onClick={setDays} value={180}>
-            6M
-          </button>
         </div>
         <div className="flex justify-center items-center mt-12 space-x-20">
           <svg
