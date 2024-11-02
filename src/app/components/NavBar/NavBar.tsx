@@ -22,6 +22,7 @@ const NavBar = () => {
   const [filteredValue, setFilteredValue] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [showData, setShowData] = useState(false);
+  const [toggle, setToggle] = useState(true);
 
   const updateCurrency = async (event) => {
     const selectedCurrency = event.target.value;
@@ -156,6 +157,12 @@ const NavBar = () => {
           </div>
 
           <AccountMenu />
+          <div className="w-[100px] h-[30px] flex justify-center items-center bg-white rounded-full">
+            <button
+              className={`w-[50px] h-[25px] rounded-full ${toggle ? "duration-300 translate-x-5 bg-[#474792]" : "duration-300 -translate-x-5 bg-blue-500"}`}
+              onClick={() => setToggle(!toggle)}
+            ></button>
+          </div>
         </div>
       </div>
     </main>
