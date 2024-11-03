@@ -5,6 +5,7 @@ const CoinMarketInformation = ({
   coin,
   coinData: { market_data: data },
   currency,
+  darkMode
 }) => {
   const marketCap = addCommas(data.market_cap[currency], 0, true);
   const fullyDilutedValuation = addCommas(
@@ -21,7 +22,7 @@ const CoinMarketInformation = ({
   const symbol = coin.symbol.toUpperCase();
 
   return (
-    <div className="text-white flex w-[500px] bg-[#1e1932] rounded-lg flex-col h-[370px] justify-center items-center text-sm">
+    <div className={`text-white flex w-[500px] ${darkMode ? "duration-300 bg-[#1e1932]" : "duration-300 bg-[#5492f7]"} rounded-lg flex-col h-[370px] justify-center items-center text-sm`}>
       <div className="flex w-[350px]">
         <div className="flex justify-between w-full">
           <div className="space-y-6">

@@ -3,7 +3,7 @@ import { useCrypto } from "@/app/Context/CryptoContext";
 import Image from "next/image";
 
 const PortfolioCoin = ({ data, handleRemove }) => {
-  const { marketData } = useCrypto();
+  const { marketData, darkMode } = useCrypto();
   const [coin, setCoin] = useState(Object);
   const coinImage = coin.image;
 
@@ -23,7 +23,7 @@ const PortfolioCoin = ({ data, handleRemove }) => {
   }, []);
 
   return (
-    <div className="flex items-center w-[700px] bg-[#3a3978] h-[200px] rounded-full">
+    <div className={`flex items-center w-[700px] ${darkMode ? "duration-300 bg-[#474792]" : "duration-300 bg-[#0a5adb]"} h-[200px] rounded-full`}>
       <div className="w-1/5 flex flex-col justify-center items-center space-y-2">
         <Image src={coinImage} width={40} height={40} alt="coin image" />
         <div className="flex space-x-1 justify-center items-center">
