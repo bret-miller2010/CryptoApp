@@ -6,11 +6,11 @@ const CoinDetails = ({ data, spot, darkMode }) => {
   const coinName = data.name;
   const currentPrice = addCommas(data.current_price, 2, true);
   const oneHourChange = Number(
-    data.price_change_percentage_1h_in_currency
+    data.price_change_percentage_1h_in_currency,
   ).toFixed(2);
   const oneDayChange = Number(data.price_change_percentage_24h).toFixed(2);
   const sevenDayChange = Number(
-    data.price_change_percentage_7d_in_currency
+    data.price_change_percentage_7d_in_currency,
   ).toFixed(2);
   const coinImage = data.image;
   const marketCap = data.market_cap;

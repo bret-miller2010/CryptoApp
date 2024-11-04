@@ -18,7 +18,7 @@ const EditAssetComponent = ({ data }) => {
       coinID: data.coinID,
     };
     const spot = userData.portfolio.findIndex(
-      (coin) => coin.id === coinData.id
+      (coin) => coin.id === coinData.id,
     );
     userData.portfolio[spot] = coinData;
     setLogin(userData);

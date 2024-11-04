@@ -29,14 +29,15 @@ const EditAssets = () => {
         <option key="default" value="default" disabled>
           Select an asset
         </option>
-        {login && login.portfolio.map((coin) => (
-          <option key={coin.id} className="text-black" value={coin.id}>
-            {coin.name}
-          </option>
-        ))}
+        {login &&
+          login.portfolio.map((coin) => (
+            <option key={coin.id} className="text-black" value={coin.id}>
+              {coin.name}
+            </option>
+          ))}
       </select>
 
-      {pulledCoin && <EditAssetComponent data = {pulledCoin}/>}
+      {pulledCoin && <EditAssetComponent data={pulledCoin} />}
     </div>
   );
 };

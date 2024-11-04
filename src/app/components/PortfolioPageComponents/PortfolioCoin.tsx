@@ -15,7 +15,7 @@ const PortfolioCoin = ({ data, handleRemove }) => {
   const findBalance = () => {
     const totalPurchase = data.total_coins * data.initial_value;
     const currentValue = coin.current_price * data.total_coins;
-    return (currentValue - totalPurchase);
+    return currentValue - totalPurchase;
   };
 
   useEffect(() => {
@@ -23,7 +23,9 @@ const PortfolioCoin = ({ data, handleRemove }) => {
   }, []);
 
   return (
-    <div className={`flex items-center w-[700px] ${darkMode ? "duration-300 bg-[#474792]" : "duration-300 bg-[#0a5adb]"} h-[200px] rounded-full`}>
+    <div
+      className={`flex items-center w-[700px] ${darkMode ? "duration-300 bg-[#474792]" : "duration-300 bg-[#0a5adb]"} h-[200px] rounded-full`}
+    >
       <div className="w-1/5 flex flex-col justify-center items-center space-y-2">
         <Image src={coinImage} width={40} height={40} alt="coin image" />
         <div className="flex space-x-1 justify-center items-center">
@@ -62,9 +64,7 @@ const PortfolioCoin = ({ data, handleRemove }) => {
             </div>
             <div className="flex justify-center items-center flex-col">
               <div>Current Valuation</div>
-              <div>
-                ${data.total_coins * coin.current_price}
-              </div>
+              <div>${data.total_coins * coin.current_price}</div>
             </div>
             <div className="flex justify-center items-center flex-col">
               <div>Gain/Loss</div>

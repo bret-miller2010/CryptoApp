@@ -106,7 +106,7 @@ export default function Home() {
             {marketData
               .filter(
                 (_, index) =>
-                  index >= statisticsValue && index <= statisticsValue + 4
+                  index >= statisticsValue && index <= statisticsValue + 4,
               )
               .map((coin) => (
                 <CoinStatistics
@@ -224,7 +224,7 @@ export default function Home() {
         <div className="mt-4 space-y-2 flex justify-center items-center flex-col w-full">
           {sortedData
             .filter(
-              (_, index) => index >= detailsValue && index <= detailsValue + 9
+              (_, index) => index >= detailsValue && index <= detailsValue + 9,
             )
             .map((coin) => (
               <CoinDetails
