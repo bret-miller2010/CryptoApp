@@ -28,8 +28,12 @@ export default function LoginPage() {
   };
 
   return (
-    <div className={`flex justify-center pt-20 h-screen ${darkMode ? "duration-300 bg-black" : "duration-300 bg-[#bfbfbf]"}`}>
-      <div className={`text-white ${darkMode ? "duration-300 bg-[#3a3978]" : "duration-300 bg-[#3b82f6]"} h-[600px] w-[600px] rounded-3xl text-center flex justify-center items-center flex-col`}>
+    <div
+      className={`flex justify-center pt-20 h-screen ${darkMode ? "duration-300 bg-black" : "duration-300 bg-[#bfbfbf]"}`}
+    >
+      <div
+        className={`text-white ${darkMode ? "duration-300 bg-[#3a3978]" : "duration-300 bg-[#3b82f6]"} h-[600px] w-[600px] rounded-3xl text-center flex justify-center items-center flex-col`}
+      >
         <div>Use the form below to login and view portfolio information.</div>
         <form action="" className="mt-4" onSubmit={loadUser}>
           <div>Username:</div>

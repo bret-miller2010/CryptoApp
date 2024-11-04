@@ -6,17 +6,23 @@ const CoinLinks = ({ coinData, darkMode }) => {
   return (
     <div className="text-white space-y-5 text-center">
       {firstLink && (
-        <div className={`flex justify-center items-center ${darkMode ? "duration-300 bg-[#1e1932]" : "duration-300 bg-[#5492f7]"} p-3 w-[500px] rounded-lg h-[75px]`}>
+        <div
+          className={`flex justify-center items-center ${darkMode ? "duration-300 bg-[#1e1932]" : "duration-300 bg-[#5492f7]"} p-3 w-[500px] rounded-lg h-[75px]`}
+        >
           {firstLink}
         </div>
       )}
       {secondLink && (
-        <div className={`flex justify-center items-center ${darkMode ? "duration-300 bg-[#1e1932]" : "duration-300 bg-[#5492f7]"} p-3 w-[500px] rounded-lg h-[75px]`}>
+        <div
+          className={`flex justify-center items-center ${darkMode ? "duration-300 bg-[#1e1932]" : "duration-300 bg-[#5492f7]"} p-3 w-[500px] rounded-lg h-[75px]`}
+        >
           {secondLink}
         </div>
       )}
       {thirdLink && (
-        <div className={`flex justify-center items-center ${darkMode ? "duration-300 bg-[#1e1932]" : "duration-300 bg-[#5492f7]"} p-3 w-[500px] rounded-lg h-[75px]`}>
+        <div
+          className={`flex justify-center items-center ${darkMode ? "duration-300 bg-[#1e1932]" : "duration-300 bg-[#5492f7]"} p-3 w-[500px] rounded-lg h-[75px]`}
+        >
           {thirdLink}
         </div>
       )}

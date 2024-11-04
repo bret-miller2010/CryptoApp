@@ -10,7 +10,7 @@ export default function Portfolio() {
     const coinIDToRemove = event.target.value;
     const newPortfolio = { ...login };
     newPortfolio.portfolio = newPortfolio.portfolio.filter(
-      (coin) => coin.id !== coinIDToRemove
+      (coin) => coin.id !== coinIDToRemove,
     );
     setLogin(newPortfolio);
     saveUserList();

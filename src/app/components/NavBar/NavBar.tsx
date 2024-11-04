@@ -51,7 +51,7 @@ const NavBar = () => {
     }
     setFilteredValue(value);
     const filteredMarketData = marketData.filter((coin) =>
-      coin.name.toLowerCase().includes(value.toLowerCase())
+      coin.name.toLowerCase().includes(value.toLowerCase()),
     );
     setFilteredData(filteredMarketData);
   };
@@ -70,7 +70,9 @@ const NavBar = () => {
   return (
     <main className="text-white text-sm">
       {globalData && (
-        <div className={`w-screen h-10 bg-[#474792] ${darkMode ? "bg-[#7474a5]" : "bg-[#5492f7]"} flex items-center justify-center space-x-28`}>
+        <div
+          className={`w-screen h-10 bg-[#474792] ${darkMode ? "bg-[#7474a5]" : "bg-[#5492f7]"} flex items-center justify-center space-x-28`}
+        >
           <div>Coins: {globalData.active_cryptocurrencies}</div>
           <div>
             Total Market Cap:{" "}
@@ -91,13 +93,19 @@ const NavBar = () => {
       >
         <div className="w-[1000px] h-full">
           <div className="flex space-x-10 items-center h-full">
-            <div className={`h-full ${darkMode ? "duration-300 bg-[#202049] hover:bg-[#38386e]" : "duration-300 bg-[#3b82f6] hover:bg-[#1b66dd]"} flex items-center px-5`}>
+            <div
+              className={`h-full ${darkMode ? "duration-300 bg-[#202049] hover:bg-[#38386e]" : "duration-300 bg-[#3b82f6] hover:bg-[#1b66dd]"} flex items-center px-5`}
+            >
               <Link href="/">Home</Link>
             </div>
-            <div className={`h-full ${darkMode ? "duration-300 bg-[#202049] hover:bg-[#38386e]" : "duration-300 bg-[#3b82f6] hover:bg-[#1b66dd]"} flex items-center px-5`}>
+            <div
+              className={`h-full ${darkMode ? "duration-300 bg-[#202049] hover:bg-[#38386e]" : "duration-300 bg-[#3b82f6] hover:bg-[#1b66dd]"} flex items-center px-5`}
+            >
               <Link href="/Portfolio">Portfolio</Link>
             </div>
-            <div className={`h-full ${darkMode ? "duration-300 bg-[#202049] hover:bg-[#38386e]" : "duration-300 bg-[#3b82f6] hover:bg-[#1b66dd]"} flex items-center px-5`}>
+            <div
+              className={`h-full ${darkMode ? "duration-300 bg-[#202049] hover:bg-[#38386e]" : "duration-300 bg-[#3b82f6] hover:bg-[#1b66dd]"} flex items-center px-5`}
+            >
               <Link href="/Convertor">Convertor</Link>
             </div>
 

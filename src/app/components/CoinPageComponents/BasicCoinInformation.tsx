@@ -19,7 +19,9 @@ const BasicCoinInformation = ({ coinData, currency, darkMode }) => {
   return (
     <div className="text-white flex space-x-4 justify-center">
       <div className="space-y-5">
-        <div className={`flex flex-col items-center justify-center w-[300px] h-[300px] ${darkMode ? "duration-300 bg-[#1e1932]" : "duration-300 bg-[#5492f7]"} space-y-5 rounded-lg`}>
+        <div
+          className={`flex flex-col items-center justify-center w-[300px] h-[300px] ${darkMode ? "duration-300 bg-[#1e1932]" : "duration-300 bg-[#5492f7]"} space-y-5 rounded-lg`}
+        >
           <div className="bg-[#2c2c4a] p-3 rounded-lg">
             <Image src={coinImage} width={40} height={40} alt="coin image" />
           </div>
@@ -28,11 +30,15 @@ const BasicCoinInformation = ({ coinData, currency, darkMode }) => {
             {coinName} ({symbol})
           </div>
         </div>
-        <div className={`flex justify-center items-center ${darkMode ? "duration-300 bg-[#1e1932]" : "duration-300 bg-[#5492f7]"} w-[300px] h-[50px] rounded-lg`}>
+        <div
+          className={`flex justify-center items-center ${darkMode ? "duration-300 bg-[#1e1932]" : "duration-300 bg-[#5492f7]"} w-[300px] h-[50px] rounded-lg`}
+        >
           {link}
         </div>
       </div>
-      <div className={`w-[300px] h-[370px] ${darkMode ? "duration-300 bg-[#1e1932]" : "duration-300 bg-[#5492f7]"} flex justify-center items-center flex-col rounded-lg`}>
+      <div
+        className={`w-[300px] h-[370px] ${darkMode ? "duration-300 bg-[#1e1932]" : "duration-300 bg-[#5492f7]"} flex justify-center items-center flex-col rounded-lg`}
+      >
         <div className="flex space-x-3">
           <div className={pickColor(changeIn24)}>${currentPrice}</div>
           <div className={pickColor(changeIn24)}>{changeIn24}%</div>

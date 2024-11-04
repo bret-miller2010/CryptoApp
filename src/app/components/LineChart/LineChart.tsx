@@ -18,7 +18,7 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 export function CoinDetailsLineChart({ chartData }) {
@@ -68,7 +68,6 @@ export function CoinDetailsLineChart({ chartData }) {
 }
 
 export function MainPageLineChart({ data, numDays }) {
-  
   const chartData = data.sparkline_in_7d.price;
   const length = numDays;
 

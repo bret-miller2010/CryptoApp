@@ -3,7 +3,7 @@ import { useCrypto } from "../Context/CryptoContext";
 
 export default function Settings() {
   const { darkMode, login, currency } = useCrypto();
-  
+
   return (
     <div
       className={`flex justify-center h-screen pt-20 ${darkMode ? "duration-300 bg-black" : "duration-300 bg-[#bfbfbf]"}`}
