@@ -2,9 +2,9 @@ import Image from "next/image";
 import { CoinDetailsLineChart } from "../LineChart/LineChart";
 import { addCommas } from "@/app/utils/utility";
 
-const CoinDetails = ({ data, spot }) => {
+const CoinDetails = ({ data, spot, darkMode }) => {
   const coinName = data.name;
-  const currentPrice = addCommas(data.current_price,2,true);
+  const currentPrice = addCommas(data.current_price, 2, true);
   const oneHourChange = Number(
     data.price_change_percentage_1h_in_currency
   ).toFixed(2);
@@ -18,7 +18,9 @@ const CoinDetails = ({ data, spot }) => {
   const volumeVsMarketcap = ((data.total_volume / marketCap) * 100).toFixed(2);
 
   return (
-    <div className="flex justify-between text-white p-2 rounded-2xl  bg-[#181825] w-full h-[70px]">
+    <div
+      className={` flex justify-between text-white p-2 rounded-2xl ${darkMode ? "duration-300 bg-[#181825]" : "duration-300 bg-[#3b82f6]"} w-full h-[70px]`}
+    >
       <div className="flex justify-between items-center w-1/5 text-center">
         <div className="w-10">{spot}</div>
         <div className="w-40 flex justify-center">
@@ -37,7 +39,7 @@ const CoinDetails = ({ data, spot }) => {
         <div className="w-1/3">{volumeVsMarketcap}%</div>
         <div className="w-1/3 h-[15px] bg-white">
           <div
-            className="h-[15px] bg-red-500"
+            className={`h-[15px] ${darkMode ? "duration-300 bg-[#7474a5]" : "duration-300 bg-black"}`}
             style={{
               width: `${widthValue}%`,
             }}

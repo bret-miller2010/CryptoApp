@@ -15,6 +15,7 @@ export const CryptoProvider = ({ children }) => {
   const [currency, setCurrency] = useState("usd");
   const [listOfUsers, setListOfUsers] = useState([]);
   const [globalData, setGlobalData] = useState();
+  const [darkMode, setDarkMode] = useState(true);
 
   const saveUserList = () => {
     localStorage.setItem("users", JSON.stringify(listOfUsers));
@@ -55,6 +56,8 @@ export const CryptoProvider = ({ children }) => {
         saveUserData,
         globalData,
         setGlobalData,
+        darkMode,
+        setDarkMode,
       }}
     >
       {children}

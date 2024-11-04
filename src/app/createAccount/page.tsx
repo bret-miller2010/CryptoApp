@@ -4,7 +4,7 @@ import { uid } from "uid";
 import { useCrypto } from "@/app/Context/CryptoContext";
 
 export default function AccountLogIn() {
-  const { listOfUsers, setListOfUsers, saveUserList } = useCrypto();
+  const { listOfUsers, setListOfUsers, saveUserList, darkMode } = useCrypto();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [sucess, setSucess] = useState(false);
@@ -27,13 +27,13 @@ export default function AccountLogIn() {
   };
 
   return (
-    <div className="flex justify-center items-center mt-20">
-      <div className="text-white bg-[#3a3978] h-[600px] w-[600px] rounded-3xl text-center flex justify-center items-center flex-col">
+    <div className={`flex justify-center h-screen pt-20 ${darkMode ? "duration-300 bg-[#13121a]" : "duration-300 bg-[#bfbfbf]"}`}>
+      <div className={`text-white ${darkMode ? "duration-300 bg-[#3a3978]" : "duration-300 bg-[#3b82f6]"} h-[600px] w-[600px] rounded-3xl text-center flex justify-center items-center flex-col`}>
         <div>
           Create a free account to save your portfolio information and settings.
         </div>
         <form action="" className="mt-4" onSubmit={createUser}>
-          <div>UserName:</div>
+          <div>Username:</div>
           <input
             onChange={(e) => setUsername(e.target.value)}
             value={username}

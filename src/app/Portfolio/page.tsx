@@ -4,7 +4,7 @@ import { useCrypto } from "../Context/CryptoContext";
 import Link from "next/link";
 
 export default function Portfolio() {
-  const { login, setLogin, saveUserList } = useCrypto();
+  const { login, setLogin, saveUserList, darkMode } = useCrypto();
 
   const handleRemove = (event) => {
     const coinIDToRemove = event.target.value;
@@ -17,26 +17,34 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="text-white mx-[15px]">
-      <div className="flex flex-col mt-5">
-        <div className="flex justify-between px-2.5 mt-10">
-          <p>Your Portfolio</p>
+    <div
+      className={`text-white ${darkMode ? "duration-300 bg-black" : "duration-300 bg-[#bfbfbf]"} h-screen`}
+    >
+      <div className="flex flex-col">
+        <div className="flex justify-between px-2.5 mt-10 ">
+          <p
+            className={`flex justify-center items-center h-[30px] ${darkMode ? "duration-300 bg-[#474792]" : "duration-300 bg-[#5492f7]"} px-10 rounded-full`}
+          >
+            Your Portfolio
+          </p>
           {login && (
             <Link
-              className="flex justify-center items-center h-[30px] bg-[#3a3978] px-10 rounded-md"
+              className={`flex justify-center items-center h-[30px] ${darkMode ? "duration-300 bg-[#474792]" : "duration-300 bg-[#5492f7]"} px-10 rounded-full`}
               href="/Portfolio/EditAssets"
             >
               Edit Portfolio Data
             </Link>
           )}
           <Link
-            className="flex justify-center items-center h-[30px] bg-[#3a3978] px-10 rounded-md"
+            className={`flex justify-center items-center h-[30px] ${darkMode ? "duration-300 bg-[#474792]" : "duration-300 bg-[#5492f7]"} px-10 rounded-full`}
             href="/Portfolio/AddAsset"
           >
             Add Asset
           </Link>
         </div>
-        <div className="flex items-center flex-col rounded-3xl bg-[#181825] py-5 space-y-5 mt-5">
+        <div
+          className={`flex items-center flex-col rounded-3xl ${darkMode ? "duration-300 bg-[#181825]" : "duration-300 bg-[#5492f7]"} py-5 space-y-5 mt-5`}
+        >
           {!login && (
             <div>
               There is no current user data. Click the add asset button to add.

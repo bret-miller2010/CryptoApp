@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useCrypto } from "@/app/Context/CryptoContext";
 
 export default function LoginPage() {
-  const { setLogin, listOfUsers } = useCrypto();
+  const { setLogin, listOfUsers, darkMode } = useCrypto();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorLogin, setErrorLogin] = useState(false);
@@ -28,11 +28,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex justify-center items-center mt-20">
-      <div className="text-white bg-[#3a3978] h-[600px] w-[600px] rounded-3xl text-center flex justify-center items-center flex-col">
+    <div className={`flex justify-center pt-20 h-screen ${darkMode ? "duration-300 bg-black" : "duration-300 bg-[#bfbfbf]"}`}>
+      <div className={`text-white ${darkMode ? "duration-300 bg-[#3a3978]" : "duration-300 bg-[#3b82f6]"} h-[600px] w-[600px] rounded-3xl text-center flex justify-center items-center flex-col`}>
         <div>Use the form below to login and view portfolio information.</div>
         <form action="" className="mt-4" onSubmit={loadUser}>
-          <div>UserName:</div>
+          <div>Username:</div>
           <input
             onChange={(e) => setUsername(e.target.value)}
             value={username}

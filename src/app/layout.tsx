@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <CryptoProvider>
         <body className={inter.className}>
-          <NavBar />
+        <NavBar />
           {children}
         </body>
       </CryptoProvider>

@@ -6,7 +6,7 @@ import { useCrypto } from "@/app/Context/CryptoContext";
 import { MainPageLineChart } from "./components/LineChart/LineChart";
 
 export default function Home() {
-  const { marketData } = useCrypto();
+  const { marketData, darkMode } = useCrypto();
   const [statisticsValue, setStatisticsValue] = useState(0);
   const [selectedDays, setSelectedDays] = useState("30");
   const [detailsValue, setDetailsValue] = useState(0);
@@ -84,15 +84,17 @@ export default function Home() {
   }, [marketData]);
 
   return (
-    <main>
-      <div className="bg-green p-5 text-sm">
+    <main
+      className={`${darkMode ? "duration-300 bg-[#13121a]" : "duration-300 bg-[#bfbfbf]"}`}
+    >
+      <div className="p-5 text-sm">
         <div className="flex items-center flex-col">
           <div className="flex p-8 rounded-3xl w-full justify-center items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
-              fill="white"
-              className="size-16 mr-5 hover:bg-[#202049] rounded-full"
+              fill={darkMode ? "white" : "black"}
+              className="duration-300 size-16 mr-5 hover:scale-125 rounded-full"
               onClick={() => updateStatisticsChart(-5)}
             >
               <path
@@ -112,13 +114,14 @@ export default function Home() {
                   data={coin}
                   selected={selectedChart}
                   handleClick={addToGraph}
+                  darkMode={darkMode}
                 />
               ))}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
-              fill="white"
-              className="size-16 ml-5 hover:bg-[#202049] rounded-full"
+              fill={darkMode ? "white" : "black"}
+              className="duration-300 size-16 mr-5 hover:scale-125 rounded-full"
               onClick={() => updateStatisticsChart(5)}
             >
               <path
@@ -129,28 +132,35 @@ export default function Home() {
             </svg>
           </div>
           <div className="flex justify-around w-full">
+            {!graphData && (
+              <div className="text-white my-5 text-lg">
+                Please select a coin from above to display price data.
+              </div>
+            )}
             {graphData && (
-              <MainPageLineChart data={graphData} numDays={selectedDays} />
+              <div className="flex flex-col justify-around w-full">
+                <MainPageLineChart data={graphData} numDays={selectedDays} />
+                <div className="flex justify-center items-center text-white space-x-14">
+                  <button onClick={setDays} value={7}>
+                    7D
+                  </button>
+                  <button onClick={setDays} value={30}>
+                    30D
+                  </button>
+                  <button onClick={setDays} value={180}>
+                    6M
+                  </button>
+                </div>
+              </div>
             )}
           </div>
-        </div>
-        <div className="flex justify-center items-center text-white space-x-14">
-          <button onClick={setDays} value={7}>
-            7D
-          </button>
-          <button onClick={setDays} value={30}>
-            30D
-          </button>
-          <button onClick={setDays} value={180}>
-            6M
-          </button>
         </div>
         <div className="flex justify-center items-center mt-12 space-x-20">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
-            fill="white"
-            className="size-14 hover:bg-[#202049] rounded-full"
+            fill={darkMode ? "white" : "black"}
+            className="duration-300 size-14 hover:scale-125 rounded-full"
             onClick={() => updateDetailsChart(-10)}
           >
             <path
@@ -162,8 +172,8 @@ export default function Home() {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
-            fill="white"
-            className="size-14 hover:bg-[#202049] rounded-full"
+            fill={darkMode ? "white" : "black"}
+            className="duration-300 size-14 hover:scale-125 rounded-full"
             onClick={() => updateDetailsChart(10)}
           >
             <path
@@ -174,7 +184,9 @@ export default function Home() {
           </svg>
         </div>
 
-        <div className="flex justify-between text-white p-2 rounded-2xl  bg-[#181825] mt-5 h-[60px]">
+        <div
+          className={`flex justify-between text-white p-2 rounded-2xl  ${darkMode ? "duration-300 bg-[#181825]" : "duration-300 bg-[#3b82f6]"} mt-5 h-[60px]`}
+        >
           <div className="flex justify-between items-center w-1/5 text-center">
             <button onClick={sortBy} className="w-10" value="rank">
               #
@@ -219,6 +231,7 @@ export default function Home() {
                 key={coin.id}
                 data={coin}
                 spot={coin.market_cap_rank}
+                darkMode={darkMode}
               />
             ))}
         </div>

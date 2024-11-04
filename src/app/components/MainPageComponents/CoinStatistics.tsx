@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { addCommas } from "@/app/utils/utility";
 
-const CoinStatistics = ({ data, handleClick, selected }) => {
+const CoinStatistics = ({ data, handleClick, selected, darkMode }) => {
   const coinName = data.name;
   const symbol = data.symbol;
   const currentPrice = addCommas(data.current_price, 2, true);
@@ -9,7 +9,9 @@ const CoinStatistics = ({ data, handleClick, selected }) => {
   const coinImage = data.image;
 
   const colorSelector = () => {
-    return selected === coinName ? "bg-[#7474a5]" : "bg-[#181825]";
+    return selected === coinName
+      ? `${darkMode ? "duration-300 bg-[#32324d]" : "duration-300 bg-[#06327a]"}`
+      : `${darkMode ? "duration-300 bg-[#181825]" : "duration-300 bg-[#3b82f6]"}`;
   };
 
   return (
