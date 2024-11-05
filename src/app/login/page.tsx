@@ -1,76 +1,75 @@
 "use client";
 import { useState } from "react";
 import { useCrypto } from "@/app/Context/CryptoContext";
+import { primaryColor, secondaryColor } from "../utils/utility";
 
 export default function LoginPage() {
-  const { setLogin, listOfUsers, darkMode } = useCrypto();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorLogin, setErrorLogin] = useState(false);
-  const [sucess, setSucess] = useState(false);
+   const { setLogin, listOfUsers, darkMode } = useCrypto();
+   const [username, setUsername] = useState("");
+   const [password, setPassword] = useState("");
+   const [errorLogin, setErrorLogin] = useState(false);
+   const [sucess, setSucess] = useState(false);
 
-  const loadUser = (e) => {
-    e.preventDefault();
-    const loadedUser = listOfUsers.find((user) => user.username === username);
-    if (loadedUser) {
-      if (loadedUser.password === password) {
-        setLogin(loadedUser);
-        setErrorLogin(false);
-        setSucess(true);
+   const loadUser = (e) => {
+      e.preventDefault();
+      const loadedUser = listOfUsers.find((user) => user.username === username);
+      if (loadedUser) {
+         if (loadedUser.password === password) {
+            setLogin(loadedUser);
+            setErrorLogin(false);
+            setSucess(true);
+         } else {
+            setErrorLogin(true);
+            setSucess(false);
+         }
       } else {
-        setErrorLogin(true);
-        setSucess(false);
+         setErrorLogin(true);
+         setSucess(false);
       }
-    } else {
-      setErrorLogin(true);
-      setSucess(false);
-    }
-  };
+   };
 
-  return (
-    <div
-      className={`flex justify-center pt-20 h-screen ${darkMode ? "duration-300 bg-black" : "duration-300 bg-[#bfbfbf]"}`}
-    >
-      <div
-        className={`text-white ${darkMode ? "duration-300 bg-[#3a3978]" : "duration-300 bg-[#3b82f6]"} h-[600px] w-[600px] rounded-3xl text-center flex justify-center items-center flex-col`}
-      >
-        <div>Use the form below to login and view portfolio information.</div>
-        <form action="" className="mt-4" onSubmit={loadUser}>
-          <div>Username:</div>
-          <input
-            onChange={(e) => setUsername(e.target.value)}
-            value={username}
-            className="mt-2 text-black"
-            type="text"
-          />
-          <div className="mt-4">Password:</div>
-          <input
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            className="mt-2 text-black"
-            type="password"
-          />
-          <div>
-            <button
-              type="submit"
-              className="mt-5 h-10 rounded-3xl w-40 bg-[#1e1932]"
+   return (
+      <div className={`flex justify-center pt-20 h-screen duration-300 ${primaryColor(darkMode)}`}>
+         <div
+            className={`text-white duration-300 ${secondaryColor(darkMode)} text-center h-[600px] px-20 rounded-3xl flex justify-center items-center flex-col`}
+         >
+            <div>Use the form below to login and view portfolio information.</div>
+            <form
+               action=""
+               className="mt-4"
+               onSubmit={loadUser}
             >
-              Log In
-            </button>
-            {errorLogin && (
-              <div className="mt-4 text-red-400">
-                The username/password combination was did not match. <br />
-                Please try again.
-              </div>
-            )}
-            {sucess && (
-              <div className="mt-4 text-green-400">
-                You have successfully logged in.
-              </div>
-            )}
-          </div>
-        </form>
+               <div>Username:</div>
+               <input
+                  onChange={(e) => setUsername(e.target.value)}
+                  value={username}
+                  className="mt-2 text-black"
+                  type="text"
+               />
+               <div className="mt-4">Password:</div>
+               <input
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                  className="mt-2 text-black"
+                  type="password"
+               />
+               <div>
+                  <button
+                     type="submit"
+                     className="mt-5 h-10 rounded-3xl w-40 bg-[#1e1932]"
+                  >
+                     Log In
+                  </button>
+                  {errorLogin && (
+                     <div className="mt-4 text-red-400">
+                        The username/password combination did not match. <br />
+                        Please try again.
+                     </div>
+                  )}
+                  {sucess && <div className="mt-4 text-green-400">You have successfully logged in.</div>}
+               </div>
+            </form>
+         </div>
       </div>
-    </div>
-  );
+   );
 }
