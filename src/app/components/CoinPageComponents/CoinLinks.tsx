@@ -24,6 +24,7 @@ const CoinLinks = ({ coinData, darkMode }) => {
           className={`flex justify-center items-center ${darkMode ? "duration-300 bg-[#1e1932]" : "duration-300 bg-[#5492f7]"} p-3 w-[500px] rounded-lg h-[75px]`}
         >
           {thirdLink}
+          {thirdLink}
         </div>
       )}
     </div>
