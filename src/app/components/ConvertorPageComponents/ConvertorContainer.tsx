@@ -4,10 +4,12 @@ import ConvertorDisplay from "./ConvertorDisplay";
 import ConvertorSelection from "./ConvertorSelection";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import { secondaryColor } from "@/app/utils/utility";
+import { CoinConvertorLineChart } from "../LineChart/LineChart";
 
 const ConvertorContainer = () => {
    const [leftSelection, setLeftSelection] = useState();
    const [rightSelection, setRightSelection] = useState();
+   const [numberOfDays, setNumberOfDays] = useState("30");
    const { marketData, darkMode } = useCrypto();
 
    const setLeft = (value) => {
@@ -20,6 +22,10 @@ const ConvertorContainer = () => {
       const selectedCoin = value.target.value;
       const pickedCoin = marketData.find((coin) => coin.id === selectedCoin);
       setRightSelection(pickedCoin);
+   };
+
+   const handleDaySelect = (event) => {
+      setNumberOfDays(event.target.value);
    };
 
    return (
@@ -42,17 +48,46 @@ const ConvertorContainer = () => {
                buySide={rightSelection}
             />
          </div>
-         <div className="flex flex-col w-screen justify-center items-center">
-            <div className={`flex justify-center h-[500px] w-3/4 items-center rounded-3xl duration-300 ${secondaryColor(darkMode)}`}>This is where the graph will go</div>
-            <div className="flex space-x-1 justify-center items-center mt-5 rounded-3xl p-2 duration-300">
-               <button className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}>1D</button>
-               <button className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}>7D</button>
-               <button className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}>14D</button>
-               <button className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}>1M</button>
-               <button className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}>1Y</button>
-               <button className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}>5Y</button>
+         {leftSelection && rightSelection && (
+            <div className="flex flex-col w-screen justify-center items-center">
+               <CoinConvertorLineChart
+                  left={leftSelection}
+                  right={rightSelection}
+                  numDays={numberOfDays}
+               />
+
+               <div className="flex space-x-10 justify-center items-center mt-5 rounded-3xl p-2 duration-300">
+                  <button
+                     onClick={handleDaySelect}
+                     value={7}
+                     className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}
+                  >
+                     7D
+                  </button>
+                  <button
+                     onClick={handleDaySelect}
+                     value={14}
+                     className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}
+                  >
+                     14D
+                  </button>
+                  <button
+                     onClick={handleDaySelect}
+                     value={30}
+                     className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}
+                  >
+                     1M
+                  </button>
+                  <button
+                     onClick={handleDaySelect}
+                     value={90}
+                     className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}
+                  >
+                     3M
+                  </button>
+               </div>
             </div>
-         </div>
+         )}
       </div>
    );
 };

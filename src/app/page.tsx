@@ -16,6 +16,7 @@ export default function Home() {
    const [sortType, setSortType] = useState(true);
    const [graphData, setGraphData] = useState();
    const [selectedChart, setSelectedChart] = useState();
+   const [collapsed, setCollapsed] = useState(false);
 
    const sortBy = (event) => {
       const sortKey = event.target.value;
@@ -50,8 +51,13 @@ export default function Home() {
       setSortedData(sortedArray);
    };
 
+   const isSelected = (num) => {
+      return `${num == selectedDays ? "z-10" : "z-0"}`;
+   };
+
    const setDays = (days) => {
       setSelectedDays(days.target.value);
+      setCollapsed(!collapsed);
    };
 
    const addToGraph = async (event) => {
@@ -132,43 +138,51 @@ export default function Home() {
                <div className="flex justify-around w-full mt-10">
                   {!graphData && <div className="text-white my-5 text-lg">Please select a coin from above to display price data.</div>}
                   {graphData && (
-                     <div className="flex flex-col justify-around w-full">
-                        <div className="flex">
+                     <div className="flex flex-col items-center space-y-12">
+                        <div className="flex space-x-20">
                            <MainPageLineChart
                               data={graphData}
                               numDays={selectedDays}
                               type={"price"}
-                              name={selectedChart}
+                              coin={selectedChart}
+                              chartType="Price over time"
+                              darkMode={darkMode}
                            />
                            <MainPageLineChart
                               data={graphData}
                               numDays={selectedDays}
                               type={"volume"}
-                              name={selectedChart}
+                              coin={selectedChart}
+                              chartType="Volume over time"
+                              darkMode={darkMode}
                            />
                         </div>
-                        <div className="flex justify-center items-center text-white space-x-14">
+                        <div className={"flex justify-center items-center text-white"}>
                            <button
                               onClick={setDays}
                               value={7}
+                              className={`${secondaryColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(7)} ${collapsed ? "" : "-translate-x-32"}`}
                            >
                               7D
                            </button>
                            <button
                               onClick={setDays}
                               value={30}
+                              className={`${secondaryColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(30)} ${collapsed ? "" : "-translate-x-10"}`}
                            >
                               30D
                            </button>
                            <button
                               onClick={setDays}
                               value={180}
+                              className={`${secondaryColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(180)} ${collapsed ? "" : "translate-x-10"}`}
                            >
                               6M
                            </button>
                            <button
                               onClick={setDays}
                               value={365}
+                              className={`${secondaryColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(365)} ${collapsed ? "" : "translate-x-32"}`}
                            >
                               1Y
                            </button>
@@ -177,7 +191,7 @@ export default function Home() {
                   )}
                </div>
             </div>
-            <div className="flex justify-center items-center mt-12 space-x-20">
+            <div className="flex justify-center items-center mt-20 space-x-20">
                <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -215,15 +229,20 @@ export default function Home() {
                   >
                      #
                   </button>
-                  <div className="w-full">
-                     <button
-                        onClick={sortBy}
-                        className="flex justify-center"
-                        value="name"
-                     >
-                        Currency
-                     </button>
-                  </div>
+                  <button
+                     onClick={sortBy}
+                     className="flex w-40 justify-center"
+                     value="name"
+                  >
+                     Icon
+                  </button>
+                  <button
+                     onClick={sortBy}
+                     className="w-80 flex justify-center text-sm"
+                     value="name"
+                  >
+                     Currency
+                  </button>
                </div>
                <div className="flex justify-between items-center w-1/3 text-center">
                   <button
