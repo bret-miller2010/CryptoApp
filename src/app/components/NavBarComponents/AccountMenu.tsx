@@ -2,47 +2,65 @@ import { useState } from "react";
 import Link from "next/link";
 import { useCrypto } from "@/app/Context/CryptoContext";
 
-function BasicExample() {
-  const [toggle, setToggle] = useState(false);
-  const { login, setLogin } = useCrypto();
+function AccountMenu({darkMode}) {
+   const [toggle, setToggle] = useState(false);
+   const { login, setLogin } = useCrypto();
 
-  const clearLogin = () => {
-    setToggle(!toggle);
-    setLogin();
-  };
+   const clearLogin = () => {
+      setToggle(!toggle);
+      setLogin();
+   };
 
-  return (
-    <div className="text-center hover:bg-[#202049] h-full px-5">
-      <button className="h-full" onClick={() => setToggle(!toggle)}>
-        Account Information
-      </button>
-      {toggle && (
-        <div className="absolute">
-          <ul className="flex flex-col space-y-2 mt-2">
-            <Link onClick={() => setToggle(!toggle)} href="/createAccount">
-              Account Creation
-            </Link>
-            {!login && (
-              <Link onClick={() => setToggle(!toggle)} href="/login">
-                Log In
-              </Link>
-            )}
-            {login && (
-              <Link onClick={clearLogin} href="/login">
-                Log Out
-              </Link>
-            )}
-            <Link onClick={() => setToggle(!toggle)} href="/settings">
-              Account Settings
-            </Link>
-            <Link onClick={() => setToggle(!toggle)} href="/contact">
-              Contact Us
-            </Link>
-          </ul>
-        </div>
-      )}
-    </div>
-  );
+   return (
+      <div className={`text-center ${darkMode ? "text-white" : "text-black"} hover:bg-[#8c8c8c] h-full px-5`}>
+         <button
+            className="h-full"
+            onClick={() => setToggle(!toggle)}
+         >
+            Account Information
+         </button>
+         {toggle && (
+            <div className="absolute">
+               <ul className="flex flex-col space-y-2 mt-2">
+                  <Link
+                     onClick={() => setToggle(!toggle)}
+                     href="/createAccount"
+                  >
+                     Account Creation
+                  </Link>
+                  {!login && (
+                     <Link
+                        onClick={() => setToggle(!toggle)}
+                        href="/login"
+                     >
+                        Log In
+                     </Link>
+                  )}
+                  {login && (
+                     <Link
+                        onClick={clearLogin}
+                        href="/login"
+                     >
+                        Log Out
+                     </Link>
+                  )}
+                  <Link
+                     onClick={() => setToggle(!toggle)}
+                     href="/settings"
+                  >
+                     Account Settings
+                  </Link>
+                  <Link
+                     onClick={() => setToggle(!toggle)}
+                     href="/contact"
+                  >
+                     Contact Us
+                  </Link>
+               </ul>
+            </div>
+         )}
+      </div>
+   );
 }
 
-export default BasicExample;
+export default AccountMenu;
