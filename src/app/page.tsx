@@ -4,13 +4,13 @@ import CoinDetails from "./components/MainPageComponents/CoinDetails";
 import CoinStatistics from "./components/MainPageComponents/CoinStatistics";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import { MainPageLineChart } from "./components/LineChart/LineChart";
-import { primaryColor, secondaryColor } from "./utils/utility";
+import { primaryColor, secondaryColor, textColor } from "./utils/utility";
 import { getDailyPriceFor } from "./api";
 
 export default function Home() {
    const { marketData, darkMode } = useCrypto();
    const [statisticsValue, setStatisticsValue] = useState(0);
-   const [selectedDays, setSelectedDays] = useState("30");
+   const [selectedDays, setSelectedDays] = useState("7");
    const [detailsValue, setDetailsValue] = useState(0);
    const [sortedData, setSortedData] = useState([]);
    const [sortType, setSortType] = useState(true);
@@ -55,15 +55,19 @@ export default function Home() {
       return `${num == selectedDays ? "z-10" : "z-0"}`;
    };
 
-   const setDays = (days) => {
-      setSelectedDays(days.target.value);
+   const setDays = (value) => {
+      let amountOfDays = Number(value.target.value);
+      if (amountOfDays === 1 || amountOfDays === 7) {
+         amountOfDays = amountOfDays * 24;
+      }
+      setSelectedDays(String(amountOfDays));
       setCollapsed(!collapsed);
    };
 
    const addToGraph = async (event) => {
       const coinWanted = event.target.id;
       const coinToAdd = marketData.find((coin) => coin.id === coinWanted);
-      const currentCoinData = await getDailyPriceFor(coinToAdd.id);
+      const currentCoinData = await getDailyPriceFor(coinToAdd.id, selectedDays);
       setGraphData(currentCoinData);
       setSelectedChart(coinToAdd.name);
    };
@@ -91,12 +95,12 @@ export default function Home() {
    useEffect(() => {
       setSortedData(marketData);
    }, [marketData]);
-
+   //text color for dark mode
    return (
-      <main className={`h-screen duration-300 ${primaryColor(darkMode)}`}>
+      <main className={`h-full duration-300 ${primaryColor(darkMode)}`}>
          <div className="p-5 text-sm">
             <div className="flex items-center flex-col">
-               <div className="flex p-8 rounded-3xl w-full justify-center items-center">
+               <div className="flex p-8 rounded-3xl w-full justify-center items-center mt-16">
                   <svg
                      xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 24 24"
@@ -160,29 +164,36 @@ export default function Home() {
                         <div className={"flex justify-center items-center text-white"}>
                            <button
                               onClick={setDays}
+                              value={1}
+                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(24)} ${collapsed ? "" : "-translate-x-40"}`}
+                           >
+                              24H
+                           </button>
+                           <button
+                              onClick={setDays}
                               value={7}
-                              className={`${secondaryColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(7)} ${collapsed ? "" : "-translate-x-32"}`}
+                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(168)} ${collapsed ? "" : "-translate-x-20"}`}
                            >
                               7D
                            </button>
                            <button
                               onClick={setDays}
                               value={30}
-                              className={`${secondaryColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(30)} ${collapsed ? "" : "-translate-x-10"}`}
+                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(30)} ${collapsed ? "" : "-translate-x-0"}`}
                            >
                               30D
                            </button>
                            <button
                               onClick={setDays}
                               value={180}
-                              className={`${secondaryColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(180)} ${collapsed ? "" : "translate-x-10"}`}
+                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(180)} ${collapsed ? "" : "translate-x-20"}`}
                            >
                               6M
                            </button>
                            <button
                               onClick={setDays}
                               value={365}
-                              className={`${secondaryColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(365)} ${collapsed ? "" : "translate-x-32"}`}
+                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(365)} ${collapsed ? "" : "translate-x-40"}`}
                            >
                               1Y
                            </button>
@@ -220,7 +231,7 @@ export default function Home() {
                </svg>
             </div>
 
-            <div className={`flex justify-between text-white p-2 rounded-2xl duration-300 ${secondaryColor(darkMode)} mt-5 h-[60px]`}>
+            <div className={`flex justify-between ${textColor(darkMode)} p-2 rounded-2xl duration-300 ${secondaryColor(darkMode)} mt-5 h-[60px]`}>
                <div className="flex justify-between items-center w-1/5 text-center">
                   <button
                      onClick={sortBy}

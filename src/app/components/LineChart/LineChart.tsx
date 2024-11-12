@@ -10,7 +10,7 @@ export function CoinDetailsLineChart({ chartData }) {
       return <div className="text-red-500">No Data.</div>;
    }
 
-   const length = 7;
+   const length = 168;
    const dataForChart = chartData.slice(chartData.length - length);
    const graphObject = {
       labels: Array.from({ length }, (_, index) => index + 1),

@@ -6,8 +6,12 @@ export async function getCoinInformation(currency) {
    return data;
 }
 
-export async function getDailyPriceFor(coin) {
-   const dataKey = `https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=365&interval=daily`;
+export async function getDailyPriceFor(coin, days) {
+   let daysToGrab = days;
+   if (days <= 50) {
+      daysToGrab = 50;
+   }
+   const dataKey = `https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=${daysToGrab}`;
    const { data } = await axios(dataKey);
    return data;
 }

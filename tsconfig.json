@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     "src/app/components/NavBar/styles.jsx",
     "src/app/Context/CryptoContext.jsx"
-  ],
+, "src/images/search.jsx"  ],
   "exclude": ["node_modules"]
 }
