@@ -101,7 +101,7 @@ export function MainPageLineChart({ data, numDays, type, coin, chartType, darkMo
             label: coin,
             data: dataForChart.map((data) => data),
             borderColor: "black",
-            borderWidth: 1,
+            pointRadius: 0,
          },
       ],
    };

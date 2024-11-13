@@ -11,13 +11,13 @@ import { LeftArrow, RightArrow, UpArrow, DownArrow } from "@/images/icons";
 export default function Home() {
    const { marketData, darkMode } = useCrypto();
    const [statisticsValue, setStatisticsValue] = useState(0);
-   const [selectedDays, setSelectedDays] = useState("7");
+   const [selectedDays, setSelectedDays] = useState("24");
    const [detailsValue, setDetailsValue] = useState(0);
    const [sortedData, setSortedData] = useState([]);
    const [sortType, setSortType] = useState(true);
    const [graphData, setGraphData] = useState();
    const [selectedChart, setSelectedChart] = useState();
-   const [collapsed, setCollapsed] = useState(false);
+   const [collapsed, setCollapsed] = useState(true);
 
    const sortBy = (event) => {
       const sortKey = event.target.value;
@@ -102,10 +102,13 @@ export default function Home() {
          <div className="p-5 text-sm">
             <div className="flex items-center flex-col">
                <div className="flex p-8 rounded-3xl w-full justify-center items-center mt-16">
-                  <LeftArrow
-                     handleClick={() => updateStatisticsChart(-5)}
-                     darkMode={darkMode}
-                  />
+                  <div className="duration-300 hover:scale-125">
+                     <LeftArrow
+                        handleClick={() => updateStatisticsChart(-5)}
+                        darkMode={darkMode}
+                     />
+                  </div>
+
                   {marketData
                      .filter((_, index) => index >= statisticsValue && index <= statisticsValue + 4)
                      .map((coin) => (
@@ -117,10 +120,12 @@ export default function Home() {
                            darkMode={darkMode}
                         />
                      ))}
-                  <RightArrow
-                     handleClick={() => updateStatisticsChart(5)}
-                     darkMode={darkMode}
-                  />
+                  <div className="duration-300 hover:scale-125">
+                     <RightArrow
+                        handleClick={() => updateStatisticsChart(5)}
+                        darkMode={darkMode}
+                     />
+                  </div>
                </div>
                <div className="flex justify-around w-full mt-10">
                   {!graphData && <div className="text-white my-5 text-lg">Please select a coin from above to display price data.</div>}
@@ -181,14 +186,19 @@ export default function Home() {
                </div>
             </div>
             <div className="flex justify-center items-center mt-20 space-x-20">
-               <UpArrow
-                  handleClick={() => updateDetailsChart(-10)}
-                  darkMode={darkMode}
-               />
-               <DownArrow
-                  handleClick={() => updateDetailsChart(10)}
-                  darkMode={darkMode}
-               />
+               <div className="duration-300 hover:scale-125">
+                  <UpArrow
+                     handleClick={() => updateDetailsChart(-10)}
+                     darkMode={darkMode}
+                  />
+               </div>
+
+               <div className="duration-300 hover:scale-125">
+                  <DownArrow
+                     handleClick={() => updateDetailsChart(10)}
+                     darkMode={darkMode}
+                  />
+               </div>
             </div>
 
             <div className={`flex justify-between ${textColor(darkMode)} p-2 rounded-2xl duration-300 ${secondaryColor(darkMode)} mt-5 h-[60px]`}>
