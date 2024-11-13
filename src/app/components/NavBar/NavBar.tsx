@@ -10,7 +10,7 @@ import { getGlobalData } from "../../api";
 import { SearchIcon } from "../../../images/icons";
 
 const NavBar = () => {
-   const { marketData, setCurrency, setMarketData, globalData, currency, setGlobalData, loadUserList, darkMode, setDarkMode } = useCrypto();
+   const { marketData, setCurrency, setMarketData, saveDarkMode, globalData, currency, setGlobalData, loadUserList, darkMode, setDarkMode, login } = useCrypto();
    const router = useRouter();
    const [filteredValue, setFilteredValue] = useState("");
    const [filteredData, setFilteredData] = useState([]);
@@ -21,6 +21,14 @@ const NavBar = () => {
       setCurrency(selectedCurrency);
       const data = await getCoinInformation(selectedCurrency);
       setMarketData(data);
+   };
+
+   const updateDarkModeSetting = () => {
+      const setting = !darkMode;
+      const updateUser = { ...login };
+      updateUser.dark_mode = setting;
+      saveDarkMode(updateUser);
+      setDarkMode(!darkMode);
    };
 
    const collectMarketData = async () => {
@@ -158,7 +166,7 @@ const NavBar = () => {
                <div className={`w-[100px] h-[30px] flex justify-center items-center rounded-full ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}>
                   <button
                      className={`w-[50px] h-[22px] rounded-full duration-300 ${darkMode ? "translate-x-5 bg-[#474792]" : "-translate-x-5 bg-[#ffffff]"}`}
-                     onClick={() => setDarkMode(!darkMode)}></button>
+                     onClick={updateDarkModeSetting}></button>
                </div>
             </div>
          </div>
