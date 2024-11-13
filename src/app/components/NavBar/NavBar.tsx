@@ -95,21 +95,18 @@ const NavBar = () => {
                      onChange={(event) => {
                         router.push(`/Currency/${event.target.value}`);
                         event.target.selectedIndex = 0;
-                     }}
-                  >
+                     }}>
                      <option
                         key="default"
                         value="default"
-                        disabled
-                     >
+                        disabled>
                         Select a Coin
                      </option>
                      {marketData.map((coin) => (
                         <option
                            key={coin.id}
                            className="text-white"
-                           value={coin.id}
-                        >
+                           value={coin.id}>
                            {coin.name}
                         </option>
                      ))}
@@ -119,8 +116,7 @@ const NavBar = () => {
                      defaultValue="usd"
                      onChange={updateCurrency}
                      name=""
-                     id=""
-                  >
+                     id="">
                      <option value="usd">USD</option>
                      <option value="btc">BTC</option>
                      <option value="eth">ETH</option>
@@ -150,8 +146,7 @@ const NavBar = () => {
                                  setShowData(false);
                                  setFilteredValue("");
                               }}
-                              key={coin.name}
-                           >
+                              key={coin.name}>
                               {coin.name}
                            </li>
                         ))}
@@ -163,8 +158,7 @@ const NavBar = () => {
                <div className={`w-[100px] h-[30px] flex justify-center items-center rounded-full ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}>
                   <button
                      className={`w-[50px] h-[22px] rounded-full duration-300 ${darkMode ? "translate-x-5 bg-[#474792]" : "-translate-x-5 bg-[#ffffff]"}`}
-                     onClick={() => setDarkMode(!darkMode)}
-                  ></button>
+                     onClick={() => setDarkMode(!darkMode)}></button>
                </div>
             </div>
          </div>

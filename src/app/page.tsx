@@ -148,36 +148,31 @@ export default function Home() {
                            <button
                               onClick={setDays}
                               value={1}
-                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(24)} ${collapsed ? "" : "-translate-x-40"}`}
-                           >
+                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(24)} ${collapsed ? "" : "-translate-x-40"}`}>
                               24H
                            </button>
                            <button
                               onClick={setDays}
                               value={7}
-                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(168)} ${collapsed ? "" : "-translate-x-20"}`}
-                           >
+                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(168)} ${collapsed ? "" : "-translate-x-20"}`}>
                               7D
                            </button>
                            <button
                               onClick={setDays}
                               value={30}
-                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(30)} ${collapsed ? "" : "-translate-x-0"}`}
-                           >
+                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(30)} ${collapsed ? "" : "-translate-x-0"}`}>
                               30D
                            </button>
                            <button
                               onClick={setDays}
                               value={180}
-                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(180)} ${collapsed ? "" : "translate-x-20"}`}
-                           >
+                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(180)} ${collapsed ? "" : "translate-x-20"}`}>
                               6M
                            </button>
                            <button
                               onClick={setDays}
                               value={365}
-                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(365)} ${collapsed ? "" : "translate-x-40"}`}
-                           >
+                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(365)} ${collapsed ? "" : "translate-x-40"}`}>
                               1Y
                            </button>
                         </div>
@@ -197,26 +192,23 @@ export default function Home() {
             </div>
 
             <div className={`flex justify-between ${textColor(darkMode)} p-2 rounded-2xl duration-300 ${secondaryColor(darkMode)} mt-5 h-[60px]`}>
-               <div className="flex justify-between items-center w-1/5 text-center">
+               <div className="flex justify-between items-center w-1/4 text-center">
                   <button
                      onClick={sortBy}
                      className="w-10"
-                     value="rank"
-                  >
+                     value="rank">
                      #
                   </button>
                   <button
                      onClick={sortBy}
                      className="flex w-40 justify-center"
-                     value="name"
-                  >
+                     value="name">
                      Icon
                   </button>
                   <button
                      onClick={sortBy}
                      className="w-80 flex justify-center text-sm"
-                     value="name"
-                  >
+                     value="name">
                      Currency
                   </button>
                </div>
@@ -224,33 +216,29 @@ export default function Home() {
                   <button
                      onClick={sortBy}
                      className="w-1/4"
-                     value="current_price"
-                  >
+                     value="current_price">
                      Current Price
                   </button>
                   <button
                      onClick={sortBy}
                      className="w-1/4"
-                     value="one_hour"
-                  >
+                     value="one_hour">
                      % Change (1H)
                   </button>
                   <button
                      onClick={sortBy}
                      className="w-1/4"
-                     value="one_day"
-                  >
+                     value="one_day">
                      % Change (1D)
                   </button>
                   <button
                      onClick={sortBy}
                      className="w-1/4"
-                     value="seven_day"
-                  >
+                     value="seven_day">
                      % Change (7D)
                   </button>
                </div>
-               <div className="flex justify-between items-center w-[680px] text-center">
+               <div className="flex justify-between items-center w-1/3 text-center">
                   <div className="w-1/3">Volume vs Market Cap</div>
                   <div className="w-1/3">Circulating Supply vs Total Supply</div>
                   <div className="w-1/3">Last 7 Days</div>
