@@ -7,7 +7,7 @@ import { getCoinInformation } from "@/app/api";
 import AccountMenu from "../NavBarComponents/AccountMenu";
 import { reduceNumber, secondaryColor } from "@/app/utils/utility";
 import { getGlobalData } from "../../api";
-import SearchIcon from "../../../images/SearchIcon";
+import { SearchIcon } from "../../../images/icons";
 
 const NavBar = () => {
    const { marketData, setCurrency, setMarketData, globalData, currency, setGlobalData, loadUserList, darkMode, setDarkMode } = useCrypto();
