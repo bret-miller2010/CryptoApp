@@ -31,18 +31,24 @@ export const CryptoProvider = ({ children }) => {
    };
 
    const saveDarkMode = (login) => {
-      const loadedUser = listOfUsers.find((user) => user.id === login.id);
-      const index = listOfUsers.findIndex((user) => user.id === login.id);
-      loadedUser.dark_mode = login.dark_mode;
-      listOfUsers[index] = loadedUser;
+      const newList = listOfUsers.map((user) => {
+         if (login.id === user.id) {
+            user.dark_mode = login.dark_mode;
+         }
+         return user;
+      });
+      setListOfUsers(newList);
       saveUserList();
    };
 
    const saveUserData = (login) => {
-      const loadedUser = listOfUsers.find((user) => user.id === login.id);
-      const index = listOfUsers.findIndex((user) => user.id === login.id);
-      loadedUser.portfolio = login.portfolio;
-      listOfUsers[index] = loadedUser;
+      const newList = listOfUsers.map((user) => {
+         if (login.id === user.id) {
+            user.portfolio = login.portfolio;
+         }
+         return user;
+      });
+      setListOfUsers(newList);
       saveUserList();
    };
 
