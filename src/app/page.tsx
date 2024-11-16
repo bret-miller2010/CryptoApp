@@ -6,17 +6,18 @@ import { useCrypto } from "@/app/Context/CryptoContext";
 import { MainPageLineChart } from "./components/LineChart/LineChart";
 import { primaryColor, secondaryColor, textColor } from "./utils/utility";
 import { getDailyPriceFor } from "./api";
+import { LeftArrow, RightArrow, UpArrow, DownArrow } from "@/images/icons";
 
 export default function Home() {
    const { marketData, darkMode } = useCrypto();
    const [statisticsValue, setStatisticsValue] = useState(0);
-   const [selectedDays, setSelectedDays] = useState("7");
+   const [selectedDays, setSelectedDays] = useState("24");
    const [detailsValue, setDetailsValue] = useState(0);
    const [sortedData, setSortedData] = useState([]);
    const [sortType, setSortType] = useState(true);
    const [graphData, setGraphData] = useState();
    const [selectedChart, setSelectedChart] = useState();
-   const [collapsed, setCollapsed] = useState(false);
+   const [collapsed, setCollapsed] = useState(true);
 
    const sortBy = (event) => {
       const sortKey = event.target.value;
@@ -95,25 +96,19 @@ export default function Home() {
    useEffect(() => {
       setSortedData(marketData);
    }, [marketData]);
-   //text color for dark mode
+
    return (
       <main className={`h-full duration-300 ${primaryColor(darkMode)}`}>
          <div className="p-5 text-sm">
             <div className="flex items-center flex-col">
                <div className="flex p-8 rounded-3xl w-full justify-center items-center mt-16">
-                  <svg
-                     xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 24 24"
-                     fill={darkMode ? "white" : "black"}
-                     className="duration-300 size-16 mr-5 hover:scale-125 rounded-full"
-                     onClick={() => updateStatisticsChart(-5)}
-                  >
-                     <path
-                        fillRule="evenodd"
-                        d="M7.28 7.72a.75.75 0 0 1 0 1.06l-2.47 2.47H21a.75.75 0 0 1 0 1.5H4.81l2.47 2.47a.75.75 0 1 1-1.06 1.06l-3.75-3.75a.75.75 0 0 1 0-1.06l3.75-3.75a.75.75 0 0 1 1.06 0Z"
-                        clipRule="evenodd"
+                  <div className="duration-300 hover:scale-125">
+                     <LeftArrow
+                        handleClick={() => updateStatisticsChart(-5)}
+                        darkMode={darkMode}
                      />
-                  </svg>
+                  </div>
+
                   {marketData
                      .filter((_, index) => index >= statisticsValue && index <= statisticsValue + 4)
                      .map((coin) => (
@@ -125,19 +120,12 @@ export default function Home() {
                            darkMode={darkMode}
                         />
                      ))}
-                  <svg
-                     xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 24 24"
-                     fill={darkMode ? "white" : "black"}
-                     className="duration-300 size-16 mr-5 hover:scale-125 rounded-full"
-                     onClick={() => updateStatisticsChart(5)}
-                  >
-                     <path
-                        fillRule="evenodd"
-                        d="M16.72 7.72a.75.75 0 0 1 1.06 0l3.75 3.75a.75.75 0 0 1 0 1.06l-3.75 3.75a.75.75 0 1 1-1.06-1.06l2.47-2.47H3a.75.75 0 0 1 0-1.5h16.19l-2.47-2.47a.75.75 0 0 1 0-1.06Z"
-                        clipRule="evenodd"
+                  <div className="duration-300 hover:scale-125">
+                     <RightArrow
+                        handleClick={() => updateStatisticsChart(5)}
+                        darkMode={darkMode}
                      />
-                  </svg>
+                  </div>
                </div>
                <div className="flex justify-around w-full mt-10">
                   {!graphData && <div className="text-white my-5 text-lg">Please select a coin from above to display price data.</div>}
@@ -165,36 +153,31 @@ export default function Home() {
                            <button
                               onClick={setDays}
                               value={1}
-                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(24)} ${collapsed ? "" : "-translate-x-40"}`}
-                           >
+                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(24)} ${collapsed ? "" : "-translate-x-40"}`}>
                               24H
                            </button>
                            <button
                               onClick={setDays}
                               value={7}
-                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(168)} ${collapsed ? "" : "-translate-x-20"}`}
-                           >
+                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(168)} ${collapsed ? "" : "-translate-x-20"}`}>
                               7D
                            </button>
                            <button
                               onClick={setDays}
                               value={30}
-                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(30)} ${collapsed ? "" : "-translate-x-0"}`}
-                           >
+                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(30)} ${collapsed ? "" : "-translate-x-0"}`}>
                               30D
                            </button>
                            <button
                               onClick={setDays}
                               value={180}
-                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(180)} ${collapsed ? "" : "translate-x-20"}`}
-                           >
+                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(180)} ${collapsed ? "" : "translate-x-20"}`}>
                               6M
                            </button>
                            <button
                               onClick={setDays}
                               value={365}
-                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(365)} ${collapsed ? "" : "translate-x-40"}`}
-                           >
+                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(365)} ${collapsed ? "" : "translate-x-40"}`}>
                               1Y
                            </button>
                         </div>
@@ -203,55 +186,39 @@ export default function Home() {
                </div>
             </div>
             <div className="flex justify-center items-center mt-20 space-x-20">
-               <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill={darkMode ? "white" : "black"}
-                  className="duration-300 size-14 hover:scale-125 rounded-full"
-                  onClick={() => updateDetailsChart(-10)}
-               >
-                  <path
-                     fillRule="evenodd"
-                     d="M11.47 2.47a.75.75 0 0 1 1.06 0l3.75 3.75a.75.75 0 0 1-1.06 1.06l-2.47-2.47V21a.75.75 0 0 1-1.5 0V4.81L8.78 7.28a.75.75 0 0 1-1.06-1.06l3.75-3.75Z"
-                     clipRule="evenodd"
+               <div className="duration-300 hover:scale-125">
+                  <UpArrow
+                     handleClick={() => updateDetailsChart(-10)}
+                     darkMode={darkMode}
                   />
-               </svg>
-               <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill={darkMode ? "white" : "black"}
-                  className="duration-300 size-14 hover:scale-125 rounded-full"
-                  onClick={() => updateDetailsChart(10)}
-               >
-                  <path
-                     fillRule="evenodd"
-                     d="M12 2.25a.75.75 0 0 1 .75.75v16.19l2.47-2.47a.75.75 0 1 1 1.06 1.06l-3.75 3.75a.75.75 0 0 1-1.06 0l-3.75-3.75a.75.75 0 1 1 1.06-1.06l2.47 2.47V3a.75.75 0 0 1 .75-.75Z"
-                     clipRule="evenodd"
+               </div>
+
+               <div className="duration-300 hover:scale-125">
+                  <DownArrow
+                     handleClick={() => updateDetailsChart(10)}
+                     darkMode={darkMode}
                   />
-               </svg>
+               </div>
             </div>
 
             <div className={`flex justify-between ${textColor(darkMode)} p-2 rounded-2xl duration-300 ${secondaryColor(darkMode)} mt-5 h-[60px]`}>
-               <div className="flex justify-between items-center w-1/5 text-center">
+               <div className="flex justify-between items-center w-1/4 text-center">
                   <button
                      onClick={sortBy}
                      className="w-10"
-                     value="rank"
-                  >
+                     value="rank">
                      #
                   </button>
                   <button
                      onClick={sortBy}
                      className="flex w-40 justify-center"
-                     value="name"
-                  >
+                     value="name">
                      Icon
                   </button>
                   <button
                      onClick={sortBy}
                      className="w-80 flex justify-center text-sm"
-                     value="name"
-                  >
+                     value="name">
                      Currency
                   </button>
                </div>
@@ -259,33 +226,29 @@ export default function Home() {
                   <button
                      onClick={sortBy}
                      className="w-1/4"
-                     value="current_price"
-                  >
+                     value="current_price">
                      Current Price
                   </button>
                   <button
                      onClick={sortBy}
                      className="w-1/4"
-                     value="one_hour"
-                  >
+                     value="one_hour">
                      % Change (1H)
                   </button>
                   <button
                      onClick={sortBy}
                      className="w-1/4"
-                     value="one_day"
-                  >
+                     value="one_day">
                      % Change (1D)
                   </button>
                   <button
                      onClick={sortBy}
                      className="w-1/4"
-                     value="seven_day"
-                  >
+                     value="seven_day">
                      % Change (7D)
                   </button>
                </div>
-               <div className="flex justify-between items-center w-[680px] text-center">
+               <div className="flex justify-between items-center w-1/3 text-center">
                   <div className="w-1/3">Volume vs Market Cap</div>
                   <div className="w-1/3">Circulating Supply vs Total Supply</div>
                   <div className="w-1/3">Last 7 Days</div>

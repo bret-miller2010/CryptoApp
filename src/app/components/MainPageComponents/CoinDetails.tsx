@@ -2,6 +2,7 @@ import Image from "next/image";
 import { CoinDetailsLineChart } from "../LineChart/LineChart";
 import { addCommas, priceColor } from "@/app/utils/utility";
 import { textColor, secondaryColor } from "@/app/utils/utility";
+import { GreenArrow, RedArrow } from "@/images/icons";
 
 const CoinDetails = ({ data, spot, darkMode }) => {
    const coinName = data.name;
@@ -16,7 +17,7 @@ const CoinDetails = ({ data, spot, darkMode }) => {
 
    return (
       <div className={` flex justify-between duration-300 ${textColor(darkMode)} p-2 rounded-2xl ${secondaryColor(darkMode)} w-full h-[70px]`}>
-         <div className="flex justify-between items-center w-1/5 text-center">
+         <div className="flex justify-between items-center w-1/4 text-center">
             <div className="w-10">{spot}</div>
             <div className="w-40 flex justify-center">
                <Image
@@ -31,19 +32,27 @@ const CoinDetails = ({ data, spot, darkMode }) => {
          </div>
          <div className="flex justify-between items-center w-1/3 text-center">
             <div className="w-1/4">${currentPrice}</div>
-            <div className={`w-1/4 ${priceColor(oneHourChange)}`}>{oneHourChange}%</div>
-            <div className={`w-1/4 ${priceColor(oneDayChange)}`}>{oneDayChange}%</div>
-            <div className={`w-1/4 ${priceColor(sevenDayChange)}`}>{sevenDayChange}%</div>
+            <div className={`flex justify-center space-x-1 w-1/4 ${priceColor(oneHourChange)}`}>
+               <div>{Number(oneHourChange) > 0 ? <GreenArrow /> : <RedArrow />}</div>
+               <div>{oneHourChange}%</div>
+            </div>
+            <div className={`flex justify-center space-x-1 w-1/4 ${priceColor(oneDayChange)}`}>
+               <div>{Number(oneDayChange) > 0 ? <GreenArrow /> : <RedArrow />}</div>
+               <div>{oneDayChange}%</div>
+            </div>
+            <div className={`flex justify-center space-x-1 w-1/4 ${priceColor(sevenDayChange)}`}>
+               <div>{Number(sevenDayChange) > 0 ? <GreenArrow /> : <RedArrow />}</div>
+               <div>{sevenDayChange}%</div>
+            </div>
          </div>
-         <div className="flex justify-around items-center w-[680px] text-center">
+         <div className="flex justify-between items-center w-1/3 text-center">
             <div className="w-1/3">{volumeVsMarketcap}%</div>
-            <div className="w-1/3 h-[15px] bg-white">
+            <div className="w-1/3 h-[10px] bg-[#fe8080]">
                <div
-                  className={`h-[15px] ${darkMode ? "duration-300 bg-[#7474a5]" : "duration-300 bg-black"}`}
+                  className={"h-[10px] bg-[#b20101]"}
                   style={{
                      width: `${widthValue}%`,
-                  }}
-               ></div>
+                  }}></div>
             </div>
             <CoinDetailsLineChart chartData={data.sparkline_in_7d.price} />
          </div>
