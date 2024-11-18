@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { uid } from "uid";
 import { useCrypto } from "@/app/Context/CryptoContext";
-import { primaryColor, secondaryColor } from "../utils/utility";
+import { primaryColor, secondaryColor, textColor } from "../utils/utility";
 
 export default function AccountLogIn() {
    const { listOfUsers, setListOfUsers, saveUserList, darkMode } = useCrypto();
@@ -29,8 +29,8 @@ export default function AccountLogIn() {
    };
 
    return (
-      <div className={`flex justify-center h-screen pt-20 duration-300 ${primaryColor(darkMode)}`}>
-         <div className={`text-white duration-300 ${secondaryColor(darkMode)} h-[600px] w-[600px] rounded-3xl text-center flex justify-center items-center flex-col`}>
+      <div className={`flex justify-center h-screen pt-20 duration-300 ${primaryColor(darkMode)} ${textColor(darkMode)}`}>
+         <div className={` ${secondaryColor(darkMode)} h-[600px] w-[600px] rounded-3xl text-center flex justify-center items-center flex-col`}>
             <div>Create a free account to save your portfolio information and settings.</div>
             <form
                action=""
@@ -40,20 +40,20 @@ export default function AccountLogIn() {
                <input
                   onChange={(e) => setUsername(e.target.value)}
                   value={username}
-                  className="mt-2 text-black"
+                  className="mt-2 text-black border-2 border-black"
                   type="text"
                />
                <div className="mt-4">Password:</div>
                <input
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
-                  className="mt-2 text-black"
+                  className="mt-2 text-black border-2 border-black"
                   type="text"
                />
                <div>
                   <button
                      type="submit"
-                     className="mt-5 h-10 rounded-3xl w-40 bg-[#1e1932]">
+                     className={`mt-5 h-10 rounded-3xl w-40 ${primaryColor(darkMode)}`}>
                      Create Account
                   </button>
                   {sucess && (

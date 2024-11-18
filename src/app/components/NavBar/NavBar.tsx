@@ -5,12 +5,12 @@ import { useCrypto } from "@/app/Context/CryptoContext";
 import { useRouter } from "next/navigation";
 import { getCoinInformation } from "@/app/api";
 import AccountMenu from "../NavBarComponents/AccountMenu";
-import { reduceNumber, secondaryColor } from "@/app/utils/utility";
+import { reduceNumber, secondaryColor, navBarColors } from "@/app/utils/utility";
 import { getGlobalData } from "../../api";
 import { SearchIcon } from "../../../images/icons";
 
 const NavBar = () => {
-   const { marketData, setCurrency, setMarketData, saveDarkMode, globalData, currency, setGlobalData, loadUserList, darkMode, setDarkMode, login } = useCrypto();
+   const { marketData, setCurrency, setMarketData, saveUserData, globalData, currency, setGlobalData, loadUserList, darkMode, setDarkMode, login } = useCrypto();
    const router = useRouter();
    const [filteredValue, setFilteredValue] = useState("");
    const [filteredData, setFilteredData] = useState([]);
@@ -24,11 +24,11 @@ const NavBar = () => {
    };
 
    const updateDarkModeSetting = () => {
-      const setting = !darkMode;
       const updateUser = { ...login };
+      const setting = !darkMode;
       updateUser.dark_mode = setting;
-      saveDarkMode(updateUser);
-      setDarkMode(!darkMode);
+      saveUserData(updateUser);
+      setDarkMode(setting);
    };
 
    const collectMarketData = async () => {
@@ -58,10 +58,6 @@ const NavBar = () => {
       collectGlobalData();
       setTimeout(collectData, 180000);
    };
-
-   function navBarColors(darkMode) {
-      return darkMode ? "bg-[#181825] hover:bg-[#38386e]" : "text-black bg-[#ffffff] hover:bg-[#8c8c8c]";
-   }
 
    useEffect(() => {
       loadUserList();
@@ -139,7 +135,7 @@ const NavBar = () => {
                      <SearchIcon />
                      <input
                         onChange={handleInputChange}
-                        className={`h-6 text-black rounded-lg w-40 pl-8 ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}
+                        className={`h-6 text-black rounded-lg w-40 pl-8 duration-300 ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}
                         type="text"
                         value={filteredValue}
                      />

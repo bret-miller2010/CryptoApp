@@ -30,21 +30,10 @@ export const CryptoProvider = ({ children }) => {
       }
    };
 
-   const saveDarkMode = (login) => {
-      const newList = listOfUsers.map((user) => {
-         if (login.id === user.id) {
-            user.dark_mode = login.dark_mode;
-         }
-         return user;
-      });
-      setListOfUsers(newList);
-      saveUserList();
-   };
-
    const saveUserData = (login) => {
       const newList = listOfUsers.map((user) => {
          if (login.id === user.id) {
-            user.portfolio = login.portfolio;
+            user = login;
          }
          return user;
       });
@@ -72,7 +61,6 @@ export const CryptoProvider = ({ children }) => {
             setGlobalData,
             darkMode,
             setDarkMode,
-            saveDarkMode,
          }}>
          {children}
       </CryptoContext.Provider>

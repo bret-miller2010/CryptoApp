@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useCrypto } from "@/app/Context/CryptoContext";
-import { primaryColor, secondaryColor } from "../utils/utility";
+import { primaryColor, secondaryColor, textColor } from "../utils/utility";
 
 export default function LoginPage() {
    const { setLogin, listOfUsers, darkMode, setDarkMode } = useCrypto();
@@ -31,7 +31,7 @@ export default function LoginPage() {
 
    return (
       <div className={`flex justify-center pt-20 h-screen duration-300 ${primaryColor(darkMode)}`}>
-         <div className={`text-white duration-300 ${secondaryColor(darkMode)} text-center h-[600px] px-20 rounded-3xl flex justify-center items-center flex-col`}>
+         <div className={`${textColor(darkMode)} ${secondaryColor(darkMode)} text-center h-[600px] px-20 rounded-3xl flex justify-center items-center flex-col`}>
             <div>Use the form below to login and view portfolio information.</div>
             <form
                action=""
@@ -41,20 +41,20 @@ export default function LoginPage() {
                <input
                   onChange={(e) => setUsername(e.target.value)}
                   value={username}
-                  className="mt-2 text-black"
+                  className="mt-2 text-black border-2 border-black pl-1"
                   type="text"
                />
                <div className="mt-4">Password:</div>
                <input
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
-                  className="mt-2 text-black"
+                  className="mt-2 text-black border-2 border-black pl-1"
                   type="password"
                />
                <div>
                   <button
                      type="submit"
-                     className="mt-5 h-10 rounded-3xl w-40 bg-[#1e1932]">
+                     className={`mt-5 h-10 rounded-3xl w-40 ${primaryColor(darkMode)}`}>
                      Log In
                   </button>
                   {errorLogin && (

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useCrypto } from "@/app/Context/CryptoContext";
+import { navBarColors } from "@/app/utils/utility";
 
-function AccountMenu({darkMode}) {
+function AccountMenu({ darkMode }) {
    const [toggle, setToggle] = useState(false);
    const { login, setLogin } = useCrypto();
 
@@ -12,11 +13,10 @@ function AccountMenu({darkMode}) {
    };
 
    return (
-      <div className={`text-center ${darkMode ? "text-white" : "text-black"} hover:bg-[#8c8c8c] h-full px-5`}>
+      <div className={`text-center duration-300 ${navBarColors(darkMode)} h-full px-5`}>
          <button
             className="h-full"
-            onClick={() => setToggle(!toggle)}
-         >
+            onClick={() => setToggle(!toggle)}>
             Account Information
          </button>
          {toggle && (
@@ -24,36 +24,31 @@ function AccountMenu({darkMode}) {
                <ul className="flex flex-col space-y-2 mt-2">
                   <Link
                      onClick={() => setToggle(!toggle)}
-                     href="/createAccount"
-                  >
+                     href="/createAccount">
                      Account Creation
                   </Link>
                   {!login && (
                      <Link
                         onClick={() => setToggle(!toggle)}
-                        href="/login"
-                     >
+                        href="/login">
                         Log In
                      </Link>
                   )}
                   {login && (
                      <Link
                         onClick={clearLogin}
-                        href="/login"
-                     >
+                        href="/login">
                         Log Out
                      </Link>
                   )}
                   <Link
                      onClick={() => setToggle(!toggle)}
-                     href="/settings"
-                  >
+                     href="/settings">
                      Account Settings
                   </Link>
                   <Link
                      onClick={() => setToggle(!toggle)}
-                     href="/contact"
-                  >
+                     href="/contact">
                      Contact Us
                   </Link>
                </ul>

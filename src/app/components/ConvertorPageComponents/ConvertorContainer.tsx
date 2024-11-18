@@ -3,7 +3,7 @@ import { useState } from "react";
 import ConvertorDisplay from "./ConvertorDisplay";
 import ConvertorSelection from "./ConvertorSelection";
 import { useCrypto } from "@/app/Context/CryptoContext";
-import { secondaryColor } from "@/app/utils/utility";
+import { secondaryColor, textColor } from "@/app/utils/utility";
 import { CoinConvertorLineChart } from "../LineChart/LineChart";
 
 const ConvertorContainer = () => {
@@ -30,7 +30,7 @@ const ConvertorContainer = () => {
 
    return (
       <div className="flex justify-center my-5 flex-col items-center">
-         <div className="text-center">
+         <div className={`duration-300 ${textColor(darkMode)} text-center`}>
             Select a currency you wish to sell and what you would like to convert it to. <br />
             Note: This will not actually convert your currencies
          </div>
@@ -60,29 +60,25 @@ const ConvertorContainer = () => {
                   <button
                      onClick={handleDaySelect}
                      value={7}
-                     className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}
-                  >
+                     className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}>
                      7D
                   </button>
                   <button
                      onClick={handleDaySelect}
                      value={14}
-                     className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}
-                  >
+                     className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}>
                      14D
                   </button>
                   <button
                      onClick={handleDaySelect}
                      value={30}
-                     className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}
-                  >
+                     className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}>
                      1M
                   </button>
                   <button
                      onClick={handleDaySelect}
                      value={90}
-                     className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}
-                  >
+                     className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}>
                      3M
                   </button>
                </div>
