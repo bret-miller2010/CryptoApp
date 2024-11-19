@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-import CoinDetails from "./components/MainPageComponents/CoinDetails";
-import CoinStatistics from "./components/MainPageComponents/CoinStatistics";
+import BottomCoinList from "./components/MainPageComponents/BottomCoinList";
+import TopCoinlist from "./components/MainPageComponents/TopCoinList";
+import BottomCoinListHeader from "./components/MainPageComponents/BottomCoinListHeader";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import { MainPageLineChart } from "./components/LineChart/LineChart";
 import { primaryColor, secondaryColor, textColor } from "./utils/utility";
@@ -112,7 +113,7 @@ export default function Home() {
                   {marketData
                      .filter((_, index) => index >= statisticsValue && index <= statisticsValue + 4)
                      .map((coin) => (
-                        <CoinStatistics
+                        <TopCoinlist
                            key={coin.id}
                            data={coin}
                            selected={selectedChart}
@@ -201,64 +202,17 @@ export default function Home() {
                </div>
             </div>
 
-            <div className={`flex justify-between ${textColor(darkMode)} p-2 rounded-2xl duration-300 ${secondaryColor(darkMode)} mt-5 h-[60px]`}>
-               <div className="flex justify-between items-center w-1/4 text-center">
-                  <button
-                     onClick={sortBy}
-                     className="w-10"
-                     value="rank">
-                     #
-                  </button>
-                  <button
-                     onClick={sortBy}
-                     className="flex w-40 justify-center"
-                     value="name">
-                     Icon
-                  </button>
-                  <button
-                     onClick={sortBy}
-                     className="w-80 flex justify-center text-sm"
-                     value="name">
-                     Currency
-                  </button>
-               </div>
-               <div className="flex justify-between items-center w-1/3 text-center">
-                  <button
-                     onClick={sortBy}
-                     className="w-1/4"
-                     value="current_price">
-                     Current Price
-                  </button>
-                  <button
-                     onClick={sortBy}
-                     className="w-1/4"
-                     value="one_hour">
-                     % Change (1H)
-                  </button>
-                  <button
-                     onClick={sortBy}
-                     className="w-1/4"
-                     value="one_day">
-                     % Change (1D)
-                  </button>
-                  <button
-                     onClick={sortBy}
-                     className="w-1/4"
-                     value="seven_day">
-                     % Change (7D)
-                  </button>
-               </div>
-               <div className="flex justify-between items-center w-1/3 text-center">
-                  <div className="w-1/3">Volume vs Market Cap</div>
-                  <div className="w-1/3">Circulating Supply vs Total Supply</div>
-                  <div className="w-1/3">Last 7 Days</div>
-               </div>
-            </div>
+            <BottomCoinListHeader
+               textColor={textColor}
+               darkMode={darkMode}
+               secondaryColor={secondaryColor}
+               sortBy={sortBy}
+            />
             <div className="mt-4 space-y-2 flex justify-center items-center flex-col w-full">
                {sortedData
                   .filter((_, index) => index >= detailsValue && index <= detailsValue + 9)
                   .map((coin) => (
-                     <CoinDetails
+                     <BottomCoinList
                         key={coin.id}
                         data={coin}
                         spot={coin.market_cap_rank}

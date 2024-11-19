@@ -10,10 +10,12 @@ export default function ContactPage() {
          <div
             className={`${textColor(darkMode)} ${secondaryColor(darkMode)} duration-300 w-[800px] h-[200px] rounded-3xl text-center flex justify-center items-center flex-col space-y-5`}>
             <div>
-               Should you encounter any bugs, issues, or improvements with this application <br />
-               please reach out to Bret Miller. Contact information is below.
+               Should you encounter any bugs, issues, or want to recommend any improvements for this application <br />
+               please reach out to Bret Miller via email. Contact information is below.
             </div>
-            <div>Emal: bret.miller2010@gmail.com</div>
+            <div>
+               Emal: <a href="mailto:bret.miller2010@gmail.com">bret.miller2010@gmail.com</a>
+            </div>
          </div>
       </div>
    );

@@ -4,7 +4,7 @@ import { addCommas, priceColor } from "@/app/utils/utility";
 import { textColor, secondaryColor } from "@/app/utils/utility";
 import { GreenArrow, RedArrow } from "@/images/icons";
 
-const CoinDetails = ({ data, spot, darkMode }) => {
+const BottomCoinList = ({ data, spot, darkMode }) => {
    const coinName = data.name;
    const currentPrice = addCommas(data.current_price, 2, true);
    const oneHourChange = Number(data.price_change_percentage_1h_in_currency).toFixed(2);
@@ -60,4 +60,4 @@ const CoinDetails = ({ data, spot, darkMode }) => {
    );
 };
 
-export default CoinDetails;
+export default BottomCoinList;
