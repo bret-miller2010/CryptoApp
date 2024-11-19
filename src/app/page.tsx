@@ -3,10 +3,9 @@ import { useState, useEffect } from "react";
 import BottomCoinList from "./components/MainPageComponents/BottomCoinList";
 import TopCoinlist from "./components/MainPageComponents/TopCoinList";
 import BottomCoinListHeader from "./components/MainPageComponents/BottomCoinListHeader";
-import MainGraphDaySelection from "./components/MainPageComponents/MainGraphDaySelection";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import { MainPageLineChart } from "./components/LineChart/LineChart";
-import { primaryColor } from "./utils/utility";
+import { primaryColor, secondaryColor, textColor } from "./utils/utility";
 import { getDailyPriceFor } from "./api";
 import { LeftArrow, RightArrow, UpArrow, DownArrow } from "@/images/icons";
 
@@ -130,35 +129,58 @@ export default function Home() {
                   </div>
                </div>
                <div className="flex justify-around w-full mt-10">
-                  {!graphData && <div className="text-white my-5 text-lg">Please select a coin from above to display price data.</div>}
-                  {graphData && (
-                     <div className="flex flex-col items-center space-y-12">
-                        <div className="flex space-x-20">
-                           <MainPageLineChart
-                              data={graphData}
-                              numDays={selectedDays}
-                              type={"price"}
-                              coin={selectedChart}
-                              chartType="Price over time"
-                              darkMode={darkMode}
-                           />
-                           <MainPageLineChart
-                              data={graphData}
-                              numDays={selectedDays}
-                              type={"volume"}
-                              coin={selectedChart}
-                              chartType="Volume over time"
-                              darkMode={darkMode}
-                           />
-                        </div>
-                        <MainGraphDaySelection
-                           setDays={setDays}
+                  <div className="flex flex-col items-center space-y-12">
+                     <div className="flex space-x-20">
+                        <MainPageLineChart
+                           data={graphData}
+                           numDays={selectedDays}
+                           type={"price"}
+                           coin={selectedChart}
+                           chartType="Price over time"
                            darkMode={darkMode}
-                           isSelected={isSelected}
-                           collapsed={collapsed}
+                        />
+                        <MainPageLineChart
+                           data={graphData}
+                           numDays={selectedDays}
+                           type={"volume"}
+                           coin={selectedChart}
+                           chartType="Volume over time"
+                           darkMode={darkMode}
                         />
                      </div>
-                  )}
+                     <div className="flex justify-center items-center">
+                        <button
+                           onClick={setDays}
+                           value={1}
+                           className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(24)} ${collapsed ? "" : "-translate-x-40"}`}>
+                           24H
+                        </button>
+                        <button
+                           onClick={setDays}
+                           value={7}
+                           className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(168)} ${collapsed ? "" : "-translate-x-20"}`}>
+                           7D
+                        </button>
+                        <button
+                           onClick={setDays}
+                           value={30}
+                           className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(30)} ${collapsed ? "" : "-translate-x-0"}`}>
+                           30D
+                        </button>
+                        <button
+                           onClick={setDays}
+                           value={180}
+                           className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(180)} ${collapsed ? "" : "translate-x-20"}`}>
+                           6M
+                        </button>
+                        <button
+                           onClick={setDays}
+                           value={365}
+                           className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(365)} ${collapsed ? "" : "translate-x-40"}`}>
+                           1Y
+                        </button>
+                     </div>
+                  </div>
                </div>
             </div>
             <div className="flex justify-center items-center mt-20 space-x-20">
@@ -176,7 +198,6 @@ export default function Home() {
                   />
                </div>
             </div>
-
             <BottomCoinListHeader
                darkMode={darkMode}
                sortBy={sortBy}

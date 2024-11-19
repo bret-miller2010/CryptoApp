@@ -1,7 +1,7 @@
 import { Line } from "react-chartjs-2";
 
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
-import { secondaryColor } from "@/app/utils/utility";
+import { secondaryColor, textColor } from "@/app/utils/utility";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -91,6 +91,9 @@ export function CoinConvertorLineChart({ left, right, numDays }) {
 }
 
 export function MainPageLineChart({ data, numDays, type, coin, chartType, darkMode }) {
+   if (!data) {
+      return <div className={`flex justify-center items-center h-[500px] w-[1000px] duration-300 rounded-3xl ${textColor(darkMode)} ${secondaryColor(darkMode)} p-5`}>Please select coin data from above.</div>;
+   }
    const chartData = type === "price" ? data.prices : data.total_volumes;
    const length = numDays;
    const dataForChart = chartData.slice(chartData.length - length);
