@@ -33,3 +33,7 @@ export function textColor(darkMode) {
 export function priceColor(value) {
    return Number(value) > 0 ? "text-green-500" : "text-red-500";
 }
+
+export function navBarColors(darkMode) {
+  return darkMode ? "bg-[#181825] hover:bg-[#38386e]" : "text-black bg-[#ffffff] hover:bg-[#8c8c8c]";
+}
