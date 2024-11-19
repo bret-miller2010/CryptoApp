@@ -1,6 +1,8 @@
 import React from "react";
 
-const BottomCoinListHeader = ({ textColor, darkMode, secondaryColor, sortBy }) => {
+import { textColor, secondaryColor } from "@/app/utils/utility";
+
+const BottomCoinListHeader = ({ darkMode, sortBy }) => {
    return (
       <div className={`flex justify-between ${textColor(darkMode)} p-2 rounded-2xl duration-300 ${secondaryColor(darkMode)} mt-5 h-[60px]`}>
          <div className="flex justify-between items-center w-1/4 text-center">
