@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import BottomCoinList from "./components/MainPageComponents/BottomCoinList";
 import TopCoinlist from "./components/MainPageComponents/TopCoinList";
 import BottomCoinListHeader from "./components/MainPageComponents/BottomCoinListHeader";
+import MainGraphDaySelection from "./components/MainPageComponents/MainGraphDaySelection";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import { MainPageLineChart } from "./components/LineChart/LineChart";
-import { primaryColor, secondaryColor, textColor } from "./utils/utility";
+import { primaryColor } from "./utils/utility";
 import { getDailyPriceFor } from "./api";
 import { LeftArrow, RightArrow, UpArrow, DownArrow } from "@/images/icons";
 
@@ -16,10 +17,11 @@ export default function Home() {
    const [detailsValue, setDetailsValue] = useState(0);
    const [sortedData, setSortedData] = useState([]);
    const [sortType, setSortType] = useState(true);
-   const [graphData, setGraphData] = useState();
-   const [selectedChart, setSelectedChart] = useState();
-   const [collapsed, setCollapsed] = useState(true);
+   const [graphData, setGraphData] = useState([]);
+   const [selectedChart, setSelectedChart] = useState([]);
+   const [collapsed, setCollapsed] = useState(false);
 
+   //Function that changes the display based on what the user wants to sort by
    const sortBy = (event) => {
       const sortKey = event.target.value;
       const types = {
@@ -32,7 +34,6 @@ export default function Home() {
       };
 
       const sortValue = types[sortKey];
-
       const sortedArray = marketData.toSorted((a, b) => {
          if (sortValue === "name") {
             if (sortType) {
@@ -53,10 +54,7 @@ export default function Home() {
       setSortedData(sortedArray);
    };
 
-   const isSelected = (num) => {
-      return `${num == selectedDays ? "z-10" : "z-0"}`;
-   };
-
+   //Sets the number of days that the main page graphs show
    const setDays = (value) => {
       let amountOfDays = Number(value.target.value);
       if (amountOfDays === 1 || amountOfDays === 7) {
@@ -68,12 +66,31 @@ export default function Home() {
 
    const addToGraph = async (event) => {
       const coinWanted = event.target.id;
-      const coinToAdd = marketData.find((coin) => coin.id === coinWanted);
-      const currentCoinData = await getDailyPriceFor(coinToAdd.id, selectedDays);
-      setGraphData(currentCoinData);
-      setSelectedChart(coinToAdd.name);
+      //First check to verify that the coin is not already clicked. If it is then it will remove the coin.
+      if (!selectedChart.includes(coinWanted)) {
+         if (selectedChart.length === 2) {
+            //Only allow 2 coins to be selected for this application. Exits the function if trying to add more than 2
+            return;
+         }
+         const currentCoinData = await getDailyPriceFor(coinWanted, selectedDays);
+         currentCoinData.id = coinWanted;
+         const newArrayOfCoinData = [...graphData, currentCoinData];
+         setGraphData(newArrayOfCoinData);
+         const newArrayOfCoins = [...selectedChart, coinWanted];
+         setSelectedChart(newArrayOfCoins);
+      } else {
+         removeFromSelection(coinWanted);
+      }
    };
 
+   //Currently where I left off. Can add and remove items from the selected values. Next need to pass the market data for those coins to LineGraph
+   const removeFromSelection = (coin) => {
+      const newArrayOfCoins = selectedChart.filter((ele) => ele !== coin);
+      const newGraphData = graphData.filter((ele) => ele.id !== coin);
+      setSelectedChart(newArrayOfCoins);
+      setGraphData(newGraphData);
+   };
+   //Function to increment/decrement the bottom listing of coins.
    const updateDetailsChart = (amount) => {
       if (detailsValue + amount < 0) {
          setDetailsValue(0);
@@ -83,7 +100,7 @@ export default function Home() {
          setDetailsValue(detailsValue + amount);
       }
    };
-
+   //Function to increment/decrement the top listing of coins.
    const updateStatisticsChart = (amount) => {
       if (statisticsValue + amount < 0) {
          setStatisticsValue(0);
@@ -109,7 +126,6 @@ export default function Home() {
                         darkMode={darkMode}
                      />
                   </div>
-
                   {marketData
                      .filter((_, index) => index >= statisticsValue && index <= statisticsValue + 4)
                      .map((coin) => (
@@ -128,13 +144,13 @@ export default function Home() {
                      />
                   </div>
                </div>
-               <div className="flex justify-around w-full mt-10">
-                  <div className="flex flex-col items-center space-y-12">
+               <div className="flex justify-around w-full">
+                  <div className="flex flex-col items-center space-y-20">
                      <div className="flex space-x-20">
                         <MainPageLineChart
                            data={graphData}
                            numDays={selectedDays}
-                           type={"price"}
+                           type={"prices"}
                            coin={selectedChart}
                            chartType="Price over time"
                            darkMode={darkMode}
@@ -142,44 +158,19 @@ export default function Home() {
                         <MainPageLineChart
                            data={graphData}
                            numDays={selectedDays}
-                           type={"volume"}
+                           type={"total_volumes"}
                            coin={selectedChart}
                            chartType="Volume over time"
                            darkMode={darkMode}
                         />
                      </div>
-                     <div className="flex justify-center items-center">
-                        <button
-                           onClick={setDays}
-                           value={1}
-                           className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(24)} ${collapsed ? "" : "-translate-x-40"}`}>
-                           24H
-                        </button>
-                        <button
-                           onClick={setDays}
-                           value={7}
-                           className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(168)} ${collapsed ? "" : "-translate-x-20"}`}>
-                           7D
-                        </button>
-                        <button
-                           onClick={setDays}
-                           value={30}
-                           className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(30)} ${collapsed ? "" : "-translate-x-0"}`}>
-                           30D
-                        </button>
-                        <button
-                           onClick={setDays}
-                           value={180}
-                           className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(180)} ${collapsed ? "" : "translate-x-20"}`}>
-                           6M
-                        </button>
-                        <button
-                           onClick={setDays}
-                           value={365}
-                           className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(365)} ${collapsed ? "" : "translate-x-40"}`}>
-                           1Y
-                        </button>
-                     </div>
+
+                     <MainGraphDaySelection
+                        setDays={setDays}
+                        collapsed={collapsed}
+                        darkMode={darkMode}
+                        selectedDays={selectedDays}
+                     />
                   </div>
                </div>
             </div>

@@ -1,5 +1,4 @@
 import { Line } from "react-chartjs-2";
-
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 import { secondaryColor, textColor } from "@/app/utils/utility";
 
@@ -91,22 +90,33 @@ export function CoinConvertorLineChart({ left, right, numDays }) {
 }
 
 export function MainPageLineChart({ data, numDays, type, coin, chartType, darkMode }) {
-   if (!data) {
-      return <div className={`flex justify-center items-center h-[500px] w-[1000px] duration-300 rounded-3xl ${textColor(darkMode)} ${secondaryColor(darkMode)} p-5`}>Please select coin data from above.</div>;
-   }
-   const chartData = type === "price" ? data.prices : data.total_volumes;
    const length = numDays;
-   const dataForChart = chartData.slice(chartData.length - length);
+   if (data.length === 0) {
+      return (
+         <div className={`flex justify-center items-center h-[500px] w-[1000px] duration-300 rounded-3xl ${textColor(darkMode)} ${secondaryColor(darkMode)} p-5`}>
+            Please select coin data from above.
+         </div>
+      );
+   }
+
+   function createGraphSets(data) {
+      const newData = data.map((dataset, index) => {
+         dataset = {
+            label: coin,
+            data: dataset[type].slice(data.length - length),
+            borderColor: index === 0 ? "black" : "red",
+            pointRadius: 0,
+         };
+         return dataset;
+      });
+      return newData;
+   }
+   //Converts the information from data into datasets for the chart
+   const chartData = createGraphSets(data);
+
    const graphObject = {
       labels: Array.from({ length }, (_, index) => index + 1),
-      datasets: [
-         {
-            label: coin,
-            data: dataForChart.map((data) => data),
-            borderColor: "black",
-            pointRadius: 0,
-         },
-      ],
+      datasets: chartData,
    };
 
    return (

@@ -11,7 +11,7 @@ const TopCoinList = ({ data, handleClick, selected, darkMode }) => {
    const coinImage = data.image;
 
    const colorSelector = () => {
-      return selected === coinName ? `${darkMode ? "bg-[#32324d]" : "bg-[#8c8c8c]"}` : `${secondaryColor(darkMode)}`;
+      return selected.includes(data.id) ? `${darkMode ? "bg-[#32324d]" : "bg-[#8c8c8c]"}` : `${secondaryColor(darkMode)}`;
    };
 
    return (
