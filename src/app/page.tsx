@@ -83,7 +83,7 @@ export default function Home() {
       }
    };
 
-   //Currently where I left off. Can add and remove items from the selected values. Next need to pass the market data for those coins to LineGraph
+   //Removes coin details from arrays for the main page graph
    const removeFromSelection = (coin) => {
       const newArrayOfCoins = selectedChart.filter((ele) => ele !== coin);
       const newGraphData = graphData.filter((ele) => ele.id !== coin);
