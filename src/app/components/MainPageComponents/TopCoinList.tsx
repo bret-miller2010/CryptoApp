@@ -3,7 +3,7 @@ import { priceColor } from "@/app/utils/utility";
 import { addCommas, secondaryColor, textColor } from "@/app/utils/utility";
 import { GreenArrow, RedArrow } from "@/images/icons";
 
-const CoinStatistics = ({ data, handleClick, selected, darkMode }) => {
+const TopCoinList = ({ data, handleClick, selected, darkMode }) => {
    const coinName = data.name;
    const symbol = data.symbol;
    const currentPrice = addCommas(data.current_price, 2, true);
@@ -11,7 +11,7 @@ const CoinStatistics = ({ data, handleClick, selected, darkMode }) => {
    const coinImage = data.image;
 
    const colorSelector = () => {
-      return selected === coinName ? `${darkMode ? "bg-[#32324d]" : "bg-[#8c8c8c]"}` : `${secondaryColor(darkMode)}`;
+      return selected.includes(data.id) ? `${darkMode ? "bg-[#32324d]" : "bg-[#8c8c8c]"}` : `${secondaryColor(darkMode)}`;
    };
 
    return (
@@ -41,4 +41,4 @@ const CoinStatistics = ({ data, handleClick, selected, darkMode }) => {
    );
 };
 
-export default CoinStatistics;
+export default TopCoinList;

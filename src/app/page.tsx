@@ -1,10 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
-import CoinDetails from "./components/MainPageComponents/CoinDetails";
-import CoinStatistics from "./components/MainPageComponents/CoinStatistics";
+import BottomCoinList from "./components/MainPageComponents/BottomCoinList";
+import TopCoinlist from "./components/MainPageComponents/TopCoinList";
+import BottomCoinListHeader from "./components/MainPageComponents/BottomCoinListHeader";
+import MainGraphDaySelection from "./components/MainPageComponents/MainGraphDaySelection";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import { MainPageLineChart } from "./components/LineChart/LineChart";
-import { primaryColor, secondaryColor, textColor } from "./utils/utility";
+import { primaryColor } from "./utils/utility";
 import { getDailyPriceFor } from "./api";
 import { LeftArrow, RightArrow, UpArrow, DownArrow } from "@/images/icons";
 
@@ -15,10 +17,11 @@ export default function Home() {
    const [detailsValue, setDetailsValue] = useState(0);
    const [sortedData, setSortedData] = useState([]);
    const [sortType, setSortType] = useState(true);
-   const [graphData, setGraphData] = useState();
-   const [selectedChart, setSelectedChart] = useState();
-   const [collapsed, setCollapsed] = useState(true);
+   const [graphData, setGraphData] = useState([]);
+   const [selectedChart, setSelectedChart] = useState([]);
+   const [collapsed, setCollapsed] = useState(false);
 
+   //Function that changes the display based on what the user wants to sort by
    const sortBy = (event) => {
       const sortKey = event.target.value;
       const types = {
@@ -31,7 +34,6 @@ export default function Home() {
       };
 
       const sortValue = types[sortKey];
-
       const sortedArray = marketData.toSorted((a, b) => {
          if (sortValue === "name") {
             if (sortType) {
@@ -52,10 +54,7 @@ export default function Home() {
       setSortedData(sortedArray);
    };
 
-   const isSelected = (num) => {
-      return `${num == selectedDays ? "z-10" : "z-0"}`;
-   };
-
+   //Sets the number of days that the main page graphs show
    const setDays = (value) => {
       let amountOfDays = Number(value.target.value);
       if (amountOfDays === 1 || amountOfDays === 7) {
@@ -67,12 +66,31 @@ export default function Home() {
 
    const addToGraph = async (event) => {
       const coinWanted = event.target.id;
-      const coinToAdd = marketData.find((coin) => coin.id === coinWanted);
-      const currentCoinData = await getDailyPriceFor(coinToAdd.id, selectedDays);
-      setGraphData(currentCoinData);
-      setSelectedChart(coinToAdd.name);
+      //First check to verify that the coin is not already clicked. If it is then it will remove the coin.
+      if (!selectedChart.includes(coinWanted)) {
+         if (selectedChart.length === 2) {
+            //Only allow 2 coins to be selected for this application. Exits the function if trying to add more than 2
+            return;
+         }
+         const currentCoinData = await getDailyPriceFor(coinWanted, selectedDays);
+         currentCoinData.id = coinWanted;
+         const newArrayOfCoinData = [...graphData, currentCoinData];
+         setGraphData(newArrayOfCoinData);
+         const newArrayOfCoins = [...selectedChart, coinWanted];
+         setSelectedChart(newArrayOfCoins);
+      } else {
+         removeFromSelection(coinWanted);
+      }
    };
 
+   //Removes coin details from arrays for the main page graph
+   const removeFromSelection = (coin) => {
+      const newArrayOfCoins = selectedChart.filter((ele) => ele !== coin);
+      const newGraphData = graphData.filter((ele) => ele.id !== coin);
+      setSelectedChart(newArrayOfCoins);
+      setGraphData(newGraphData);
+   };
+   //Function to increment/decrement the bottom listing of coins.
    const updateDetailsChart = (amount) => {
       if (detailsValue + amount < 0) {
          setDetailsValue(0);
@@ -82,7 +100,7 @@ export default function Home() {
          setDetailsValue(detailsValue + amount);
       }
    };
-
+   //Function to increment/decrement the top listing of coins.
    const updateStatisticsChart = (amount) => {
       if (statisticsValue + amount < 0) {
          setStatisticsValue(0);
@@ -108,11 +126,10 @@ export default function Home() {
                         darkMode={darkMode}
                      />
                   </div>
-
                   {marketData
                      .filter((_, index) => index >= statisticsValue && index <= statisticsValue + 4)
                      .map((coin) => (
-                        <CoinStatistics
+                        <TopCoinlist
                            key={coin.id}
                            data={coin}
                            selected={selectedChart}
@@ -127,62 +144,34 @@ export default function Home() {
                      />
                   </div>
                </div>
-               <div className="flex justify-around w-full mt-10">
-                  {!graphData && <div className="text-white my-5 text-lg">Please select a coin from above to display price data.</div>}
-                  {graphData && (
-                     <div className="flex flex-col items-center space-y-12">
-                        <div className="flex space-x-20">
-                           <MainPageLineChart
-                              data={graphData}
-                              numDays={selectedDays}
-                              type={"price"}
-                              coin={selectedChart}
-                              chartType="Price over time"
-                              darkMode={darkMode}
-                           />
-                           <MainPageLineChart
-                              data={graphData}
-                              numDays={selectedDays}
-                              type={"volume"}
-                              coin={selectedChart}
-                              chartType="Volume over time"
-                              darkMode={darkMode}
-                           />
-                        </div>
-                        <div className={"flex justify-center items-center text-white"}>
-                           <button
-                              onClick={setDays}
-                              value={1}
-                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(24)} ${collapsed ? "" : "-translate-x-40"}`}>
-                              24H
-                           </button>
-                           <button
-                              onClick={setDays}
-                              value={7}
-                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(168)} ${collapsed ? "" : "-translate-x-20"}`}>
-                              7D
-                           </button>
-                           <button
-                              onClick={setDays}
-                              value={30}
-                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(30)} ${collapsed ? "" : "-translate-x-0"}`}>
-                              30D
-                           </button>
-                           <button
-                              onClick={setDays}
-                              value={180}
-                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(180)} ${collapsed ? "" : "translate-x-20"}`}>
-                              6M
-                           </button>
-                           <button
-                              onClick={setDays}
-                              value={365}
-                              className={`${secondaryColor(darkMode)} ${textColor(darkMode)} rounded-full py-2 w-12 duration-300 absolute ${isSelected(365)} ${collapsed ? "" : "translate-x-40"}`}>
-                              1Y
-                           </button>
-                        </div>
+               <div className="flex justify-around w-full">
+                  <div className="flex flex-col items-center space-y-20">
+                     <div className="flex space-x-20">
+                        <MainPageLineChart
+                           data={graphData}
+                           numDays={selectedDays}
+                           type={"prices"}
+                           coin={selectedChart}
+                           chartType="Price over time"
+                           darkMode={darkMode}
+                        />
+                        <MainPageLineChart
+                           data={graphData}
+                           numDays={selectedDays}
+                           type={"total_volumes"}
+                           coin={selectedChart}
+                           chartType="Volume over time"
+                           darkMode={darkMode}
+                        />
                      </div>
-                  )}
+
+                     <MainGraphDaySelection
+                        setDays={setDays}
+                        collapsed={collapsed}
+                        darkMode={darkMode}
+                        selectedDays={selectedDays}
+                     />
+                  </div>
                </div>
             </div>
             <div className="flex justify-center items-center mt-20 space-x-20">
@@ -200,65 +189,15 @@ export default function Home() {
                   />
                </div>
             </div>
-
-            <div className={`flex justify-between ${textColor(darkMode)} p-2 rounded-2xl duration-300 ${secondaryColor(darkMode)} mt-5 h-[60px]`}>
-               <div className="flex justify-between items-center w-1/4 text-center">
-                  <button
-                     onClick={sortBy}
-                     className="w-10"
-                     value="rank">
-                     #
-                  </button>
-                  <button
-                     onClick={sortBy}
-                     className="flex w-40 justify-center"
-                     value="name">
-                     Icon
-                  </button>
-                  <button
-                     onClick={sortBy}
-                     className="w-80 flex justify-center text-sm"
-                     value="name">
-                     Currency
-                  </button>
-               </div>
-               <div className="flex justify-between items-center w-1/3 text-center">
-                  <button
-                     onClick={sortBy}
-                     className="w-1/4"
-                     value="current_price">
-                     Current Price
-                  </button>
-                  <button
-                     onClick={sortBy}
-                     className="w-1/4"
-                     value="one_hour">
-                     % Change (1H)
-                  </button>
-                  <button
-                     onClick={sortBy}
-                     className="w-1/4"
-                     value="one_day">
-                     % Change (1D)
-                  </button>
-                  <button
-                     onClick={sortBy}
-                     className="w-1/4"
-                     value="seven_day">
-                     % Change (7D)
-                  </button>
-               </div>
-               <div className="flex justify-between items-center w-1/3 text-center">
-                  <div className="w-1/3">Volume vs Market Cap</div>
-                  <div className="w-1/3">Circulating Supply vs Total Supply</div>
-                  <div className="w-1/3">Last 7 Days</div>
-               </div>
-            </div>
+            <BottomCoinListHeader
+               darkMode={darkMode}
+               sortBy={sortBy}
+            />
             <div className="mt-4 space-y-2 flex justify-center items-center flex-col w-full">
                {sortedData
                   .filter((_, index) => index >= detailsValue && index <= detailsValue + 9)
                   .map((coin) => (
-                     <CoinDetails
+                     <BottomCoinList
                         key={coin.id}
                         data={coin}
                         spot={coin.market_cap_rank}
