@@ -90,7 +90,7 @@ export default function Home() {
       setSelectedChart(newArrayOfCoins);
       setGraphData(newGraphData);
    };
-   //Function to increment/decrement the bottom listing of coins.
+   //Function to catch out of bounds for api coin listing for the bottom list of coins
    const updateDetailsChart = (amount) => {
       if (detailsValue + amount < 0) {
          setDetailsValue(0);
@@ -100,7 +100,7 @@ export default function Home() {
          setDetailsValue(detailsValue + amount);
       }
    };
-   //Function to increment/decrement the top listing of coins.
+   //Function to catch out of bounds for api coin listing for the top list of coins
    const updateStatisticsChart = (amount) => {
       if (statisticsValue + amount < 0) {
          setStatisticsValue(0);
