@@ -9,17 +9,32 @@ import { MainPageLineChart } from "./components/LineChart/LineChart";
 import { primaryColor } from "./utils/utility";
 import { getDailyPriceFor } from "./api";
 import { LeftArrow, RightArrow, UpArrow, DownArrow } from "@/images/icons";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Home() {
+   const searchParams = useSearchParams();
    const { marketData, darkMode } = useCrypto();
    const [statisticsValue, setStatisticsValue] = useState(0);
    const [selectedDays, setSelectedDays] = useState("24");
    const [detailsValue, setDetailsValue] = useState(0);
    const [sortedData, setSortedData] = useState([]);
-   const [sortType, setSortType] = useState(true);
+   const [sortType, setSortType] = useState(searchParams.get("order") || true);
    const [graphData, setGraphData] = useState([]);
    const [selectedChart, setSelectedChart] = useState([]);
-   const [collapsed, setCollapsed] = useState(false);
+   const [collapsed, setCollapsed] = useState(true);
+   const router = useRouter();
+
+    //Function that loads the initial data based on the query parameters
+   const initialLoad = () => {
+      if (searchParams.get("sort")) {
+         const sort = searchParams.get("sort");
+         const order = searchParams.get("order");
+         sortBy({ target: { value: sort } });
+         setSortType(order);
+      } else {
+         setSortedData(marketData);
+      }
+   };
 
    //Function that changes the display based on what the user wants to sort by
    const sortBy = (event) => {
@@ -52,6 +67,7 @@ export default function Home() {
 
       setSortType(!sortType);
       setSortedData(sortedArray);
+      router.push(`?sort=${sortKey}&order=${!sortType}`);
    };
 
    //Sets the number of days that the main page graphs show
@@ -112,7 +128,8 @@ export default function Home() {
    };
 
    useEffect(() => {
-      setSortedData(marketData);
+      // setSortedData(marketData);
+      initialLoad();
    }, [marketData]);
 
    return (
@@ -164,7 +181,6 @@ export default function Home() {
                            darkMode={darkMode}
                         />
                      </div>
-
                      <MainGraphDaySelection
                         setDays={setDays}
                         collapsed={collapsed}
