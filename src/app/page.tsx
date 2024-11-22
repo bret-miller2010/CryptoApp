@@ -24,7 +24,7 @@ export default function Home() {
    const [collapsed, setCollapsed] = useState(true);
    const router = useRouter();
 
-    //Function that loads the initial data based on the query parameters
+   //Function that loads the initial data based on the query parameters
    const initialLoad = () => {
       if (searchParams.get("sort")) {
          const sort = searchParams.get("sort");
@@ -128,7 +128,6 @@ export default function Home() {
    };
 
    useEffect(() => {
-      // setSortedData(marketData);
       initialLoad();
    }, [marketData]);
 
