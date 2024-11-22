@@ -11,19 +11,28 @@ const ConvertorContainer = () => {
    const [rightSelection, setRightSelection] = useState();
    const [numberOfDays, setNumberOfDays] = useState("30");
    const { marketData, darkMode } = useCrypto();
+   const buttonArray = [
+      { text: "7D", value: 7 },
+      { text: "14D", value: 14 },
+      { text: "1M", value: 30 },
+      { text: "3M", value: 90 },
+   ];
 
+   //sets the left side of the conversion
    const setLeft = (value) => {
       const selectedCoin = value.target.value;
       const pickedCoin = marketData.find((coin) => coin.id === selectedCoin);
       setLeftSelection(pickedCoin);
    };
 
+   //Sets the right side of the conversion
    const setRight = (value) => {
       const selectedCoin = value.target.value;
       const pickedCoin = marketData.find((coin) => coin.id === selectedCoin);
       setRightSelection(pickedCoin);
    };
 
+   //Change the number of days to display on the chart
    const handleDaySelect = (event) => {
       setNumberOfDays(event.target.value);
    };
@@ -57,30 +66,17 @@ const ConvertorContainer = () => {
                />
 
                <div className="flex space-x-10 justify-center items-center mt-5 rounded-3xl p-2 duration-300">
-                  <button
-                     onClick={handleDaySelect}
-                     value={7}
-                     className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}>
-                     7D
-                  </button>
-                  <button
-                     onClick={handleDaySelect}
-                     value={14}
-                     className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}>
-                     14D
-                  </button>
-                  <button
-                     onClick={handleDaySelect}
-                     value={30}
-                     className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}>
-                     1M
-                  </button>
-                  <button
-                     onClick={handleDaySelect}
-                     value={90}
-                     className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}>
-                     3M
-                  </button>
+                  {buttonArray.map((ele) => {
+                     return (
+                        <button
+                           onClick={handleDaySelect}
+                           value={ele.value}
+                           key={ele.text}
+                           className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}>
+                           {ele.text}
+                        </button>
+                     );
+                  })}
                </div>
             </div>
          )}
