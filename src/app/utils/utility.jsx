@@ -35,5 +35,5 @@ export function priceColor(value) {
 }
 
 export function navBarColors(darkMode) {
-  return darkMode ? "bg-[#181825] hover:bg-[#38386e]" : "text-black bg-[#ffffff] hover:bg-[#8c8c8c]";
+   return darkMode ? "bg-[#181825] hover:bg-[#38386e]" : "text-black bg-[#ffffff] hover:bg-[#8c8c8c]";
 }
