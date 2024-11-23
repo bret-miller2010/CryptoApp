@@ -132,7 +132,7 @@ export default function Home() {
    }, [marketData]);
 
    return (
-      <main className={`h-full duration-300 ${primaryColor(darkMode)}`}>
+      <main className={`h-full w-full duration-300 ${primaryColor(darkMode)}`}>
          <div className="p-5 text-sm">
             <div className="flex items-center flex-col">
                <div className="flex p-8 rounded-3xl w-full justify-center items-center mt-16">
@@ -180,12 +180,16 @@ export default function Home() {
                            darkMode={darkMode}
                         />
                      </div>
-                     <MainGraphDaySelection
-                        setDays={setDays}
-                        collapsed={collapsed}
-                        darkMode={darkMode}
-                        selectedDays={selectedDays}
-                     />
+                     <div className = "h-[150px] w-[500px]">
+                        {!(selectedChart.length === 0) && (
+                           <MainGraphDaySelection
+                              setDays={setDays}
+                              collapsed={collapsed}
+                              darkMode={darkMode}
+                              selectedDays={selectedDays}
+                           />
+                        )}
+                     </div>
                   </div>
                </div>
             </div>

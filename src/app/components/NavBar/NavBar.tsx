@@ -56,7 +56,7 @@ const NavBar = () => {
    const collectData = () => {
       collectMarketData();
       collectGlobalData();
-      setTimeout(collectData, 180000);
+      // setTimeout(collectData, 180000);
    };
 
    useEffect(() => {
