@@ -6,38 +6,28 @@ const MainGraphDaySelection = ({ setDays, darkMode, collapsed, selectedDays }) =
    const isSelected = (value) => {
       return `${value == selectedDays ? "z-10" : "z-0"}`;
    };
+   //Array of buttons that will get mapped through.
+   const dayButtonArray = [
+      { text: "24H", value: 1, selection: isSelected(24), translate: "-translate-x-40" },
+      { text: "7D", value: 7, selection: isSelected(168), translate: "-translate-x-20" },
+      { text: "30D", value: 30, selection: isSelected(30), translate: "translate-x-0" },
+      { text: "6M", value: 180, selection: isSelected(180), translate: "translate-x-20" },
+      { text: "1Y", value: 365, selection: isSelected(365), translate: "translate-x-40" },
+   ];
+
    return (
       <div className="flex justify-center items-center w-[500px] h-[100px]">
-         <button
-            onClick={setDays}
-            value={1}
-            className={`${secondaryColor(darkMode)} ${textColor(darkMode)} ${isSelected(24)} rounded-full py-2 w-12 duration-300 absolute  ${collapsed ? "" : "-translate-x-40"}`}>
-            24H
-         </button>
-         <button
-            onClick={setDays}
-            value={7}
-            className={`${secondaryColor(darkMode)} ${textColor(darkMode)} ${isSelected(168)} rounded-full py-2 w-12 duration-300 absolute  ${collapsed ? "" : "-translate-x-20"}`}>
-            7D
-         </button>
-         <button
-            onClick={setDays}
-            value={30}
-            className={`${secondaryColor(darkMode)} ${textColor(darkMode)} ${isSelected(30)} rounded-full py-2 w-12 duration-300 absolute  ${collapsed ? "" : "-translate-x-0"}`}>
-            30D
-         </button>
-         <button
-            onClick={setDays}
-            value={180}
-            className={`${secondaryColor(darkMode)} ${textColor(darkMode)} ${isSelected(180)} rounded-full py-2 w-12 duration-300 absolute  ${collapsed ? "" : "translate-x-20"}`}>
-            6M
-         </button>
-         <button
-            onClick={setDays}
-            value={365}
-            className={`${secondaryColor(darkMode)} ${textColor(darkMode)} ${isSelected(365)} rounded-full py-2 w-12 duration-300 absolute  ${collapsed ? "" : "translate-x-40"}`}>
-            1Y
-         </button>
+         {dayButtonArray.map((ele) => {
+            return (
+               <button
+                  key={ele.text}
+                  onClick={setDays}
+                  value={ele.value}
+                  className={`${secondaryColor(darkMode)} ${textColor(darkMode)} ${ele.selection} rounded-full py-2 w-12 duration-300 absolute  ${collapsed ? "" : ele.translate}`}>
+                  {ele.text}
+               </button>
+            );
+         })}
       </div>
    );
 };

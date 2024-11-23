@@ -8,53 +8,55 @@ import BasicCoinInformation from "@/app/components/CoinPageComponents/BasicCoinI
 import CoinLinks from "@/app/components/CoinPageComponents/CoinLinks";
 import { primaryColor } from "@/app/utils/utility";
 
-export default function CoinInformation({
-  params,
-}: {
-  params: { crypto: string };
-}) {
-  const { marketData, currency, darkMode } = useCrypto();
-  const [selectedCoin, setSelectedCoin] = useState(Object);
-  const [coinData, setCoinData] = useState();
+export default function CoinInformation({ params }: { params: { crypto: string } }) {
+   const { marketData, currency, darkMode } = useCrypto();
+   const [selectedCoin, setSelectedCoin] = useState(Object);
+   const [coinData, setCoinData] = useState();
 
-  const collectCoinInformation = async () => {
-    const pickedCoin = marketData.find((coin) => coin.id === params.crypto);
-    const data = await getSpecificCoinInfo(pickedCoin.id);
-    setSelectedCoin(pickedCoin);
-    setCoinData(data);
-  };
+   const collectCoinInformation = async () => {
+      const pickedCoin = marketData.find((coin) => coin.id === params.crypto);
+      const data = await getSpecificCoinInfo(pickedCoin.id);
+      setSelectedCoin(pickedCoin);
+      setCoinData(data);
+   };
 
-  useEffect(() => {
-    collectCoinInformation();
-  }, []);
+   useEffect(() => {
+      collectCoinInformation();
+   }, []);
 
-  return (
-    <main
-      className={`flex h-screen justify-center pt-20 ${primaryColor(darkMode)}`}
-    >
-      <div className="flex flex-col h-[800px] w-[800px] justify-between">
-        {coinData && (
-          <BasicCoinInformation
-            coinData={coinData}
-            currency={currency}
-            darkMode={darkMode}
-          />
-        )}
-        {coinData && (
-          <CoinDescription coinData={coinData} darkMode={darkMode} />
-        )}
-      </div>
-      <div className="flex flex-col h-[800px] w-[800px] justify-between items-center">
-        {coinData && (
-          <CoinMarketInformation
-            coinData={coinData}
-            coin={selectedCoin}
-            currency={currency}
-            darkMode={darkMode}
-          />
-        )}
-        {coinData && <CoinLinks coinData={coinData} darkMode={darkMode} />}{" "}
-      </div>
-    </main>
-  );
+   return (
+      <main className={`flex h-screen justify-center pt-20 ${primaryColor(darkMode)}`}>
+         <div className="flex flex-col h-[800px] w-[800px] justify-between">
+            {coinData && (
+               <BasicCoinInformation
+                  coinData={coinData}
+                  currency={currency}
+                  darkMode={darkMode}
+               />
+            )}
+            {coinData && (
+               <CoinDescription
+                  coinData={coinData}
+                  darkMode={darkMode}
+               />
+            )}
+         </div>
+         <div className="flex flex-col h-[800px] w-[800px] justify-between items-center">
+            {coinData && (
+               <CoinMarketInformation
+                  coinData={coinData}
+                  coin={selectedCoin}
+                  currency={currency}
+                  darkMode={darkMode}
+               />
+            )}
+            {coinData && (
+               <CoinLinks
+                  coinData={coinData}
+                  darkMode={darkMode}
+               />
+            )}{" "}
+         </div>
+      </main>
+   );
 }
