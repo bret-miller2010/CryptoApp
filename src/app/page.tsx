@@ -22,7 +22,7 @@ export default function Home() {
    const [graphData, setGraphData] = useState([]);
    const [selectedChart, setSelectedChart] = useState([]);
    const [collapsed, setCollapsed] = useState(true);
-   const [width, setWidth] = useState(window.innerWidth);
+   const [width, setWidth] = useState(0);
    const router = useRouter();
 
    //Function that loads the initial data based on the query parameters
@@ -137,6 +137,7 @@ export default function Home() {
    };
 
    useEffect(() => {
+      setWidth(window.innerWidth);
       initialLoad();
    }, [marketData]);
 
@@ -224,10 +225,11 @@ export default function Home() {
                </div>
             </div>
             <BottomCoinListHeader
-               darkMode={darkMode}
-               sortBy={sortBy}
-            />
-            <div className="mt-4 space-y-2 flex justify-center items-center flex-col w-full">
+                  darkMode={darkMode}
+                  sortBy={sortBy}
+               />
+            <div className="mt-4 space-y-2 flex justify-center items-center flex-col w-full text-[8px] lg:text-base">
+               
                {sortedData
                   .filter((_, index) => index >= detailsValue && index <= detailsValue + 9)
                   .map((coin) => (

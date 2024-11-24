@@ -65,9 +65,9 @@ const NavBar = () => {
    }, []);
 
    return (
-      <main className="text-white text-sm">
+      <main className="text-white text-sm w-[640px] lg:w-screen ">
          {globalData && (
-            <div className="w-screen h-10 bg-[#7474a5] flex items-center justify-center space-x-28">
+            <div className="h-10 bg-[#7474a5] flex items-center justify-center space-x-10 text-[10px] lg:w-screen lg:text-base lg:space-x-28">
                <div>Coins: {globalData.active_cryptocurrencies}</div>
                <div>
                   Total Market Cap: {reduceNumber(globalData.total_market_cap[currency])} {currency.toUpperCase()}
@@ -80,16 +80,16 @@ const NavBar = () => {
             </div>
          )}
 
-         <div className={`flex justify-between h-12 px-10 duration-300 ${secondaryColor(darkMode)} items-center`}>
-            <div className="w-[1000px] h-full">
-               <div className="flex space-x-10 items-center h-full">
-                  <div className={`h-full duration-300 ${navBarColors(darkMode)} flex items-center px-5`}>
+         <div className={`flex lg:px-5 justify-between h-12 duration-300 ${secondaryColor(darkMode)} items-center text-[10px] lg:text-base`}>
+            <div className="h-full">
+               <div className="flex items-center h-full lg:space-x-12">
+                  <div className={`h-full duration-300 ${navBarColors(darkMode)} flex items-center px-2`}>
                      <Link href="/">Home</Link>
                   </div>
-                  <div className={`h-full duration-300 ${navBarColors(darkMode)} flex items-center px-5`}>
+                  <div className={`h-full duration-300 ${navBarColors(darkMode)} flex items-center px-2`}>
                      <Link href="/Portfolio">Portfolio</Link>
                   </div>
-                  <div className={`h-full duration-300 ${navBarColors(darkMode)} flex items-center px-5`}>
+                  <div className={`h-full duration-300 ${navBarColors(darkMode)} flex items-center px-2`}>
                      <Link href="/Convertor">Convertor</Link>
                   </div>
 
@@ -116,7 +116,7 @@ const NavBar = () => {
                      ))}
                   </select>
                   <select
-                     className={`w-16 duration-300 ${navBarColors(darkMode)} h-12  text-center`}
+                     className={`w-16 duration-300 ${navBarColors(darkMode)} h-12 text-center mr-2`}
                      defaultValue="usd"
                      onChange={updateCurrency}
                      name=""
@@ -129,13 +129,13 @@ const NavBar = () => {
                   </select>
                </div>
             </div>
-            <div className="flex space-x-10 h-full items-center">
+            <div className="lg:space-x-20 flex space-x-2 h-full items-center">
                <div className="flex flex-col space-y-10">
-                  <div className="w-40 relative">
+                  <div className="relative">
                      <SearchIcon />
                      <input
                         onChange={handleInputChange}
-                        className={`h-6 text-black rounded-lg w-40 pl-8 duration-300 ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}
+                        className={`h-6 text-black rounded-lg w-24 lg:w-40 duration-300 ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}
                         type="text"
                         value={filteredValue}
                      />
@@ -159,9 +159,9 @@ const NavBar = () => {
                </div>
 
                <AccountMenu darkMode={darkMode} />
-               <div className={`w-[100px] h-[30px] flex justify-center items-center rounded-full ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}>
+               <div className={`mr-1 w-[45px] h-[20px] flex justify-center items-center rounded-full ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}>
                   <button
-                     className={`w-[50px] h-[22px] rounded-full duration-300 ${darkMode ? "translate-x-5 bg-[#474792]" : "-translate-x-5 bg-[#ffffff]"}`}
+                     className={`w-[25px] h-[15px] rounded-full duration-300 ${darkMode ? "translate-x-2 bg-[#474792]" : "-translate-x-2 bg-[#ffffff]"}`}
                      onClick={updateDarkModeSetting}></button>
                </div>
             </div>
