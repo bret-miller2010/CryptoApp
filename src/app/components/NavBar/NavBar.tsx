@@ -159,7 +159,7 @@ const NavBar = () => {
                </div>
 
                <AccountMenu darkMode={darkMode} />
-               <div className={`mr-1 w-[45px] h-[20px] flex justify-center items-center rounded-full ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}>
+               <div className={`w-[45px] h-[20px] flex justify-center items-center rounded-full ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}>
                   <button
                      className={`w-[25px] h-[15px] rounded-full duration-300 ${darkMode ? "translate-x-2 bg-[#474792]" : "-translate-x-2 bg-[#ffffff]"}`}
                      onClick={updateDarkModeSetting}></button>

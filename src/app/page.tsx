@@ -238,6 +238,7 @@ export default function Home() {
                         data={coin}
                         spot={coin.market_cap_rank}
                         darkMode={darkMode}
+                        width={width}
                      />
                   ))}
             </div>

@@ -4,7 +4,7 @@ import { addCommas, priceColor } from "@/app/utils/utility";
 import { textColor, secondaryColor } from "@/app/utils/utility";
 import { GreenArrow, RedArrow } from "@/images/icons";
 
-const BottomCoinList = ({ data, spot, darkMode }) => {
+const BottomCoinList = ({ data, spot, darkMode, width }) => {
    const coinName = data.name;
    const currentPrice = addCommas(data.current_price, 2, true);
    const oneHourChange = Number(data.price_change_percentage_1h_in_currency).toFixed(2);
@@ -22,8 +22,8 @@ const BottomCoinList = ({ data, spot, darkMode }) => {
             <div className="w-40 flex justify-center">
                <Image
                   src={coinImage}
-                  width={40}
-                  height={40}
+                  width={width < 1024 ? 20 : 40}
+                  height={width < 1024 ? 20 : 40}
                   alt="coin image"
                />
             </div>
