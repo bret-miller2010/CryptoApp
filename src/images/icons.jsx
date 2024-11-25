@@ -22,7 +22,7 @@ export const LeftArrow = ({ handleClick, darkMode }) => {
          xmlns="http://www.w3.org/2000/svg"
          viewBox="0 0 24 24"
          fill={darkMode ? "white" : "black"}
-         className="w-20 mr-5"
+         className="w-10"
          onClick={handleClick}>
          <path
             fillRule="evenodd"
@@ -39,7 +39,7 @@ export const RightArrow = ({ handleClick, darkMode }) => {
          xmlns="http://www.w3.org/2000/svg"
          viewBox="0 0 24 24"
          fill={darkMode ? "white" : "black"}
-         className="mr-5 w-20"
+         className="w-10"
          onClick={handleClick}>
          <path
             fillRule="evenodd"
@@ -56,7 +56,7 @@ export const UpArrow = ({ handleClick, darkMode }) => {
          xmlns="http://www.w3.org/2000/svg"
          viewBox="0 0 24 24"
          fill={darkMode ? "white" : "black"}
-         className="mr-5 w-20"
+         className="w-10"
          onClick={handleClick}>
          <path
             fillRule="evenodd"
@@ -73,7 +73,7 @@ export const DownArrow = ({ handleClick, darkMode }) => {
          xmlns="http://www.w3.org/2000/svg"
          viewBox="0 0 24 24"
          fill={darkMode ? "white" : "black"}
-         className="mr-5 w-20"
+         className="w-10"
          onClick={handleClick}>
          <path
             fillRule="evenodd"

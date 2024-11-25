@@ -93,7 +93,7 @@ export function MainPageLineChart({ data, numDays, type, coin, chartType, darkMo
    const length = numDays;
    if (data.length === 0) {
       return (
-         <div className={`flex justify-center items-center h-[500px] w-[1000px] duration-300 rounded-3xl ${textColor(darkMode)} ${secondaryColor(darkMode)} p-5`}>
+         <div className={`flex justify-center items-center h-[275px] w-[500px] duration-300 rounded-3xl ${textColor(darkMode)} ${secondaryColor(darkMode)} p-5`}>
             Please select coin data from above.
          </div>
       );
@@ -120,7 +120,7 @@ export function MainPageLineChart({ data, numDays, type, coin, chartType, darkMo
    };
 
    return (
-      <div className={`h-[500px] w-[1000px] duration-300 rounded-3xl ${secondaryColor(darkMode)} p-5`}>
+      <div className={`h-[275px] w-[500px] lg:h-[450px] lg:w-[900px] duration-300 rounded-3xl ${secondaryColor(darkMode)} p-5`}>
          <Line
             data={graphObject}
             options={{

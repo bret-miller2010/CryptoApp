@@ -25,6 +25,7 @@
     "react-bootstrap": "^2.10.5",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-popper": "^2.3.0",
     "styled-components": "^6.1.13",
     "uid": "^2.0.2"

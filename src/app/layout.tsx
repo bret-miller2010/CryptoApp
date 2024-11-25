@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import NavBar from "./components/NavBar/NavBar";
 import "./globals.css";
 import { CryptoProvider } from "./Context/CryptoContext";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,8 +21,10 @@ export default function RootLayout({
       <html lang="en">
          <CryptoProvider>
             <body className={inter.className}>
-               <NavBar />
-               {children}
+               <Suspense>
+                  <NavBar />
+                  {children}
+               </Suspense>
             </body>
          </CryptoProvider>
       </html>

@@ -4,7 +4,7 @@ import { addCommas, priceColor } from "@/app/utils/utility";
 import { textColor, secondaryColor } from "@/app/utils/utility";
 import { GreenArrow, RedArrow } from "@/images/icons";
 
-const BottomCoinList = ({ data, spot, darkMode }) => {
+const BottomCoinList = ({ data, spot, darkMode, width }) => {
    const coinName = data.name;
    const currentPrice = addCommas(data.current_price, 2, true);
    const oneHourChange = Number(data.price_change_percentage_1h_in_currency).toFixed(2);
@@ -16,21 +16,21 @@ const BottomCoinList = ({ data, spot, darkMode }) => {
    const volumeVsMarketcap = ((data.total_volume / marketCap) * 100).toFixed(2);
 
    return (
-      <div className={` flex justify-between duration-300 ${textColor(darkMode)} p-2 rounded-2xl ${secondaryColor(darkMode)} w-full h-[70px]`}>
-         <div className="flex justify-between items-center w-1/4 text-center">
+      <div className={`flex justify-between duration-300 ${textColor(darkMode)} p-2 rounded-2xl ${secondaryColor(darkMode)} w-full h-[70px]`}>
+         <div className="flex justify-between items-center w-1/2 lg:w-1/4 text-center">
             <div className="w-10">{spot}</div>
             <div className="w-40 flex justify-center">
                <Image
                   src={coinImage}
-                  width={40}
-                  height={40}
+                  width={width < 1024 ? 20 : 40}
+                  height={width < 1024 ? 20 : 40}
                   alt="coin image"
                />
             </div>
 
-            <div className="w-80 flex justify-center text-sm">{coinName}</div>
+            <div className="w-80 flex justify-center">{coinName}</div>
          </div>
-         <div className="flex justify-between items-center w-1/3 text-center">
+         <div className="flex justify-between items-center w-1/2 lg:w-1/3 text-center">
             <div className="w-1/4">${currentPrice}</div>
             <div className={`flex justify-center space-x-1 w-1/4 ${priceColor(oneHourChange)}`}>
                <div>{Number(oneHourChange) > 0 ? <GreenArrow /> : <RedArrow />}</div>
@@ -45,7 +45,7 @@ const BottomCoinList = ({ data, spot, darkMode }) => {
                <div>{sevenDayChange}%</div>
             </div>
          </div>
-         <div className="flex justify-between items-center w-1/3 text-center">
+         <div className="flex justify-between items-center w-1/3 text-center absolute lg:static invisible lg:visible">
             <div className="w-1/3">{volumeVsMarketcap}%</div>
             <div className="w-1/3 h-[10px] bg-[#fe8080]">
                <div

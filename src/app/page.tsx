@@ -22,6 +22,7 @@ export default function Home() {
    const [graphData, setGraphData] = useState([]);
    const [selectedChart, setSelectedChart] = useState([]);
    const [collapsed, setCollapsed] = useState(true);
+   const [width, setWidth] = useState(0);
    const router = useRouter();
 
    //Function that loads the initial data based on the query parameters
@@ -126,24 +127,39 @@ export default function Home() {
          setStatisticsValue(statisticsValue + amount);
       }
    };
+   //Function to determine how many coins are shown in the top list of coins based on the page width
+   const numOfCoinsShown = () => {
+      if (width < 1024) {
+         return 2;
+      } else {
+         return 4;
+      }
+   };
 
    useEffect(() => {
+      setWidth(window.innerWidth);
       initialLoad();
    }, [marketData]);
 
+   useEffect(() => {
+      const handleWidthResize = () => setWidth(window.innerWidth);
+      window.addEventListener("resize", handleWidthResize);
+      return () => window.removeEventListener("resize", handleWidthResize);
+   });
+
    return (
-      <main className={`h-full duration-300 ${primaryColor(darkMode)}`}>
+      <main className={`h-full w-[640px] lg:w-full duration-300 ${primaryColor(darkMode)}`}>
          <div className="p-5 text-sm">
             <div className="flex items-center flex-col">
                <div className="flex p-8 rounded-3xl w-full justify-center items-center mt-16">
-                  <div className="duration-300 hover:scale-125">
+                  <div className="duration-300 hover:scale-125 ">
                      <LeftArrow
-                        handleClick={() => updateStatisticsChart(-5)}
+                        handleClick={() => updateStatisticsChart(width < 1024 ? -3 : -5)}
                         darkMode={darkMode}
                      />
                   </div>
                   {marketData
-                     .filter((_, index) => index >= statisticsValue && index <= statisticsValue + 4)
+                     .filter((_, index) => index >= statisticsValue && index <= statisticsValue + numOfCoinsShown())
                      .map((coin) => (
                         <TopCoinlist
                            key={coin.id}
@@ -155,14 +171,14 @@ export default function Home() {
                      ))}
                   <div className="duration-300 hover:scale-125">
                      <RightArrow
-                        handleClick={() => updateStatisticsChart(5)}
+                        handleClick={() => updateStatisticsChart(width < 1024 ? 3 : 5)}
                         darkMode={darkMode}
                      />
                   </div>
                </div>
                <div className="flex justify-around w-full">
-                  <div className="flex flex-col items-center space-y-20">
-                     <div className="flex space-x-20">
+                  <div className="flex flex-col items-center space-y-10">
+                     <div className="flex flex-col 2xl:flex-row space-y-5 2xl:space-y-0 2xl:space-x-5">
                         <MainPageLineChart
                            data={graphData}
                            numDays={selectedDays}
@@ -180,16 +196,20 @@ export default function Home() {
                            darkMode={darkMode}
                         />
                      </div>
-                     <MainGraphDaySelection
-                        setDays={setDays}
-                        collapsed={collapsed}
-                        darkMode={darkMode}
-                        selectedDays={selectedDays}
-                     />
+                     <div className="h-[150px] w-[500px]">
+                        {!(selectedChart.length === 0) && (
+                           <MainGraphDaySelection
+                              setDays={setDays}
+                              collapsed={collapsed}
+                              darkMode={darkMode}
+                              selectedDays={selectedDays}
+                           />
+                        )}
+                     </div>
                   </div>
                </div>
             </div>
-            <div className="flex justify-center items-center mt-20 space-x-20">
+            <div className="flex justify-center items-center mt-10 space-x-10">
                <div className="duration-300 hover:scale-125">
                   <UpArrow
                      handleClick={() => updateDetailsChart(-10)}
@@ -205,10 +225,11 @@ export default function Home() {
                </div>
             </div>
             <BottomCoinListHeader
-               darkMode={darkMode}
-               sortBy={sortBy}
-            />
-            <div className="mt-4 space-y-2 flex justify-center items-center flex-col w-full">
+                  darkMode={darkMode}
+                  sortBy={sortBy}
+               />
+            <div className="mt-4 space-y-2 flex justify-center items-center flex-col w-full text-[8px] lg:text-base">
+               
                {sortedData
                   .filter((_, index) => index >= detailsValue && index <= detailsValue + 9)
                   .map((coin) => (
@@ -217,6 +238,7 @@ export default function Home() {
                         data={coin}
                         spot={coin.market_cap_rank}
                         darkMode={darkMode}
+                        width={width}
                      />
                   ))}
             </div>

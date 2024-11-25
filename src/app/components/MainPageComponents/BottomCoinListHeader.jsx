@@ -2,8 +2,8 @@ import { textColor, secondaryColor } from "@/app/utils/utility";
 
 const BottomCoinListHeader = ({ darkMode, sortBy }) => {
    return (
-      <div className={`flex justify-between ${textColor(darkMode)} p-2 rounded-2xl duration-300 ${secondaryColor(darkMode)} mt-5 h-[70px]`}>
-         <div className="flex justify-between items-center w-1/4 text-center">
+      <div className={`flex justify-between ${textColor(darkMode)} p-2 rounded-2xl duration-300 ${secondaryColor(darkMode)} mt-5 h-[70px] text-[8px] lg:text-base`}>
+         <div className="flex justify-between items-center w-1/2 lg:w-1/4 text-center">
             <button
                onClick={sortBy}
                className="w-10"
@@ -18,12 +18,12 @@ const BottomCoinListHeader = ({ darkMode, sortBy }) => {
             </button>
             <button
                onClick={sortBy}
-               className="w-80 flex justify-center text-sm"
+               className="w-80 flex justify-center"
                value="name">
                Currency
             </button>
          </div>
-         <div className="flex justify-between items-center w-1/3 text-center">
+         <div className="flex justify-between items-center w-1/2 lg:w-1/3 text-center">
             <button
                onClick={sortBy}
                className="w-1/4"
@@ -49,7 +49,7 @@ const BottomCoinListHeader = ({ darkMode, sortBy }) => {
                % Change (7D)
             </button>
          </div>
-         <div className="flex justify-between items-center w-1/3 text-center">
+         <div className="flex justify-between items-center w-1/3 text-center absolute lg:static invisible lg:visible">
             <div className="w-1/3">Volume vs Market Cap</div>
             <div className="w-1/3">Circulating Supply vs Total Supply</div>
             <div className="w-1/3">Last 7 Days</div>
