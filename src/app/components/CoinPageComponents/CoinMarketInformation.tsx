@@ -1,5 +1,5 @@
 "use client";
-import { addCommas } from "../../utils/utility";
+import { addCommas, secondaryColor } from "../../utils/utility";
 
 const CoinMarketInformation = ({ coin, coinData: { market_data: data }, currency, darkMode }) => {
    const marketCap = addCommas(data.market_cap[currency], 0, true);
@@ -12,9 +12,7 @@ const CoinMarketInformation = ({ coin, coinData: { market_data: data }, currency
    const symbol = coin.symbol.toUpperCase();
 
    return (
-      <div
-         className={`text-white flex w-[500px] ${darkMode ? "duration-300 bg-[#1e1932]" : "duration-300 bg-[#5492f7]"} rounded-lg flex-col h-[370px] justify-center items-center text-sm`}
-      >
+      <div className={`text-white flex duration-300  ${secondaryColor(darkMode)} rounded-lg flex-col w-[618px] py-10 justify-center items-center text-sm`}>
          <div className="flex w-[350px]">
             <div className="flex justify-between w-full">
                <div className="space-y-6">
@@ -63,8 +61,7 @@ const CoinMarketInformation = ({ coin, coinData: { market_data: data }, currency
                   className={"h-[15px] bg-red-500"}
                   style={{
                      width: `${percentVPM}%`,
-                  }}
-               ></div>
+                  }}></div>
             </div>
          </div>
       </div>

@@ -23,7 +23,7 @@ const PortfolioCoin = ({ data, handleRemove }) => {
    }, []);
 
    return (
-      <div className={`flex items-center w-[700px] ${darkMode ? "duration-300 bg-[#474792]" : "duration-300 bg-[#0a5adb]"} h-[200px] rounded-full`}>
+      <div className={`flex text-base items-center w-[600px] ${darkMode ? "duration-300 bg-[#474792]" : "duration-300 bg-[#0a5adb]"} h-[150px] rounded-3xl`}>
          <div className="w-1/5 flex flex-col justify-center items-center space-y-2">
             <Image
                src={coinImage}

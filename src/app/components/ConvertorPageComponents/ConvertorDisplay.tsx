@@ -14,7 +14,7 @@ const ConvertorDisplay = ({ darkMode, sellSide, buySide }) => {
 
    return (
       <div className="flex space-x-10">
-         <div className={`w-[500px] h-[150px] rounded-3xl p-5 ${secondaryColor(darkMode)} ${textColor(darkMode)} duration-300 space-y-6`}>
+         <div className={`h-[150px] px-20 md:px-32 rounded-3xl p-5 ${secondaryColor(darkMode)} ${textColor(darkMode)} space-y-6`}>
             <div>You Sell</div>
             {sellSide && buySide && (
                <div>
@@ -36,7 +36,7 @@ const ConvertorDisplay = ({ darkMode, sellSide, buySide }) => {
             )}
          </div>
          <div className="flex space-x-10">
-            <div className={`w-[500px] h-[150px] rounded-3xl p-5 ${secondaryColor(darkMode)} ${textColor(darkMode)} duration-300 space-y-6`}>
+            <div className={`h-[150px] px-20 md:px-32 rounded-3xl p-5 ${secondaryColor(darkMode)} ${textColor(darkMode)} space-y-6`}>
                <div>You Buy</div>
                {sellSide && buySide && (
                   <div>
