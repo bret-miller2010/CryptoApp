@@ -130,7 +130,7 @@ const NavBar = () => {
                </div>
             </div>
             <div className="lg:space-x-20 flex space-x-2 h-full items-center">
-               <div className="flex flex-col space-y-10">
+               <div className="invisible lg:visible flex flex-col space-y-10">
                   <div className="relative">
                      <SearchIcon />
                      <input
@@ -161,7 +161,7 @@ const NavBar = () => {
                <AccountMenu darkMode={darkMode} />
                <div className={`w-[45px] h-[20px] flex justify-center items-center rounded-full ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}>
                   <button
-                     className={`w-[25px] h-[15px] rounded-full duration-300 ${darkMode ? "translate-x-2 bg-[#474792]" : "-translate-x-2 bg-[#ffffff]"}`}
+                     className={`w-[25px] h-[15px] rounded-full duration-300 ${darkMode ? "translate-x-1 bg-[#474792]" : "-translate-x-1 bg-[#ffffff]"}`}
                      onClick={updateDarkModeSetting}></button>
                </div>
             </div>

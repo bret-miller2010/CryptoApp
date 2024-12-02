@@ -53,7 +53,7 @@ export function CoinDetailsLineChart({ chartData }) {
    );
 }
 
-export function CoinConvertorLineChart({ left, right, numDays }) {
+export function CoinConvertorLineChart({ left, right, numDays, darkMode }) {
    const leftData = left.sparkline_in_7d.price.slice(-numDays);
    const rightData = right.sparkline_in_7d.price.slice(-numDays);
    const length = numDays;
@@ -70,10 +70,12 @@ export function CoinConvertorLineChart({ left, right, numDays }) {
    };
 
    return (
-      <div className="h-[500px] w-full flex justify-center">
+      <div className={`h-[400px] w-[500px] lg:w-screen lg:h-[600px] flex justify-center ${secondaryColor(darkMode)} p-5 rounded-3xl`}>
          <Line
             data={graphObject}
             options={{
+               responsive: true,
+               maintainAspectRatio: false,
                plugins: {
                   title: {
                      display: true,
