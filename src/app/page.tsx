@@ -149,7 +149,7 @@ export default function Home() {
 
    return (
       <main className={`h-full w-[640px] lg:w-full duration-300 ${primaryColor(darkMode)}`}>
-         <div className="p-5 text-sm">
+         <div className="px-40 text-sm">
             <div className="flex items-center flex-col">
                <div className="flex p-8 rounded-3xl w-full justify-center items-center mt-16">
                   <div className="duration-300 hover:scale-125 ">

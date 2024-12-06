@@ -80,7 +80,7 @@ const NavBar = () => {
             </div>
          )}
 
-         <div className={`flex lg:px-5 justify-between h-12 duration-300 ${secondaryColor(darkMode)} items-center text-[10px] lg:text-base`}>
+         <div className={`flex lg:px-40 justify-between h-12 duration-300 ${secondaryColor(darkMode)} items-center text-[10px] lg:text-base`}>
             <div className="h-full">
                <div className="flex items-center h-full lg:space-x-12">
                   <div className={`h-full duration-300 ${navBarColors(darkMode)} flex items-center px-2`}>
