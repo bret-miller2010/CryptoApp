@@ -27,7 +27,7 @@ export default function Portfolio() {
    return (
       <div className={`${textColor(darkMode)} w-[640px] md:w-screen duration-300 ${primaryColor(darkMode)} h-screen`}>
          <div className="flex flex-col">
-            <div className="flex justify-between px-2.5 mt-10 ">
+            <div className="flex justify-between px-2.5 mt-40 ">
                <p className={`flex justify-center items-center h-[30px] ${secondaryColor(darkMode)} px-10 rounded-full`}>Your Portfolio</p>
                {login && (
                   <Link
