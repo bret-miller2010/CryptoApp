@@ -18,7 +18,7 @@ const TopCoinList = ({ data, handleClick, selected, darkMode }) => {
 
     return (
         <button
-            onClick={handleClick}
+            onClick={() => handleClick(data.id)}
             id={data.id}
             className={`z-20 h-[80px] w-[150px] lg:w-full duration-300 hover:scale-105 flex justify-around items-center ${textColor(darkMode)} rounded-3xl px-2 ${colorSelector()}`}>
             <div className="flex justify-center w-6">
