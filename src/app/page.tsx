@@ -17,6 +17,7 @@ export default function Home() {
     const searchParams = useSearchParams();
     const { marketData, darkMode } = useCrypto();
     const [statisticsValue, setStatisticsValue] = useState(0);
+    const [errorMessage, setErrorMessage] = useState("");
     const [selectedDays, setSelectedDays] = useState("24");
     const [detailsValue, setDetailsValue] = useState(0);
     const [sortedData, setSortedData] = useState([]);
@@ -83,22 +84,27 @@ export default function Home() {
         setCollapsed(!collapsed);
     };
 
-    const addToGraph = async (event) => {
-        const coinWanted = event.target.id;
+    const addToGraph = async (id) => {
+        setErrorMessage("");
+        const coinWanted = id;
         //First check to verify that the coin is not already clicked. If it is then it will remove the coin.
-        if (!selectedChart.includes(coinWanted)) {
-            if (selectedChart.length === 2) {
-                //Only allow 2 coins to be selected for this application. Exits the function if trying to add more than 2
-                return;
+        try {
+            if (!selectedChart.includes(coinWanted)) {
+                if (selectedChart.length === 2) {
+                    //Only allow 2 coins to be selected for this application. Exits the function if trying to add more than 2
+                    return;
+                }
+                const currentCoinData = await getDailyPriceFor(coinWanted, selectedDays);
+                currentCoinData.id = coinWanted;
+                const newArrayOfCoinData = [...graphData, currentCoinData];
+                setGraphData(newArrayOfCoinData);
+                const newArrayOfCoins = [...selectedChart, coinWanted];
+                setSelectedChart(newArrayOfCoins);
+            } else {
+                removeFromSelection(coinWanted);
             }
-            const currentCoinData = await getDailyPriceFor(coinWanted, selectedDays);
-            currentCoinData.id = coinWanted;
-            const newArrayOfCoinData = [...graphData, currentCoinData];
-            setGraphData(newArrayOfCoinData);
-            const newArrayOfCoins = [...selectedChart, coinWanted];
-            setSelectedChart(newArrayOfCoins);
-        } else {
-            removeFromSelection(coinWanted);
+        } catch {
+            setErrorMessage("Could not load data for this coin. Please wait and try again later.");
         }
     };
 
@@ -182,6 +188,7 @@ export default function Home() {
                     </div>
                     <div className="flex justify-around w-full">
                         <div className="flex w-full flex-col items-center space-y-10">
+                            <div className="text-white">{errorMessage}</div>
                             <div className="flex flex-col justify-around w-full 2xl:flex-row space-y-5 2xl:space-y-0 2xl:space-x-5 mt-20">
                                 <MainPageLineChart
                                     data={graphData}
