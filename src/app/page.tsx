@@ -22,8 +22,8 @@ export default function Home() {
     const [detailsValue, setDetailsValue] = useState(0);
     const [sortedData, setSortedData] = useState([]);
     const [sortType, setSortType] = useState(searchParams.get("order") || true);
-    const [graphData, setGraphData] = useState([]);
-    const [selectedChart, setSelectedChart] = useState([]);
+    const [graphData, setGraphData] = useState<any>([]);
+    const [selectedChart, setSelectedChart] = useState<string[]>([]);
     const [collapsed, setCollapsed] = useState(true);
     const [width, setWidth] = useState(0);
     const router = useRouter();
@@ -40,9 +40,12 @@ export default function Home() {
         }
     };
 
+    type ButtonEvent = React.MouseEvent<HTMLButtonElement>;
+    type SortType = "rank" | "one_hour" | "one_day" | "current_price" | "seven_day" | "name";
     //Function that changes the display based on what the user wants to sort by
-    const sortBy = (key) => {
-        const sortKey = key;
+
+    const sortBy = (key: SortType): void => {
+        const sortKey: SortType = key;
         const types = {
             rank: "market_cap_rank",
             one_hour: "price_change_percentage_1h_in_currency",
@@ -53,7 +56,7 @@ export default function Home() {
         };
 
         const sortValue = types[sortKey];
-        const sortedArray = marketData.toSorted((a, b) => {
+        const sortedArray = marketData.toSorted((a: any, b: any) => {
             if (sortValue === "name") {
                 if (sortType) {
                     return b[sortValue].localeCompare(a[sortValue]);
@@ -75,8 +78,9 @@ export default function Home() {
     };
 
     //Sets the number of days that the main page graphs show
-    const setDays = (value) => {
-        let amountOfDays = Number(value.target.value);
+    const setDays = (value: ButtonEvent): void => {
+        if (value.target === null) return;
+        let amountOfDays = Number(value.currentTarget.value);
         if (amountOfDays === 1 || amountOfDays === 7) {
             amountOfDays = amountOfDays * 24;
         }
@@ -84,7 +88,7 @@ export default function Home() {
         setCollapsed(!collapsed);
     };
 
-    const addToGraph = async (id) => {
+    const addToGraph = async (id: string) => {
         setErrorMessage("");
         const coinWanted = id;
         //First check to verify that the coin is not already clicked. If it is then it will remove the coin.
@@ -109,14 +113,14 @@ export default function Home() {
     };
 
     //Removes coin details from arrays for the main page graph
-    const removeFromSelection = (coin) => {
+    const removeFromSelection = (coin: string): void => {
         const newArrayOfCoins = selectedChart.filter((ele) => ele !== coin);
-        const newGraphData = graphData.filter((ele) => ele.id !== coin);
+        const newGraphData = graphData.filter((ele: any) => ele.id !== coin);
         setSelectedChart(newArrayOfCoins);
         setGraphData(newGraphData);
     };
     //Function to catch out of bounds for api coin listing for the bottom list of coins
-    const updateDetailsChart = (amount) => {
+    const updateDetailsChart = (amount: number): void => {
         if (detailsValue + amount < 0) {
             setDetailsValue(0);
         } else if (detailsValue + amount > 49) {
@@ -126,7 +130,7 @@ export default function Home() {
         }
     };
     //Function to catch out of bounds for api coin listing for the top list of coins
-    const updateStatisticsChart = (amount) => {
+    const updateStatisticsChart = (amount: number): void => {
         if (statisticsValue + amount < 0) {
             setStatisticsValue(0);
         } else if (statisticsValue + amount > 49) {
@@ -136,7 +140,7 @@ export default function Home() {
         }
     };
     //Function to determine how many coins are shown in the top list of coins based on the page width
-    const numOfCoinsShown = () => {
+    const numOfCoinsShown = (): number => {
         if (width < 1024) {
             return 2;
         } else {
@@ -168,8 +172,8 @@ export default function Home() {
                         </div>
                         <div className="flex justify-between w-full items-center space-x-5">
                             {marketData
-                                .filter((_, index) => index >= statisticsValue && index <= statisticsValue + numOfCoinsShown())
-                                .map((coin) => (
+                                .filter((_: any, index: number) => index >= statisticsValue && index <= statisticsValue + numOfCoinsShown())
+                                .map((coin: any) => (
                                     <TopCoinlist
                                         key={coin.id}
                                         data={coin}
@@ -242,7 +246,7 @@ export default function Home() {
                 <div className="mt-4 space-y-2 flex justify-center items-center flex-col w-full text-[8px] lg:text-base">
                     {sortedData
                         .filter((_, index) => index >= detailsValue && index <= detailsValue + 9)
-                        .map((coin) => (
+                        .map((coin: any) => (
                             <BottomCoinList
                                 key={coin.id}
                                 data={coin}
