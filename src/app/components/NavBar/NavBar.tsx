@@ -67,9 +67,9 @@ const NavBar = () => {
     }, []);
 
     return (
-        <main className="text-white text-sm w-[640px] lg:w-screen fixed">
+        <main className="text-white text-sm w-[640px] md:w-screen max-w-[2000px] fixed">
             {globalData && (
-                <div className="h-10 bg-[#7474a5] flex items-center justify-center space-x-10 text-[10px] lg:w-screen lg:text-base lg:space-x-28">
+                <div className="h-10 bg-[#7474a5] flex items-center justify-center space-x-10 text-[10px] w-[640px] md:w-screen max-w-[2000px] lg:text-base lg:space-x-28">
                     <div>Coins: {globalData.active_cryptocurrencies}</div>
                     <div>
                         Total Market Cap: {reduceNumber(globalData.total_market_cap[currency])} {currency.toUpperCase()}
