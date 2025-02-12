@@ -7,7 +7,7 @@ import { GreenArrow, RedArrow } from "@/images/icons";
 
 type TopCoinListProps = {
     data: any;
-    handleClick: (id: string) => void;
+    handleClick: (data: string) => void;
     selected: string[];
     darkMode: boolean;
 };
@@ -27,7 +27,7 @@ const TopCoinList = ({ data, handleClick, selected, darkMode }: TopCoinListProps
         <button
             onClick={() => handleClick(data.id)}
             id={data.id}
-            className={`h-[80px] text-xs lg:text-base w-[175px] lg:w-[200px] xl:w-[225px] 2xl:w-[275px] duration-300 hover:scale-105 flex justify-around items-center ${textColor(darkMode)} rounded-3xl px-2 ${colorSelector()}`}>
+            className={`h-[80px] text-xs lg:text-base w-[175px] lg:w-[250px] xl:w-[225px] 2xl:w-[270px] duration-300 hover:scale-105 flex justify-around items-center ${textColor(darkMode)} rounded-3xl px-2 ${colorSelector()}`}>
             <div className="flex justify-center w-6">
                 <Image
                     src={coinImage}

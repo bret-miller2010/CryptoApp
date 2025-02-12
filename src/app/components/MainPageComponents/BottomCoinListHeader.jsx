@@ -26,7 +26,7 @@ const BottomCoinListHeader = ({ darkMode, sortBy }) => {
         sortBy(event.target.value);
     };
     return (
-        <div className={`flex justify-between ${textColor(darkMode)} p-2 rounded-2xl duration-300 ${primaryColor(darkMode)} mt-5 h-[70px] text-[8px] lg:text-base`}>
+        <div className={`flex justify-between ${textColor(darkMode)} p-2 rounded-2xl duration-300 ${primaryColor(darkMode)} mt-5 h-[70px] text-[9px]`}>
             <div className="flex justify-between items-center w-1/2 lg:w-1/4 text-center">
                 <button
                     onClick={handleClick}
