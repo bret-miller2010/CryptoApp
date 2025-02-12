@@ -5,14 +5,21 @@ import { priceColor } from "@/app/utils/utility";
 import { addCommas, secondaryColor, textColor } from "@/app/utils/utility";
 import { GreenArrow, RedArrow } from "@/images/icons";
 
-const TopCoinList = ({ data, handleClick, selected, darkMode }) => {
+type TopCoinListProps = {
+    data: any;
+    handleClick: (id: string) => void;
+    selected: string[];
+    darkMode: boolean;
+};
+
+const TopCoinList = ({ data, handleClick, selected, darkMode }: TopCoinListProps): JSX.Element => {
     const coinName = data.name;
     const symbol = data.symbol;
     const currentPrice = addCommas(data.current_price, 2, true);
     const oneDayChange = Number(data.price_change_percentage_24h).toFixed(2);
     const coinImage = data.image;
 
-    const colorSelector = () => {
+    const colorSelector = (): string => {
         return selected.includes(data.id) ? `${darkMode ? "bg-[#32324d]" : "bg-[#8c8c8c]"}` : `${secondaryColor(darkMode)}`;
     };
 
@@ -20,7 +27,7 @@ const TopCoinList = ({ data, handleClick, selected, darkMode }) => {
         <button
             onClick={() => handleClick(data.id)}
             id={data.id}
-            className={`z-20 h-[80px] w-[150px] lg:w-full duration-300 hover:scale-105 flex justify-around items-center ${textColor(darkMode)} rounded-3xl px-2 ${colorSelector()}`}>
+            className={`h-[80px] w-[150px] lg:w-[250px] xl:w-[200px] 2xl:w-[250px] duration-300 hover:scale-105 flex justify-around items-center ${textColor(darkMode)} rounded-3xl px-2 ${colorSelector()}`}>
             <div className="flex justify-center w-6">
                 <Image
                     src={coinImage}

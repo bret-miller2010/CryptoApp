@@ -141,10 +141,10 @@ export default function Home() {
 	};
 	//Function to determine how many coins are shown in the top list of coins based on the page width
 	const numOfCoinsShown = (): number => {
-		if (width < 1024) {
+		if (width < 1280) {
 			return 2;
 		} else {
-			return 4;
+			return 3;
 		}
 	};
 
@@ -160,13 +160,13 @@ export default function Home() {
 	});
 
 	return (
-		<main className={`h-full w-[640px] lg:w-full duration-300 ${primaryColor(darkMode)}`}>
+		<main className={`h-full w-[640px] md:w-screen max-w-[2000px] duration-300 ${primaryColor(darkMode)}`}>
 			<div className="px-40 text-sm">
-				<div className="flex items-center flex-col">
-					<div className="relative flex py-8 rounded-3xl w-full items-center mt-52">
+				<div className="flex items-center flex-col w-full">
+					<div className="relative flex py-8 rounded-3xl w-full items-center mt-52 w-full">
 						<div className="duration-300 hover:scale-125 absolute z-50 -left-14">
 							<LeftArrow
-								handleClick={() => updateStatisticsChart(width < 1024 ? -3 : -5)}
+								handleClick={() => updateStatisticsChart(width < 1024 ? -2 : -4)}
 								darkMode={darkMode}
 							/>
 						</div>
@@ -187,7 +187,7 @@ export default function Home() {
 						</div>
 						<div className="duration-300 hover:scale-125 absolute z-500 -right-14">
 							<RightArrow
-								handleClick={() => updateStatisticsChart(width < 1024 ? 3 : 5)}
+								handleClick={() => updateStatisticsChart(width < 1024 ? 2 : 4)}
 								darkMode={darkMode}
 							/>
 						</div>
@@ -195,7 +195,7 @@ export default function Home() {
 					<div className="flex justify-around w-full">
 						<div className="flex w-full flex-col items-center space-y-10">
 							<div className="text-white">{errorMessage}</div>
-							<div className="flex flex-col justify-around w-full 2xl:flex-row space-y-5 2xl:space-y-0 2xl:space-x-5 mt-20">
+							<div className="flex flex-col justify-around w-full xl:flex-row space-y-5 xl:space-y-0 xl:space-x-5 mt-20">
 								<MainPageLineChart
 									data={graphData}
 									numDays={selectedDays}
