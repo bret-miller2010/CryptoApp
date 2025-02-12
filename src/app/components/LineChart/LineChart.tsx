@@ -95,15 +95,15 @@ export function CoinConvertorLineChart({ left, right, numDays, darkMode }) {
 
 type MainPageLineChartProps = {
     data: any[];
-    numDays: number;
+    numDays: string;
     type: string;
-    coin: string;
+    coin: string[];
     chartType: string;
     darkMode: boolean;
 };
 
 export function MainPageLineChart({ data, numDays, type, coin, chartType, darkMode }: MainPageLineChartProps) {
-    const length = numDays;
+    const length = Number(numDays);
     if (data.length === 0) {
         return (
             <div className={`flex justify-center lg:h-[450px] w-full items-center h-[275px] w-[500px] duration-300 rounded-3xl ${textColor(darkMode)} ${secondaryColor(darkMode)} p-5`}>
