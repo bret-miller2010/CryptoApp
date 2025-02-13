@@ -102,7 +102,7 @@ const NavBar = () => {
             )}
 
             <div className={`flex h-12 justify-center duration-300 ${secondaryColor(darkMode)} items-center text-[10px] lg:text-base w-screen`}>
-                <div className="flex justify-center items-center w-full px-40 h-full space-x-80">
+                <div className="flex justify-center items-center w-full h-full space-x-20">
                         <div className="h-full flex">
                             <Logo darkMode={darkMode} />
                             <div className="flex items-center h-full">
@@ -130,7 +130,7 @@ const NavBar = () => {
                             </div>
                         </div>
 
-                    <div className="lg:space-x-10 flex space-x-2 h-full items-center border-2 border-blue-500">
+                    <div className="lg:space-x-10 flex space-x-2 h-full items-center">
                         <div className="invisible lg:visible flex flex-col space-y-10">
                             <div className="relative">
                                 <SearchIcon />
