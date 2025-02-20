@@ -18,14 +18,14 @@ const MainGraphDaySelection = ({ setDays, darkMode, collapsed, selectedDays }) =
     ];
 
     return (
-        <div className="flex justify-center items-center w-[500px] h-[100px]">
+        <div className="flex justify-center items-center h-[75px]">
             {dayButtonArray.map((ele) => {
                 return (
                     <button
                         key={ele.text}
                         onClick={setDays}
                         value={ele.value}
-                        className={`${secondaryColor(darkMode)} ${textColor(darkMode)} ${ele.selection} rounded-full py-2 w-12 duration-300 absolute  ${collapsed ? "" : ele.translate}`}>
+                        className={`${secondaryColor(darkMode)} ${textColor(darkMode)} ${ele.selection} rounded-full py-1 w-10 duration-300 absolute text-[11px]  ${collapsed ? "" : ele.translate}`}>
                         {ele.text}
                     </button>
                 );
