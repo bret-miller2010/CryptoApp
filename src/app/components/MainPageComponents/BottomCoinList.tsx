@@ -16,8 +16,8 @@ const BottomCoinList = ({ data, spot, darkMode, width }) => {
    const volumeVsMarketcap = ((data.total_volume / marketCap) * 100).toFixed(2);
 
    return (
-      <div className={`flex justify-between hover:scale-105 duration-300 ${textColor(darkMode)} p-2 rounded-2xl ${secondaryColor(darkMode)} w-full h-[70px]`}>
-         <div className="flex justify-between items-center w-1/2 lg:w-1/4 text-center">
+      <div className={`flex justify-between hover:scale-105 duration-300 ${textColor(darkMode)} p-1 rounded-2xl ${secondaryColor(darkMode)} h-[50px] text-[8px]`}>
+         <div className="flex justify-between items-center w-2/5 lg:w-1/4 text-center">
             <div className="w-10">{spot}</div>
             <div className="w-40 flex justify-center">
                <Image
@@ -30,7 +30,7 @@ const BottomCoinList = ({ data, spot, darkMode, width }) => {
 
             <div className="w-80 flex justify-center">{coinName}</div>
          </div>
-         <div className="flex justify-between items-center w-1/2 lg:w-1/3 text-center">
+         <div className="flex justify-between items-center w-3/5 lg:w-1/3 text-center">
             <div className="w-1/4">${currentPrice}</div>
             <div className={`flex justify-center space-x-1 w-1/4 ${priceColor(oneHourChange)}`}>
                <div>{Number(oneHourChange) > 0 ? <GreenArrow /> : <RedArrow />}</div>

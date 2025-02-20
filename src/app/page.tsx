@@ -141,7 +141,9 @@ export default function Home() {
     };
     //Function to determine how many coins are shown in the top list of coins based on the page width
     const numOfCoinsShown = (): number => {
-        if (width < 1280) {
+        if (width < 700) {
+            return 0;
+        } else if (width < 1280) {
             return 2;
         } else {
             return 3;
@@ -160,17 +162,16 @@ export default function Home() {
     });
 
     return (
-        <main className={`h-full flex justify-center duration-300 ${primaryColor(darkMode)}`}>
-            <div className="px-40 w-[640px] text-sm md:w-screen max-w-[2000px]">
+        <main className={`h-full w-screen flex justify-center duration-300 ${primaryColor(darkMode)}`}>
+            <div className="text-sm w-screen">
                 <div className="flex items-center flex-col w-full">
                     <div className="relative flex py-8 rounded-3xl w-full items-center mt-12">
-                        <div className="duration-300 hover:scale-125 absolute z-50 -left-14">
+                        <div className="flex justify-around w-full items-center">
                             <LeftArrow
                                 handleClick={() => updateStatisticsChart(width < 1024 ? -2 : -4)}
                                 darkMode={darkMode}
                             />
-                        </div>
-                        <div className="flex justify-between w-full items-center space-x-5">
+
                             {marketData
                                 .filter((_: any, index: number) => index >= statisticsValue && index <= statisticsValue + numOfCoinsShown())
                                 .map((coin: any) => (
@@ -182,46 +183,41 @@ export default function Home() {
                                         darkMode={darkMode}
                                     />
                                 ))}
-                        </div>
-                        <div className="duration-300 hover:scale-125 absolute z-500 -right-14">
+
                             <RightArrow
                                 handleClick={() => updateStatisticsChart(width < 1024 ? 2 : 4)}
                                 darkMode={darkMode}
                             />
                         </div>
                     </div>
-                    <div className="flex justify-around w-full">
-                        <div className="flex w-full flex-col items-center">
-                            <div className="text-white">{errorMessage}</div>
-                            <div className="flex flex-col justify-around w-full xl:flex-row space-y-5 xl:space-y-0 xl:space-x-5 mt-20">
-                                <MainPageLineChart
-                                    data={graphData}
-                                    numDays={selectedDays}
-                                    type={"prices"}
-                                    coin={selectedChart}
-                                    chartType="Price over time"
-                                    darkMode={darkMode}
-                                />
-                                <MainPageLineChart
-                                    data={graphData}
-                                    numDays={selectedDays}
-                                    type={"total_volumes"}
-                                    coin={selectedChart}
-                                    chartType="Volume over time"
-                                    darkMode={darkMode}
-                                />
-                            </div>
-                            <div className="h-[100px] w-[500px]">
-                                {!(selectedChart.length === 0) && (
-                                    <MainGraphDaySelection
-                                        setDays={setDays}
-                                        collapsed={collapsed}
-                                        darkMode={darkMode}
-                                        selectedDays={selectedDays}
-                                    />
-                                )}
-                            </div>
+                    <div className="flex w-screen flex-col items-center mb-3">
+                        <div className="text-white">{errorMessage}</div>
+                        <div className="flex flex-col justify-around w-full space-y-5 mt-20 px-1">
+                            <MainPageLineChart
+                                data={graphData}
+                                numDays={selectedDays}
+                                type={"prices"}
+                                coin={selectedChart}
+                                chartType="Price over time"
+                                darkMode={darkMode}
+                            />
+                            <MainPageLineChart
+                                data={graphData}
+                                numDays={selectedDays}
+                                type={"total_volumes"}
+                                coin={selectedChart}
+                                chartType="Volume over time"
+                                darkMode={darkMode}
+                            />
                         </div>
+                        {!(selectedChart.length === 0) && (
+                            <MainGraphDaySelection
+                                setDays={setDays}
+                                collapsed={collapsed}
+                                darkMode={darkMode}
+                                selectedDays={selectedDays}
+                            />
+                        )}
                     </div>
                 </div>
                 <div className="flex justify-center items-center space-x-10">
@@ -239,11 +235,12 @@ export default function Home() {
                         />
                     </div>
                 </div>
-                <BottomCoinListHeader
-                    darkMode={darkMode}
-                    sortBy={sortBy}
-                />
-                <div className="mt-4 space-y-2 flex justify-center items-center flex-col w-full text-[9px] xl:text-base">
+
+                <div className="space-y-2 flex flex-col w-screen text-[9px] p-1">
+                    <BottomCoinListHeader
+                        darkMode={darkMode}
+                        sortBy={sortBy}
+                    />
                     {sortedData
                         .filter((_, index) => index >= detailsValue && index <= detailsValue + 9)
                         .map((coin: any) => (

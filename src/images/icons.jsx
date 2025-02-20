@@ -91,7 +91,7 @@ export const DownArrow = ({ handleClick, darkMode }) => {
 export const GreenArrow = () => {
     return (
         <svg
-            width="20"
+            width="15"
             height="21"
             viewBox="0 0 20 21"
             fill="none"
@@ -107,7 +107,7 @@ export const GreenArrow = () => {
 export const RedArrow = () => {
     return (
         <svg
-            width="20"
+            width="15"
             height="21"
             viewBox="0 0 20 21"
             fill="none"
@@ -158,9 +158,9 @@ export const TrendingUp = () => {
 
 export const Logo = ({darkMode}) => {
     return (
-        <div className="w-40 flex space-x-2 items-center">
+        <div className="flex space-x-2 items-center">
             <svg
-                width="36"
+                width="30"
                 height="20"
                 viewBox="0 0 36 20"
                 fill="none"
