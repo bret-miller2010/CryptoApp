@@ -27,8 +27,8 @@ const TopCoinList = ({ data, handleClick, selected, darkMode }: TopCoinListProps
         <button
             onClick={() => handleClick(data.id)}
             id={data.id}
-            className={`h-[80px] text-xs lg:text-base w-[250px] duration-300 hover:scale-105 flex justify-around items-center ${textColor(darkMode)} rounded-3xl px-2 ${colorSelector()}`}>
-            <div className="flex justify-center w-6">
+            className={`h-[70px] w-[175px] text-[10px] duration-300 hover:scale-105 flex justify-around items-center ${textColor(darkMode)} rounded-3xl px-3 ${colorSelector()}`}>
+            <div className="flex justify-center w-10">
                 <Image
                     src={coinImage}
                     width={40}
@@ -36,13 +36,13 @@ const TopCoinList = ({ data, handleClick, selected, darkMode }: TopCoinListProps
                     alt="coin image"
                 />
             </div>
-            <div className="w-60 text-center text-[13px] flex flex-col space-y-1">
+            <div className="w-60 text-center flex flex-col space-y-1">
                 <div>
                     {coinName} ({symbol.toUpperCase()})
                 </div>
                 <div>${currentPrice}</div>
             </div>
-            <div className={`flex justify-between items-center text-center w-16 text-xs ${priceColor(oneDayChange)}`}>
+            <div className={`flex justify-between items-center text-center w-16 ${priceColor(oneDayChange)}`}>
                 <div>
                     {Number(oneDayChange) > 0 ?
                         <GreenArrow />

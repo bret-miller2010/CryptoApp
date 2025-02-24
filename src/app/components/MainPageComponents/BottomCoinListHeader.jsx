@@ -26,7 +26,7 @@ const BottomCoinListHeader = ({ darkMode, sortBy }) => {
         sortBy(event.target.value);
     };
     return (
-        <div className={`flex justify-between ${textColor(darkMode)} rounded-2xl p-1 duration-300 ${secondaryColor(darkMode)} mt-2 h-[40px] text-[7px]`}>
+        <div className={`flex justify-between ${textColor(darkMode)} rounded-2xl p-1 duration-300 ${secondaryColor(darkMode)} mt-2 h-[40px] text-[6px] min-[500px]:text-[7px]`}>
             <div className="flex justify-between items-center w-2/5 lg:w-1/4 text-center">
                 <button
                     onClick={handleClick}
@@ -60,7 +60,7 @@ const BottomCoinListHeader = ({ darkMode, sortBy }) => {
                     );
                 })}
             </div>
-            <div className="justify-between items-center w-1/3 text-center hidden">
+            <div className="justify-between items-center w-1/3 text-center hidden lg:flex">
                 <div className="w-1/3">Volume vs Market Cap</div>
                 <div className="w-1/3">Circ Supply vs Total Supply</div>
                 <div className="w-1/3">Last 7 Days</div>

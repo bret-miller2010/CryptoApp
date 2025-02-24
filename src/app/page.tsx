@@ -141,12 +141,16 @@ export default function Home() {
     };
     //Function to determine how many coins are shown in the top list of coins based on the page width
     const numOfCoinsShown = (): number => {
-        if (width < 700) {
-            return 0;
-        } else if (width < 1280) {
-            return 2;
-        } else {
+        if (width >= 1250) {
+            return 4;
+        } else if (width < 1250 && width >= 800) {
             return 3;
+        } else if (width < 800 && width >= 650) {
+            return 2;
+        } else if (width < 650 && width >= 450) {
+            return 1;
+        } else {
+            return 0;
         }
     };
 
@@ -163,12 +167,12 @@ export default function Home() {
 
     return (
         <main className={`h-full w-screen flex justify-center duration-300 ${primaryColor(darkMode)}`}>
-            <div className="text-sm w-screen">
+            <div className="w-screen">
                 <div className="flex items-center flex-col w-full">
                     <div className="relative flex py-8 rounded-3xl w-full items-center mt-12">
                         <div className="flex justify-around w-full items-center">
                             <LeftArrow
-                                handleClick={() => updateStatisticsChart(width < 1024 ? -2 : -4)}
+                                handleClick={() => updateStatisticsChart((numOfCoinsShown() + 1) * -1)}
                                 darkMode={darkMode}
                             />
 
@@ -185,14 +189,14 @@ export default function Home() {
                                 ))}
 
                             <RightArrow
-                                handleClick={() => updateStatisticsChart(width < 1024 ? 2 : 4)}
+                                handleClick={() => updateStatisticsChart((numOfCoinsShown() + 1))}
                                 darkMode={darkMode}
                             />
                         </div>
                     </div>
                     <div className="flex w-screen flex-col items-center mb-3">
                         <div className="text-white">{errorMessage}</div>
-                        <div className="flex flex-col justify-around w-full space-y-5 mt-20 px-1">
+                        <div className="flex flex-col justify-around min-[1000px]:flex-row min-[1000px]:space-y-0 min-[1000px]:space-x-5 items-center w-screen space-y-5 mt-20 px-10">
                             <MainPageLineChart
                                 data={graphData}
                                 numDays={selectedDays}
@@ -210,6 +214,7 @@ export default function Home() {
                                 darkMode={darkMode}
                             />
                         </div>
+
                         {!(selectedChart.length === 0) && (
                             <MainGraphDaySelection
                                 setDays={setDays}
@@ -236,7 +241,7 @@ export default function Home() {
                     </div>
                 </div>
 
-                <div className="space-y-2 flex flex-col w-screen text-[9px] p-1">
+                <div className="space-y-2 flex flex-col w-screen text-[7px] px-5">
                     <BottomCoinListHeader
                         darkMode={darkMode}
                         sortBy={sortBy}

@@ -12,7 +12,7 @@ const MobileDropDown = ({ darkMode }: { darkMode: boolean }) => {
 
     return (
         <select
-            className={`w-20 h-full duration-300 text-center ${secondaryColor(darkMode)} ${textColor(darkMode)}`}
+            className={`w-16 min-[700px]:hidden h-full duration-300 text-center ${secondaryColor(darkMode)} ${textColor(darkMode)}`}
             defaultValue="/"
             onChange={(e) => navigatePage(e)}
             id="">
