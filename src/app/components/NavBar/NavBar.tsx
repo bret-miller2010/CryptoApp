@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import { useRouter } from "next/navigation";
 import { getCoinInformation } from "@/app/api";
-import AccountMenu from "../NavBarComponents/AccountMenu";
 import { reduceNumber, secondaryColor, navBarColors, textColor } from "@/app/utils/utility";
 import { getGlobalData } from "../../api";
 import { SearchIcon, Logo } from "../../../images/icons";
 import MobileDropDown from "../NavBarComponents/MobileDropDown";
+import NavBarButtons from "../NavBarComponents/NavBarButtons";
 
 type DarkModeSelectorProps = {
     darkMode: boolean;
@@ -86,89 +86,81 @@ const NavBar = () => {
         collectData();
     }, []);
 
-    // w-[640px] md:w-screen max-w-[2000px]
+    const UpperGlobalData = () => {
+        return (
+            <div className="h-10 bg-[#7474a5] flex items-center justify-around text-[9px] w-full min-[400px]:text-[10px]">
+                <div className="flex items-center w-3/4 justify-around">
+                    <div className="hidden min-[500px]:inline">Coins: {globalData.active_cryptocurrencies}</div>
+                    <div>
+                        Total Market Cap: {reduceNumber(globalData.total_market_cap[currency])} {currency.toUpperCase()}
+                    </div>
+                    <div>
+                        Total Volume: {reduceNumber(globalData.total_volume[currency])} {currency.toUpperCase()}
+                    </div>
+                    <div className="hidden min-[700px]:block">{globalData.market_cap_percentage.btc.toFixed(2)}% BTC</div>
+                    <div className="hidden min-[700px]:block">{globalData.market_cap_percentage.eth.toFixed(2)}% ETH</div>
+                </div>
+            </div>
+        );
+    };
 
     return (
         <main className="text-white text-sm flex flex-col items-center">
-            {globalData && (
-                <div className="h-10 bg-[#7474a5] flex items-center justify-around text-[9px] w-full min-[400px]:text-[10px]">
-                    <div className="flex items-center w-3/4 justify-around">
-                        <div className="hidden min-[500px]:inline">Coins: {globalData.active_cryptocurrencies}</div>
-                        <div>
-                            Total Market Cap: {reduceNumber(globalData.total_market_cap[currency])} {currency.toUpperCase()}
-                        </div>
-                        <div>
-                            Total Volume: {reduceNumber(globalData.total_volume[currency])} {currency.toUpperCase()}
-                        </div>
-                        <div className="hidden min-[700px]:block">{globalData.market_cap_percentage.btc.toFixed(2)}% BTC</div>
-                        <div className="hidden min-[700px]:block">{globalData.market_cap_percentage.eth.toFixed(2)}% ETH</div>
-                    </div>
-                </div>
-            )}
-
+            {globalData && <UpperGlobalData />}
             <div className={`flex h-12 justify-center duration-300 ${secondaryColor(darkMode)} items-center text-[8px] lg:text-base w-full px-2`}>
-                <div className="flex items-center h-full w-full justify-center">
-                    <div className="h-full flex min-[500px]:justify-around w-4/5 min-[700px]:w-3/5">
-                        <Logo darkMode={darkMode} />
-                        <MobileDropDown darkMode={darkMode} />
-                        <div className="flex items-center space-x-10 w-1/2 h-full max-[700px]:hidden">
-                            <div className={`h-full w-16 justify-center duration-300 ${textColor(darkMode)} flex items-center px-2`}>
-                                <Link href="/">Home</Link>
-                            </div>
-                            <div className={`h-full w-16 justify-center duration-300 ${textColor(darkMode)} flex items-center px-2`}>
-                                <Link href="/Portfolio">Portfolio</Link>
-                            </div>
-                            <div className={`h-full w-16 justify-center duration-300 ${textColor(darkMode)} flex items-center px-2`}>
-                                <Link href="/Convertor">Convertor</Link>
-                            </div>
+                <div className="flex justify-center items-center w-4/5 h-full">
+                    <div className="flex items-center h-full w-full justify-center">
+                        <div className="h-full flex w-3/5 space-x-16">
+                            <Logo darkMode={darkMode} />
+                            <MobileDropDown darkMode={darkMode} />
+                            <NavBarButtons darkMode={darkMode} />
                         </div>
-                        <select
-                            className={`w-16 justify-center duration-300 ${navBarColors(darkMode)} h-12 text-center mr-2`}
-                            defaultValue="usd"
-                            onChange={(event) => updateCurrency(event)}
-                            name=""
-                            id="">
-                            <option value="usd">USD</option>
-                            <option value="btc">BTC</option>
-                            <option value="eth">ETH</option>
-                            <option value="eur">EUR</option>
-                            <option value="cad">CAD</option>
-                        </select>
-                    </div>
-                    <div className="flex justify-end w-1/4">
-                        <div className="lg:flex flex-col space-y-10">
-                            <div className="relative hidden min-[700px]:inline">
-                                <SearchIcon />
-                                <input
-                                    onChange={(event) => handleInputChange(event)}
-                                    className={`h-6 px-5 text-black rounded-lg w-24 lg:w-40 duration-300 ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}
-                                    type="text"
-                                    value={filteredValue}
-                                />
+                        <div className="flex justify-around items-center w-1/4">
+                            <div className="lg:flex flex-col space-y-10">
+                                <div className="relative hidden min-[700px]:inline">
+                                    <SearchIcon />
+                                    <input
+                                        onChange={(event) => handleInputChange(event)}
+                                        className={`h-6 px-5 text-black rounded-lg w-24 lg:w-40 duration-300 ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}
+                                        type="text"
+                                        value={filteredValue}
+                                    />
+                                </div>
+
+                                {showData && (
+                                    <ul className={`absolute h-[100px] overflow-scroll overflow-x-hidden w-40 text-center text-white ${darkMode ? "bg-[#32324d]" : "bg-[#8c8c8c]"}`}>
+                                        {filteredData.map((coin: any) => (
+                                            <li
+                                                onClick={() => {
+                                                    router.push(`/Currency/${coin.id}`);
+                                                    setShowData(false);
+                                                    setFilteredValue("");
+                                                }}
+                                                key={coin.name}>
+                                                {coin.name}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
                             </div>
 
-                            {showData && (
-                                <ul className={`absolute h-[100px] overflow-scroll overflow-x-hidden w-40 text-center text-white ${darkMode ? "bg-[#32324d]" : "bg-[#8c8c8c]"}`}>
-                                    {filteredData.map((coin: any) => (
-                                        <li
-                                            onClick={() => {
-                                                router.push(`/Currency/${coin.id}`);
-                                                setShowData(false);
-                                                setFilteredValue("");
-                                            }}
-                                            key={coin.name}>
-                                            {coin.name}
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
+                            <select
+                                className={`w-16 justify-center duration-300 ${navBarColors(darkMode)} h-12 text-center`}
+                                defaultValue="usd"
+                                onChange={(event) => updateCurrency(event)}
+                                name=""
+                                id="">
+                                <option value="usd">USD</option>
+                                <option value="btc">BTC</option>
+                                <option value="eth">ETH</option>
+                                <option value="eur">EUR</option>
+                                <option value="cad">CAD</option>
+                            </select>
+                            <DarkModeSelector
+                                darkMode={darkMode}
+                                updateDarkMode={updateDarkModeSetting}
+                            />
                         </div>
-
-                        {/* <AccountMenu darkMode={darkMode} /> */}
-                        <DarkModeSelector
-                            darkMode={darkMode}
-                            updateDarkMode={updateDarkModeSetting}
-                        />
                     </div>
                 </div>
             </div>
