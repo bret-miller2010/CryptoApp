@@ -19,10 +19,12 @@ type DarkModeSelectorProps = {
 
 const DarkModeSelector = ({ darkMode, updateDarkMode }: DarkModeSelectorProps) => {
     return (
-        <div className={`w-[40px] h-[20px] flex justify-center duration-300 items-center rounded-full ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}>
-            <button
-                className={`w-[20px] h-[12px] rounded-full duration-300 ${darkMode ? "translate-x-1 bg-[#474792]" : "-translate-x-1 bg-[#ffffff]"}`}
-                onClick={updateDarkMode}></button>
+        <div className="w-1/4 flex justify-end">
+            <div className={`w-[40px] h-[20px] flex justify-center duration-300 items-center rounded-full ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}>
+                <button
+                    className={`w-[20px] h-[12px] rounded-full duration-300 ${darkMode ? "translate-x-1 bg-[#474792]" : "-translate-x-1 bg-[#ffffff]"}`}
+                    onClick={updateDarkMode}></button>
+            </div>
         </div>
     );
 };
@@ -89,65 +91,62 @@ const NavBar = () => {
     return (
         <main className="text-white text-sm flex flex-col items-center">
             {globalData && (
-                <div className="h-10 bg-[#7474a5] flex items-center justify-around text-[10px] lg:text-base w-full ">
-                    <div className="hidden">Coins: {globalData.active_cryptocurrencies}</div>
+                <div className="h-10 bg-[#7474a5] flex items-center justify-around text-[10px] w-full">
+                    <div className="hidden min-[500px]:inline">Coins: {globalData.active_cryptocurrencies}</div>
                     <div>
                         Total Market Cap: {reduceNumber(globalData.total_market_cap[currency])} {currency.toUpperCase()}
                     </div>
                     <div>
                         Total Volume: {reduceNumber(globalData.total_volume[currency])} {currency.toUpperCase()}
                     </div>
-                    <div className="hidden">
-                        <div>{globalData.market_cap_percentage.btc.toFixed(2)}% BTC</div>
-                        <div>{globalData.market_cap_percentage.eth.toFixed(2)}% ETH</div>
-                    </div>
+                    <div className="hidden min-[700px]:block">{globalData.market_cap_percentage.btc.toFixed(2)}% BTC</div>
+                    <div className="hidden min-[700px]:block">{globalData.market_cap_percentage.eth.toFixed(2)}% ETH</div>
                 </div>
             )}
 
-            <div className={`flex h-12 justify-center duration-300 ${secondaryColor(darkMode)} items-center text-[10px] lg:text-base w-full`}>
-                <div className="flex items-center h-full">
-                    <div className="h-full flex">
+            <div className={`flex h-12 justify-center duration-300 ${secondaryColor(darkMode)} items-center text-[8px] lg:text-base w-full px-2`}>
+                <div className="flex items-center h-full w-full justify-center">
+                    <div className="h-full flex min-[500px]:justify-around w-4/5 min-[700px]:w-3/5">
                         <Logo darkMode={darkMode} />
-                        <MobileDropDown darkMode = {darkMode}/>
-                        <div className="hidden items-center h-full">
-                            <div className={`h-12 w-24 justify-center duration-300 ${textColor(darkMode)} flex items-center px-2`}>
+                        <MobileDropDown darkMode={darkMode} />
+                        <div className="flex items-center justify-around w-1/2 h-full max-[700px]:hidden">
+                            <div className={`h-full w-16 justify-center duration-300 ${textColor(darkMode)} flex items-center px-2`}>
                                 <Link href="/">Home</Link>
                             </div>
-                            <div className={`h-12 w-24 justify-center duration-300 ${textColor(darkMode)} flex items-center px-2`}>
+                            <div className={`h-full w-16 justify-center duration-300 ${textColor(darkMode)} flex items-center px-2`}>
                                 <Link href="/Portfolio">Portfolio</Link>
                             </div>
-                            <div className={`h-12 w-24 justify-center duration-300 ${textColor(darkMode)} flex items-center px-2`}>
+                            <div className={`h-full w-16 justify-center duration-300 ${textColor(darkMode)} flex items-center px-2`}>
                                 <Link href="/Convertor">Convertor</Link>
                             </div>
-                            <select
-                                className={`w-24 hidden justify-center duration-300 ${navBarColors(darkMode)} h-12 text-center mr-2`}
-                                defaultValue="usd"
-                                onChange={(event) => updateCurrency(event)}
-                                name=""
-                                id="">
-                                <option value="usd">USD</option>
-                                <option value="btc">BTC</option>
-                                <option value="eth">ETH</option>
-                                <option value="eur">EUR</option>
-                                <option value="cad">CAD</option>
-                            </select>
                         </div>
+                        <select
+                            className={`w-16 justify-center duration-300 ${navBarColors(darkMode)} h-12 text-center mr-2`}
+                            defaultValue="usd"
+                            onChange={(event) => updateCurrency(event)}
+                            name=""
+                            id="">
+                            <option value="usd">USD</option>
+                            <option value="btc">BTC</option>
+                            <option value="eth">ETH</option>
+                            <option value="eur">EUR</option>
+                            <option value="cad">CAD</option>
+                        </select>
                     </div>
-
-                    <div className="flex h-full items-center">
-                        <div className="hidden lg:visible lg:flex flex-col space-y-10">
-                            <div className="hidden relative">
+                    <div className="flex justify-end w-1/2">
+                        <div className="lg:flex flex-col space-y-10">
+                            <div className="relative hidden min-[600px]:inline">
                                 <SearchIcon />
                                 <input
                                     onChange={(event) => handleInputChange(event)}
-                                    className={`h-6 text-black rounded-lg w-24 lg:w-40 duration-300 ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}
+                                    className={`h-6 px-5 text-black rounded-lg w-24 lg:w-40 duration-300 ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}
                                     type="text"
                                     value={filteredValue}
                                 />
                             </div>
 
                             {showData && (
-                                <ul className={`absolute h-[100px] hidden overflow-scroll overflow-x-hidden w-40 text-center text-white ${darkMode ? "bg-[#32324d]" : "bg-[#8c8c8c]"}`}>
+                                <ul className={`absolute h-[100px] overflow-scroll overflow-x-hidden w-40 text-center text-white ${darkMode ? "bg-[#32324d]" : "bg-[#8c8c8c]"}`}>
                                     {filteredData.map((coin: any) => (
                                         <li
                                             onClick={() => {
@@ -163,7 +162,7 @@ const NavBar = () => {
                             )}
                         </div>
 
-                        <AccountMenu darkMode={darkMode} />
+                        {/* <AccountMenu darkMode={darkMode} /> */}
                         <DarkModeSelector
                             darkMode={darkMode}
                             updateDarkMode={updateDarkModeSetting}
