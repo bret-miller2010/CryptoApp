@@ -105,7 +105,7 @@ type MainPageLineChartProps = {
 export function MainPageLineChart({ data, numDays, type, coin, chartType, darkMode }: MainPageLineChartProps) {
     const length = Number(numDays);
     if (data.length === 0) {
-        return <div className={`flex justify-center w-[375px] text-[10px] items-center h-[150px] duration-300 rounded-3xl ${textColor(darkMode)} ${secondaryColor(darkMode)} p-5`}>Please select coin data from above.</div>;
+        return <div className={`flex justify-center min-[1000px]:w-5/12 w-full text-[10px] items-center h-[400px] duration-300 rounded-3xl ${textColor(darkMode)} ${secondaryColor(darkMode)} p-5`}>Please select coin data from above.</div>;
     }
 
     function createGraphSets(data) {
@@ -129,7 +129,7 @@ export function MainPageLineChart({ data, numDays, type, coin, chartType, darkMo
     };
 
     return (
-        <div className={`min-[1000px]:w-5/12 w-full h-[275px] duration-300 rounded-3xl ${secondaryColor(darkMode)} p-2`}>
+        <div className={`min-[1000px]:w-5/12 w-full h-[400px] duration-300 rounded-3xl ${secondaryColor(darkMode)} p-2`}>
             <Line
                 data={graphObject}
                 options={{

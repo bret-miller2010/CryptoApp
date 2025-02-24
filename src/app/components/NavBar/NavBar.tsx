@@ -91,16 +91,18 @@ const NavBar = () => {
     return (
         <main className="text-white text-sm flex flex-col items-center">
             {globalData && (
-                <div className="h-10 bg-[#7474a5] flex items-center justify-around text-[10px] w-full">
-                    <div className="hidden min-[500px]:inline">Coins: {globalData.active_cryptocurrencies}</div>
-                    <div>
-                        Total Market Cap: {reduceNumber(globalData.total_market_cap[currency])} {currency.toUpperCase()}
+                <div className="h-10 bg-[#7474a5] flex items-center justify-around text-[9px] w-full min-[400px]:text-[10px]">
+                    <div className="flex items-center w-3/4 justify-around">
+                        <div className="hidden min-[500px]:inline">Coins: {globalData.active_cryptocurrencies}</div>
+                        <div>
+                            Total Market Cap: {reduceNumber(globalData.total_market_cap[currency])} {currency.toUpperCase()}
+                        </div>
+                        <div>
+                            Total Volume: {reduceNumber(globalData.total_volume[currency])} {currency.toUpperCase()}
+                        </div>
+                        <div className="hidden min-[700px]:block">{globalData.market_cap_percentage.btc.toFixed(2)}% BTC</div>
+                        <div className="hidden min-[700px]:block">{globalData.market_cap_percentage.eth.toFixed(2)}% ETH</div>
                     </div>
-                    <div>
-                        Total Volume: {reduceNumber(globalData.total_volume[currency])} {currency.toUpperCase()}
-                    </div>
-                    <div className="hidden min-[700px]:block">{globalData.market_cap_percentage.btc.toFixed(2)}% BTC</div>
-                    <div className="hidden min-[700px]:block">{globalData.market_cap_percentage.eth.toFixed(2)}% ETH</div>
                 </div>
             )}
 
@@ -109,7 +111,7 @@ const NavBar = () => {
                     <div className="h-full flex min-[500px]:justify-around w-4/5 min-[700px]:w-3/5">
                         <Logo darkMode={darkMode} />
                         <MobileDropDown darkMode={darkMode} />
-                        <div className="flex items-center justify-around w-1/2 h-full max-[700px]:hidden">
+                        <div className="flex items-center space-x-10 w-1/2 h-full max-[700px]:hidden">
                             <div className={`h-full w-16 justify-center duration-300 ${textColor(darkMode)} flex items-center px-2`}>
                                 <Link href="/">Home</Link>
                             </div>
@@ -133,9 +135,9 @@ const NavBar = () => {
                             <option value="cad">CAD</option>
                         </select>
                     </div>
-                    <div className="flex justify-end w-1/2">
+                    <div className="flex justify-end w-1/4">
                         <div className="lg:flex flex-col space-y-10">
-                            <div className="relative hidden min-[600px]:inline">
+                            <div className="relative hidden min-[700px]:inline">
                                 <SearchIcon />
                                 <input
                                     onChange={(event) => handleInputChange(event)}

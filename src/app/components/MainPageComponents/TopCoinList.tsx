@@ -27,7 +27,7 @@ const TopCoinList = ({ data, handleClick, selected, darkMode }: TopCoinListProps
         <button
             onClick={() => handleClick(data.id)}
             id={data.id}
-            className={`h-[70px] w-[175px] text-[10px] duration-300 hover:scale-105 flex justify-around items-center ${textColor(darkMode)} rounded-3xl px-3 ${colorSelector()}`}>
+            className={`h-[70px] w-[175px] min-[1500px]:w-[200px] min-[1700px]:w-[250px] text-[10px] duration-300 hover:scale-105 flex justify-around items-center ${textColor(darkMode)} rounded-3xl px-3 ${colorSelector()}`}>
             <div className="flex justify-center w-10">
                 <Image
                     src={coinImage}

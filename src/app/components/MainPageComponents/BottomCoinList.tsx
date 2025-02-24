@@ -18,7 +18,7 @@ const BottomCoinList = ({ data, spot, darkMode, width }) => {
     const volumeVsMarketcap = ((data.total_volume / marketCap) * 100).toFixed(2);
 
     return (
-        <div className={`flex justify-between hover:scale-105 duration-300 ${textColor(darkMode)} p-1 rounded-2xl ${secondaryColor(darkMode)} h-[50px]`}>
+        <div className={`flex justify-between hover:scale-105 duration-300 ${textColor(darkMode)} p-1 rounded-2xl ${secondaryColor(darkMode)} h-[50px] min-[800px]:h-[65px] min-[800px]:text-[10px] min-[800px]:w-3/4`}>
             <div className="flex justify-between items-center w-2/5 lg:w-1/4 text-center">
                 <div className="w-10">{spot}</div>
                 <div className="w-40 flex justify-center">

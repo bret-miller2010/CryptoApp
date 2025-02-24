@@ -189,7 +189,7 @@ export default function Home() {
                                 ))}
 
                             <RightArrow
-                                handleClick={() => updateStatisticsChart((numOfCoinsShown() + 1))}
+                                handleClick={() => updateStatisticsChart(numOfCoinsShown() + 1)}
                                 darkMode={darkMode}
                             />
                         </div>
@@ -214,15 +214,16 @@ export default function Home() {
                                 darkMode={darkMode}
                             />
                         </div>
-
-                        {!(selectedChart.length === 0) && (
-                            <MainGraphDaySelection
-                                setDays={setDays}
-                                collapsed={collapsed}
-                                darkMode={darkMode}
-                                selectedDays={selectedDays}
-                            />
-                        )}
+                        <div className="h-[75px]">
+                            {!(selectedChart.length === 0) && (
+                                <MainGraphDaySelection
+                                    setDays={setDays}
+                                    collapsed={collapsed}
+                                    darkMode={darkMode}
+                                    selectedDays={selectedDays}
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
                 <div className="flex justify-center items-center space-x-10">
@@ -241,7 +242,7 @@ export default function Home() {
                     </div>
                 </div>
 
-                <div className="space-y-2 flex flex-col w-screen text-[7px] px-5">
+                <div className="space-y-2 flex flex-col w-full text-[7px] min-[800px]:items-center px-2 mb-[100px]">
                     <BottomCoinListHeader
                         darkMode={darkMode}
                         sortBy={sortBy}
