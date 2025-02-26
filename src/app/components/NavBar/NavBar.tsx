@@ -102,14 +102,14 @@ const NavBar = () => {
         <main className="text-white text-sm flex flex-col items-center">
             {globalData && <UpperGlobalData />}
             <div className={`flex h-12 justify-center duration-300 ${secondaryColor(darkMode)} items-center text-[8px] lg:text-base w-full px-2`}>
-                <div className="flex justify-center items-center w-4/5 h-full">
-                    <div className="flex items-center h-full w-full justify-center">
-                        <div className="h-full flex w-3/5 space-x-16">
+                <div className="flex justify-center items-center w-full h-full">
+                    <div className="flex items-center h-full w-full justify-around">
+                        <div className="h-full flex space-x-5">
                             <Logo darkMode={darkMode} />
                             <MobileDropDown darkMode={darkMode} />
                             <NavBarButtons darkMode={darkMode} />
                         </div>
-                        <div className="flex justify-around items-center w-1/4">
+                        <div className="flex justify-between items-center w-1/3">
                             <div className="lg:flex flex-col space-y-10">
                                 <div className="relative hidden min-[700px]:inline">
                                     <SearchIcon />
