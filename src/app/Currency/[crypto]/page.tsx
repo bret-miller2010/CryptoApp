@@ -27,7 +27,7 @@ export default function CoinInformation({ params }: { params: { crypto: string }
     }, []);
 
     return (
-        <main className={`flex flex-col h-screen ${primaryColor(darkMode)} items-center`}>
+        <main className={`flex flex-col h-screen ${primaryColor(darkMode)} items-center text-[9px] pt-24`}>
             <div className="flex flex-col w-[375px]">
                 <BasicCoinInformation
                     coinData={coinData}

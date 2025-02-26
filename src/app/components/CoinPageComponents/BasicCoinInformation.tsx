@@ -22,7 +22,7 @@ const BasicCoinInformation = ({ coinData, currency, darkMode }) => {
         else return "text-red-500";
     };
     return (
-        <div className="text-white space-y-5 w-full text-[9px]">
+        <div className="text-white space-y-5 w-full">
             <div className="flex w-full p-5 justify-between h-full">
                 <div className="space-y-5">
                     <div className={`flex flex-col items-center justify-center duration-300 ${textColor(darkMode)} ${secondaryColor(darkMode)} space-y-2 rounded-lg p-4`}>
@@ -41,7 +41,7 @@ const BasicCoinInformation = ({ coinData, currency, darkMode }) => {
                     </div>
                     <div className={`flex justify-center items-center duration-300 ${textColor(darkMode)} ${secondaryColor(darkMode)} rounded-lg p-4`}>{link}</div>
                 </div>
-                <div className={`duration-300 ${secondaryColor(darkMode)} flex justify-center items-center flex-col p-5 h-full`}>
+                <div className={`duration-300 ${secondaryColor(darkMode)} flex justify-center items-center flex-col p-5 h-full rounded-lg space-y-3`}>
                     <div className="flex space-x-3">
                         <div className={pickColor(changeIn24)}>${currentPrice}</div>
                         <div className={pickColor(changeIn24)}>{changeIn24}%</div>
