@@ -2,8 +2,14 @@
 
 "use client";
 import { addCommas, secondaryColor } from "../../utils/utility";
+import PercentVolumeBar from "./PercentVolumeBar";
 
-const CoinMarketInformation = ({ coin, coinData: { market_data: data }, currency, darkMode }) => {
+const CoinMarketInformation = ({ coin, coinData, currency, darkMode }) => {
+    if (!coinData) {
+        return null;
+    }
+
+    const { market_data: data } = coinData;
     const marketCap = addCommas(data.market_cap[currency], 0, true);
     const fullyDilutedValuation = addCommas(data.fully_diluted_valuation[currency], 0, true);
     const volume = addCommas(data.total_volume[currency], 0, true);
@@ -14,10 +20,10 @@ const CoinMarketInformation = ({ coin, coinData: { market_data: data }, currency
     const symbol = coin.symbol.toUpperCase();
 
     return (
-        <div className={`text-white flex duration-300  ${secondaryColor(darkMode)} rounded-lg flex-col w-[618px] py-10 justify-center items-center text-sm`}>
-            <div className="flex w-[350px]">
-                <div className="flex justify-between w-full">
-                    <div className="space-y-6">
+        <div className="text-white flex duration-300 rounded-lg flex-col text-[9px] w-full p-5 justify-center items-center">
+            <div className="flex flex-col w-full">
+                <div className={`flex justify-around ${secondaryColor(darkMode)} gap-10 p-5 rounded-xl w-full`}>
+                    <div className="space-y-3">
                         <div>
                             <div>Market Cap</div>
                             <div>Fully Diluted Valuation</div>
@@ -30,9 +36,7 @@ const CoinMarketInformation = ({ coin, coinData: { market_data: data }, currency
                             <div>Max Supply</div>
                         </div>
                     </div>
-                </div>
-                <div className="flex justify-between w-full">
-                    <div className="space-y-6">
+                    <div className="space-y-3">
                         <div>
                             <div>${marketCap}</div>
                             <div>${fullyDilutedValuation}</div>
@@ -52,19 +56,7 @@ const CoinMarketInformation = ({ coin, coinData: { market_data: data }, currency
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="flex justify-center mt-12 flex-col">
-                <div className="flex justify-between text-xs mb-1">
-                    <div>{percentVPM.toFixed(2)}%</div>
-                    <div>{(100 - percentVPM).toFixed(2)}%</div>
-                </div>
-                <div className="w-[350px] h-[15px] bg-[#f8d2a6]">
-                    <div
-                        className={"h-[15px] bg-red-500"}
-                        style={{
-                            width: `${percentVPM}%`,
-                        }}></div>
-                </div>
+                <PercentVolumeBar percentVPM={percentVPM} />
             </div>
         </div>
     );

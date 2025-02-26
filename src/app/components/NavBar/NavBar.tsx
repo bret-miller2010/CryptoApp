@@ -115,7 +115,6 @@ const NavBar = () => {
                                     <SearchIcon />
                                     <input
                                         onChange={(event) => handleInputChange(event)}
-                                        onBlur={() => setShowData(false)}
                                         onFocus={() => setShowData(true)}
                                         className={`h-6 px-5 text-black rounded-lg w-24 lg:w-40 duration-300 ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}
                                         type="text"
