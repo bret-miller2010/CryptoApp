@@ -141,13 +141,13 @@ export default function Home() {
     };
     //Function to determine how many coins are shown in the top list of coins based on the page width
     const numOfCoinsShown = (): number => {
-        if (width >= 1250) {
+        if (width >= 1350) {
             return 4;
-        } else if (width < 1250 && width >= 800) {
+        } else if (width < 1350 && width >= 1100) {
             return 3;
-        } else if (width < 800 && width >= 650) {
+        } else if (width < 1100 && width >= 850) {
             return 2;
-        } else if (width < 650 && width >= 450) {
+        } else if (width < 850 && width >= 610) {
             return 1;
         } else {
             return 0;
@@ -169,8 +169,8 @@ export default function Home() {
         <main className={`h-full w-screen flex justify-center duration-300 ${primaryColor(darkMode)}`}>
             <div className="w-screen">
                 <div className="flex items-center flex-col w-full">
-                    <div className="relative flex py-8 rounded-3xl w-full items-center mt-12">
-                        <div className="flex justify-around w-full items-center">
+                    <div className="relative flex py-8 rounded-3xl w-full items-center justify-center mt-12">
+                        <div className="flex justify-around w-3/4 items-center">
                             <LeftArrow
                                 handleClick={() => updateStatisticsChart((numOfCoinsShown() + 1) * -1)}
                                 darkMode={darkMode}

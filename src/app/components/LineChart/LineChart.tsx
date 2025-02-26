@@ -56,6 +56,10 @@ export function CoinDetailsLineChart({ chartData }) {
 }
 
 export function CoinConvertorLineChart({ left, right, numDays, darkMode }) {
+    if (!left || !right) {
+        return <div className="h-[300px] w-screen min-[850px]:w-[800px] min-[1100px]:w-3/4 min-[1100px]:h-[400px] flex justify-center items-center p-5 rounded-3xl">Select data from above to view conversion rates for the two coins.</div>;
+    }
+
     const leftData = left.sparkline_in_7d.price.slice(-numDays);
     const rightData = right.sparkline_in_7d.price.slice(-numDays);
     const length = numDays;
@@ -72,7 +76,7 @@ export function CoinConvertorLineChart({ left, right, numDays, darkMode }) {
     };
 
     return (
-        <div className={`h-[400px] w-[500px] lg:w-screen lg:h-[600px] flex justify-center ${secondaryColor(darkMode)} p-5 rounded-3xl`}>
+        <div className={`h-[300px] w-full min-[850px]:w-[800px] min-[1100px]:w-3/4 min-[1100px]:h-[400px] flex justify-center ${secondaryColor(darkMode)} p-5 rounded-3xl`}>
             <Line
                 data={graphObject}
                 options={{
@@ -84,7 +88,7 @@ export function CoinConvertorLineChart({ left, right, numDays, darkMode }) {
                             text: "Convertion Rate",
                         },
                         legend: {
-                            position: "bottom",
+                            display: false,
                         },
                     },
                 }}
@@ -105,7 +109,11 @@ type MainPageLineChartProps = {
 export function MainPageLineChart({ data, numDays, type, coin, chartType, darkMode }: MainPageLineChartProps) {
     const length = Number(numDays);
     if (data.length === 0) {
-        return <div className={`flex justify-center min-[1000px]:w-5/12 w-full text-[10px] items-center h-[400px] duration-300 rounded-3xl ${textColor(darkMode)} ${secondaryColor(darkMode)} p-5`}>Please select coin data from above.</div>;
+        return (
+            <div className={`flex justify-center min-[1000px]:w-5/12 w-full text-[10px] items-center h-[400px] duration-300 rounded-3xl ${textColor(darkMode)} ${secondaryColor(darkMode)} p-5`}>
+                Please select coin data from above.
+            </div>
+        );
     }
 
     function createGraphSets(data) {
@@ -144,8 +152,8 @@ export function MainPageLineChart({ data, numDays, type, coin, chartType, darkMo
                         legend: {
                             position: "bottom",
                             labels: {
-                              padding: 0,
-                            }
+                                padding: 0,
+                            },
                         },
                     },
                 }}

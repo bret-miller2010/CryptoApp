@@ -52,53 +52,45 @@ export default function Convertor() {
     }, []);
 
     return (
-        <div className={`h-screen duration-300 w-[640px] md:w-screen text-sm md:text-base ${textColor(darkMode)} ${primaryColor(darkMode)}`}>
-            <div className="flex flex-col p-5">
+        <div className={`h-screen duration-300 ${textColor(darkMode)} ${primaryColor(darkMode)}`}>
+            <div className="flex flex-col p-5 text-[9px]">
                 <div>Online currency convertor</div>
                 <div>{currentDate}</div>
                 <div className="flex justify-center my-5 flex-col items-center">
-                    <div className={`${textColor(darkMode)} text-center`}>
-                        Select a currency you wish to sell and what you would like to convert it to. <br />
-                        Note: This will not actually convert your currencies
-                    </div>
-                    <div className={`flex justify-around items-center my-5 py-10 rounded-3xl px-24 ${secondaryColor(darkMode)}`}>
-                        <ConvertorSelection
-                            marketData={marketData}
-                            setLeft={setLeft}
-                            setRight={setRight}
-                        />
-                    </div>
-                    <div className="flex justify-around my-5 w-[1000px]">
-                        <ConvertorDisplay
-                            darkMode={darkMode}
-                            sellSide={leftSelection}
-                            buySide={rightSelection}
-                        />
-                    </div>
-                    {leftSelection && rightSelection && (
-                        <div className="flex flex-col w-screen justify-center items-center">
-                            <CoinConvertorLineChart
-                                left={leftSelection}
-                                right={rightSelection}
-                                numDays={numberOfDays}
-                                darkMode={darkMode}
-                            />
+                    <ConvertorSelection
+                        marketData={marketData}
+                        setLeft={setLeft}
+                        setRight={setRight}
+                        darkMode={darkMode}
+                    />
+                    <ConvertorDisplay
+                        darkMode={darkMode}
+                        sellSide={leftSelection}
+                        buySide={rightSelection}
+                    />
 
-                            <div className="flex space-x-10 justify-center items-center mt-5 rounded-3xl p-2">
-                                {buttonArray.map((ele) => {
-                                    return (
-                                        <button
-                                            onClick={handleDaySelect}
-                                            value={ele.value}
-                                            key={ele.text}
-                                            className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}>
-                                            {ele.text}
-                                        </button>
-                                    );
-                                })}
-                            </div>
+                    <div className="flex flex-col w-screen justify-center items-center mt-5 px-5">
+                        <CoinConvertorLineChart
+                            left={leftSelection}
+                            right={rightSelection}
+                            numDays={numberOfDays}
+                            darkMode={darkMode}
+                        />
+
+                        <div className="flex space-x-2 justify-center items-center mt-5 rounded-3xl p-2">
+                            {buttonArray.map((ele) => {
+                                return (
+                                    <button
+                                        onClick={handleDaySelect}
+                                        value={ele.value}
+                                        key={ele.text}
+                                        className={`px-8 py-2 rounded-full ${secondaryColor(darkMode)}`}>
+                                        {ele.text}
+                                    </button>
+                                );
+                            })}
                         </div>
-                    )}
+                    </div>
                 </div>
             </div>
         </div>

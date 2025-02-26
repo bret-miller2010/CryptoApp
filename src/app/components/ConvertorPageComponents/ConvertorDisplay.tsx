@@ -1,60 +1,73 @@
+/** @format */
+
 import { secondaryColor, textColor } from "@/app/utils/utility";
 import { useState } from "react";
 
-const ConvertorDisplay = ({ darkMode, sellSide, buySide }) => {
-   const [sellAmount, setSellAmount] = useState(0);
-   const [buyAmount, setBuyAmount] = useState(0);
+type ConvertorDisplayProps = {
+    darkMode: boolean;
+    sellSide: any;
+    buySide: any;
+};
 
-   const handleUpdate = (event) => {
-      const newValue = event.target.value;
-      const totalValue = sellSide.current_price * newValue;
-      setSellAmount(event.target.value);
-      setBuyAmount(totalValue / buySide.current_price);
-   };
+type UpdateEvent = React.ChangeEvent<HTMLInputElement>;
 
-   return (
-      <div className="flex space-x-10">
-         <div className={`h-[150px] px-20 md:px-32 rounded-3xl p-5 ${secondaryColor(darkMode)} ${textColor(darkMode)} space-y-6`}>
-            <div>You Sell</div>
-            {sellSide && buySide && (
-               <div>
-                  <div className="flex justify-between">
-                     <div>
-                        {sellSide.name.toUpperCase()} ({sellSide.symbol.toUpperCase()})
-                     </div>
-                     <input
-                        onChange={handleUpdate}
-                        className="w-24 text-black pl-1 border-2 border-black"
-                        value={sellAmount}
-                        type="number"
-                     />
-                  </div>
-                  <div>
-                     1 {sellSide.symbol.toUpperCase()} = ${sellSide.current_price}
-                  </div>
-               </div>
-            )}
-         </div>
-         <div className="flex space-x-10">
-            <div className={`h-[150px] px-20 md:px-32 rounded-3xl p-5 ${secondaryColor(darkMode)} ${textColor(darkMode)} space-y-6`}>
-               <div>You Buy</div>
-               {sellSide && buySide && (
-                  <div>
-                     <div className="flex justify-between">
-                        <div>
-                           {buySide.name.toUpperCase()} ({buySide.symbol.toUpperCase()})
-                        </div>
-                        <div>{buyAmount.toFixed(3)}</div>
-                     </div>
-                     <div>
-                        1 {buySide.symbol.toUpperCase()} = ${buySide.current_price}
-                     </div>
-                  </div>
-               )}
+const ConvertorDisplay = ({ darkMode, sellSide, buySide }: ConvertorDisplayProps) => {
+    const [sellAmount, setSellAmount] = useState(0);
+    const [buyAmount, setBuyAmount] = useState(0);
+
+    if (!sellSide || !buySide) {
+        return (
+            <div className={`${textColor(darkMode)} text-center mt-5`}>
+                Select a currency you wish to sell and what you would like to convert it to. <br />
+                Note: This will not actually convert your currencies
             </div>
-         </div>
-      </div>
-   );
+        );
+    }
+
+    const handleUpdate = (event: UpdateEvent) => {
+        const newValue = Number(event.target.value);
+        const totalValue = sellSide.current_price * newValue;
+        setSellAmount(newValue);
+        setBuyAmount(totalValue / buySide.current_price);
+    };
+
+    return (
+        <div className="flex flex-col gap-5 mt-5 min-[600px]:flex-row">
+            <div className={`rounded-3xl w-52 p-5 min-[800px]:w-60 min-[1100px]:w-72 ${secondaryColor(darkMode)} ${textColor(darkMode)}`}>
+                <div className="space-y-2">
+                    <div className="flex justify-between">
+                        <div>
+                            {sellSide.name.toUpperCase()} ({sellSide.symbol.toUpperCase()})
+                        </div>
+                        <input
+                            onChange={handleUpdate}
+                            className="w-24 text-black border-2 border-black text-right pr-1 rounded-md"
+                            value={sellAmount}
+                            type="text"
+                        />
+                    </div>
+                    <div className="text-center">
+                        1 {sellSide.symbol.toUpperCase()} = ${sellSide.current_price}
+                    </div>
+                </div>
+            </div>
+            <div className="flex">
+                <div className={`py-5 space-y-2 rounded-3xl w-52 p-5 min-[800px]:w-60 min-[1100px]:w-72 ${secondaryColor(darkMode)} ${textColor(darkMode)}`}>
+                    <div className="space-y-2">
+                        <div className="flex justify-between">
+                            <div>
+                                {buySide.name.toUpperCase()} ({buySide.symbol.toUpperCase()})
+                            </div>
+                            <div>{buyAmount.toFixed(3)}</div>
+                        </div>
+                        <div className="text-center">
+                            1 {buySide.symbol.toUpperCase()} = ${buySide.current_price}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default ConvertorDisplay;

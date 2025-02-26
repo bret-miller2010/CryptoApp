@@ -1,12 +1,11 @@
 /** @format */
 
 "use client";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import { useRouter } from "next/navigation";
 import { getCoinInformation } from "@/app/api";
-import { reduceNumber, secondaryColor, navBarColors, textColor } from "@/app/utils/utility";
+import { reduceNumber, secondaryColor, navBarColors } from "@/app/utils/utility";
 import { getGlobalData } from "../../api";
 import { SearchIcon, Logo } from "../../../images/icons";
 import MobileDropDown from "../NavBarComponents/MobileDropDown";
@@ -65,11 +64,6 @@ const NavBar = () => {
 
     const handleInputChange = (event: UpdateEvent) => {
         const value = event.target.value;
-        if (value.length > 1) {
-            setShowData(true);
-        } else {
-            setShowData(false);
-        }
         setFilteredValue(value);
         const filteredMarketData = marketData.filter((coin: any) => coin.name.toLowerCase().includes(value.toLowerCase()));
         setFilteredData(filteredMarketData);
@@ -121,6 +115,8 @@ const NavBar = () => {
                                     <SearchIcon />
                                     <input
                                         onChange={(event) => handleInputChange(event)}
+                                        onBlur={() => setShowData(false)}
+                                        onFocus={() => setShowData(true)}
                                         className={`h-6 px-5 text-black rounded-lg w-24 lg:w-40 duration-300 ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}
                                         type="text"
                                         value={filteredValue}
@@ -128,7 +124,7 @@ const NavBar = () => {
                                 </div>
 
                                 {showData && (
-                                    <ul className={`absolute h-[100px] overflow-scroll overflow-x-hidden w-40 text-center text-white ${darkMode ? "bg-[#32324d]" : "bg-[#8c8c8c]"}`}>
+                                    <ul className={`absolute h-[100px] overflow-scroll overflow-x-hidden z-10 w-40 rounded-md text-center text-white ${darkMode ? "bg-[#32324d]" : "bg-[#8c8c8c]"}`}>
                                         {filteredData.map((coin: any) => (
                                             <li
                                                 onClick={() => {
