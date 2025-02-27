@@ -1,3 +1,5 @@
+/** @format */
+
 export type Coin = {
-  value: number;
+    value: number;
 };
