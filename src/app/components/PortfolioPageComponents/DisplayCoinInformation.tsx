@@ -11,7 +11,7 @@ import { addCommas, primaryColor, secondaryColor, textColor } from "@/app/utils/
 const DisplayCoinInformation = ({ data }) => {
     const [amount, setAmount] = useState(0);
     const [moneyValue, setMoneyValue] = useState(0);
-    const { login, setLogin, saveUserData, darkMode } = useCrypto();
+    const { saveUserData, darkMode, userAssetData } = useCrypto();
     const router = useRouter();
     const coinName = data.name;
     const coinImage = data.image;
@@ -36,10 +36,15 @@ const DisplayCoinInformation = ({ data }) => {
             coinID: data.id,
         };
 
-        const currentUser = { ...login };
-        currentUser.portfolio.push(coinData);
-        setLogin(currentUser);
-        saveUserData(currentUser);
+        const currentPortfolio = [...userAssetData];
+        currentPortfolio.push(coinData);
+        saveUserData(currentPortfolio);
+        router.push("/Portfolio");
+
+        // const currentUser = { ...login };
+        //  currentUser.portfolio.push(coinData);
+        //  setLogin(currentUser);
+        // saveUserData(currentUser);
     };
 
     return (

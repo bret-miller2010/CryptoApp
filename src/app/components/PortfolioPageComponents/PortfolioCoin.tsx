@@ -1,42 +1,32 @@
 /** @format */
 
-import { useState, useEffect } from "react";
 import { useCrypto } from "@/app/Context/CryptoContext";
 import { primaryColor } from "../../utils/utility";
 import Image from "next/image";
 
-const PortfolioCoin = ({ data, handleRemove }) => {
-    const { marketData, darkMode } = useCrypto();
-    const [coin, setCoin] = useState(Object);
-    const coinImage = coin.image;
+const PortfolioCoin = ({ data, handleRemove, coinMarketData }) => {
+    const { darkMode } = useCrypto();
 
-    const collectCoinData = (id) => {
-        const pickedCoin = marketData.find((coin) => coin.id === id);
-        setCoin(pickedCoin);
-    };
+    if (!coinMarketData) return null;
 
     const findBalance = () => {
         const totalPurchase = data.total_coins * data.initial_value;
-        const currentValue = coin.current_price * data.total_coins;
+        const currentValue = coinMarketData.current_price * data.total_coins;
         return currentValue - totalPurchase;
     };
-
-    useEffect(() => {
-        collectCoinData(data.coinID);
-    }, []);
 
     return (
         <div className={`flex text-base items-center w-[600px] ${primaryColor(darkMode)} h-[150px] rounded-3xl`}>
             <div className="w-1/5 flex flex-col justify-center items-center space-y-2">
                 <Image
-                    src={coinImage}
+                    src={coinMarketData.image}
                     width={40}
                     height={40}
                     alt="coin image"
                 />
                 <div className="flex space-x-1 justify-center items-center">
-                    <div>{coin.name}</div>
-                    <div>({coin.symbol})</div>
+                    <div>{coinMarketData.name}</div>
+                    <div>({coinMarketData.symbol})</div>
                 </div>
             </div>
             <div className="w-4/5 h-full flex justify-between flex-col py-2 px-16">
@@ -45,15 +35,15 @@ const PortfolioCoin = ({ data, handleRemove }) => {
                     <div className="flex justify-between text-xs">
                         <div className="flex justify-center items-center flex-col">
                             <div>Current Price</div>
-                            <div>${coin.current_price}</div>
+                            <div>${coinMarketData.current_price}</div>
                         </div>
                         <div className="flex justify-center items-center flex-col">
                             <div>Price Change (24h)</div>
-                            <div>{coin.price_change_percentage_24h?.toFixed(2)}%</div>
+                            <div>{coinMarketData.price_change_percentage_24h?.toFixed(2)}%</div>
                         </div>
                         <div className="flex justify-center items-center flex-col">
                             <div>All Time High</div>
-                            <div>${coin.ath}</div>
+                            <div>${coinMarketData.ath}</div>
                         </div>
                     </div>
                 </div>
@@ -70,7 +60,7 @@ const PortfolioCoin = ({ data, handleRemove }) => {
                         </div>
                         <div className="flex justify-center items-center flex-col">
                             <div>Current Valuation</div>
-                            <div>${data.total_coins * coin.current_price}</div>
+                            <div>${data.total_coins * coinMarketData.current_price}</div>
                         </div>
                         <div className="flex justify-center items-center flex-col">
                             <div>Gain/Loss</div>

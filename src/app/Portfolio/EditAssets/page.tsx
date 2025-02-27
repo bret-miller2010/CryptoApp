@@ -7,12 +7,12 @@ import EditAssetComponent from "@/app/components/PortfolioPageComponents/EditAss
 import { primaryColor, textColor } from "@/app/utils/utility";
 
 const EditAssets = () => {
-    const { login, darkMode } = useCrypto();
+    const { darkMode, userAssetData } = useCrypto();
     const [pulledCoin, setPulledCoin] = useState();
 
     const handleSelect = (event) => {
         const selectedID = event.target.value;
-        const pickedCoin = login.portfolio.find((coin) => coin.id === selectedID);
+        const pickedCoin = userAssetData.find((coin) => coin.id === selectedID);
         setPulledCoin(pickedCoin);
     };
 
@@ -31,8 +31,8 @@ const EditAssets = () => {
                     disabled>
                     Select an asset
                 </option>
-                {login &&
-                    login.portfolio.map((coin) => (
+                {userAssetData &&
+                    userAssetData.map((coin) => (
                         <option
                             key={coin.id}
                             className="text-black"

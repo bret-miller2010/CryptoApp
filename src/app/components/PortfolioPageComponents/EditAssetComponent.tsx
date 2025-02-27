@@ -6,13 +6,13 @@ import { secondaryColor } from "@/app/utils/utility";
 import { useRouter } from "next/navigation";
 
 const EditAssetComponent = ({ data }) => {
-    const { login, setLogin, saveUserData, darkMode } = useCrypto();
+    const { darkMode, userAssetData, saveUserData } = useCrypto();
     const [amountOfCoins, setAmountOfCoins] = useState(data.total_coins);
     const [valueOfCoins, setValueOfCoins] = useState(data.initial_value);
     const router = useRouter();
 
     const handleEdit = () => {
-        const userData = login;
+        const newPortfolio = [...userAssetData];
         const coinData = {
             name: data.name,
             total_coins: amountOfCoins,
@@ -20,10 +20,9 @@ const EditAssetComponent = ({ data }) => {
             id: data.id,
             coinID: data.coinID,
         };
-        const spot = userData.portfolio.findIndex((coin) => coin.id === coinData.id);
-        userData.portfolio[spot] = coinData;
-        setLogin(userData);
-        saveUserData(login);
+        const spot = userAssetData.findIndex((coin) => coin.id === coinData.id);
+        newPortfolio[spot] = coinData;
+        saveUserData(newPortfolio);
         router.push("/Portfolio");
     };
 
