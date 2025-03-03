@@ -8,6 +8,7 @@ import { getCoinInformation } from "@/app/api";
 import { reduceNumber, secondaryColor, navBarColors } from "@/app/utils/utility";
 import { getGlobalData } from "../../api";
 import { SearchIcon, Logo } from "../../../images/icons";
+import { usePortfolioStore } from "@/app/Store/portfolio";
 import MobileDropDown from "../NavBarComponents/MobileDropDown";
 import NavBarButtons from "../NavBarComponents/NavBarButtons";
 
