@@ -98,7 +98,7 @@ export default function Home() {
                     //Only allow 2 coins to be selected for this application. Exits the function if trying to add more than 2
                     return;
                 }
-                const currentCoinData = await getDailyPriceFor(coinWanted, selectedDays);
+                const currentCoinData = await getDailyPriceFor(coinWanted, Number(selectedDays));
                 currentCoinData.id = coinWanted;
                 const newArrayOfCoinData = [...graphData, currentCoinData];
                 setGraphData(newArrayOfCoinData);
