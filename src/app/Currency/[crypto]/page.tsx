@@ -27,31 +27,24 @@ export default function CoinInformation({ params }: { params: { crypto: string }
     }, []);
 
     return (
-        <main className={`flex flex-col h-screen ${primaryColor(darkMode)} items-center text-[9px] pt-24`}>
-            <div className="flex flex-col w-[375px]">
+        <main className={`flex flex-col h-screen ${primaryColor(darkMode)} items-center text-[9px] min-[1000px]:text-[14px] pt-24`}>
+            <div className="flex flex-col items-center">
                 <BasicCoinInformation
                     coinData={coinData}
                     currency={currency}
                     darkMode={darkMode}
                 />
-            </div>
-            <div className="flex flex-col w-[375px]">
                 <CoinMarketInformation
                     coinData={coinData}
                     coin={selectedCoin}
                     currency={currency}
                     darkMode={darkMode}
                 />
-
-                <CoinLinks
+                <CoinDescription
                     coinData={coinData}
                     darkMode={darkMode}
                 />
             </div>
-            <CoinDescription
-                coinData={coinData}
-                darkMode={darkMode}
-            />
         </main>
     );
 }

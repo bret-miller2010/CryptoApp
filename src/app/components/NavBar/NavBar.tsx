@@ -19,7 +19,7 @@ type DarkModeSelectorProps = {
 
 const DarkModeSelector = ({ darkMode, updateDarkMode }: DarkModeSelectorProps) => {
     return (
-        <div className="w-1/4 flex justify-end">
+        <div className="flex">
             <div className={`w-[40px] h-[20px] flex justify-center duration-300 items-center rounded-full ${darkMode ? "bg-white" : "bg-[#8c8c8c]"}`}>
                 <button
                     className={`w-[20px] h-[12px] rounded-full duration-300 ${darkMode ? "translate-x-1 bg-[#474792]" : "-translate-x-1 bg-[#ffffff]"}`}
@@ -110,7 +110,7 @@ const NavBar = () => {
                             <MobileDropDown darkMode={darkMode} />
                             <NavBarButtons darkMode={darkMode} />
                         </div>
-                        <div className="flex justify-between items-center w-1/3">
+                        <div className="flex justify-center gap-10 items-center w-1/3">
                             <div className="lg:flex flex-col space-y-10">
                                 <div className="relative hidden min-[700px]:inline">
                                     <SearchIcon />

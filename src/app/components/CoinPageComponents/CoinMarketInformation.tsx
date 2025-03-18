@@ -20,7 +20,7 @@ const CoinMarketInformation = ({ coin, coinData, currency, darkMode }) => {
     const symbol = coin.symbol.toUpperCase();
 
     return (
-        <div className="text-white flex duration-300 rounded-lg flex-col text-[9px] w-full p-5 justify-center items-center">
+        <div className="text-white flex duration-300 rounded-lg flex-col text-[14px] w-full p-5 justify-center items-center">
             <div className="flex flex-col w-full">
                 <div className={`flex justify-around ${secondaryColor(darkMode)} gap-10 p-5 rounded-xl w-full`}>
                     <div className="space-y-3">

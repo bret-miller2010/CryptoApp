@@ -53,7 +53,7 @@ export default function Convertor() {
 
     return (
         <div className={`h-screen duration-300 ${textColor(darkMode)} ${primaryColor(darkMode)}`}>
-            <div className="flex flex-col p-5 text-[9px]">
+            <div className="flex flex-col p-5 text-[9px] min-[1000px]:text-[12px]">
                 <div>Online currency convertor</div>
                 <div>{currentDate}</div>
                 <div className="flex justify-center my-5 flex-col items-center">
